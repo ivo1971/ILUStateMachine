@@ -1,23 +1,13 @@
-##
-## ILUStateMachine is a library implementing a generic state machine engine.
-## Copyright (C) 2018 Ivo Luyckx
-##
-## This program is free software; you can redistribute it and/or modify
-## it under the terms of the GNU General Public License as published by
-## the Free Software Foundation; either version 2 of the License, or
-## (at your option) any later version.
-##
-## This program is distributed in the hope that it will be useful,
-## but WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-## GNU General Public License for more details.
-##
-## You should have received a copy of the GNU General Public License along
-## with this program; if not, write to the Free Software Foundation, Inc.,
-## 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-##
+ILUStateMachine is a library implementing a generic state machine engine.
+Copyright (C) 2018 Ivo Luyckx
+License:GPL V2
 
-This is the ILUStateMachine package.
+This library has a state machine engine optimized
+to make implementing a state machine as easy and clean as possible.
+It is not optimized for binary size.
 
-It can be build and installed with the standard autotools.
+Doxygen html documentation is generated while building the library.
+This documentation describes the interface and usage of the library.
 
+The 'Examples' directory holds some examples that illustrate how the
+library can be used, both the most basic usage and advanced usage.
