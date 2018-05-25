@@ -31,7 +31,8 @@ namespace ILULibStateMachine {
       const std::string strColorFgRed  ("\033[31m"      ); ///< Constant string setting the stdio foreground color to red.
       const std::string strColorFgGreen("\033[32m"      ); ///< Constant string setting the stdio foreground color to green.
       const std::string strColorFgBlue ("\033[34m"      ); ///< Constant string setting the stdio foreground color to blue.
-      const std::string strColorFgGray ("\033[38;5;246m"); ///< Constant string setting the stdio foreground color to gray (any value in [232,255] is a tone of gray).
+      const std::string strColorFgWhite("\033[37m"      ); ///< Constant string setting the stdio foreground color to white.
+      const std::string strColorFgGray ("\033[38;5;242m"); ///< Constant string setting the stdio foreground color to gray (any value in [232,255] is a tone of gray).
 
       /** Get/set function taking care of indentation.
        **
@@ -74,7 +75,7 @@ namespace ILULibStateMachine {
          const std::string& strLog //< String that will be logged.
          )
       {
-         std::cout << strColorFgBlack << HandleIndent() << strLog << strColorReset;
+         std::cout << strColorReset << HandleIndent() << strLog;
       }
       
       /** Log the string to the console in the defined notice color.
@@ -83,7 +84,7 @@ namespace ILULibStateMachine {
          const std::string& strLog //< String that will be logged.
          )
       {
-         std::cout << strColorFgBlack << HandleIndent() << strLog << strColorReset;
+         std::cout << strColorReset << HandleIndent() << strLog;
       }
       
       /** Log the string to the console in the defined warninging color.

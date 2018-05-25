@@ -75,7 +75,6 @@ AC_OUTPUT([
 
 ##TODO:
 ##- doxygen beschrijving main page uitbreiden
-##- readme uitbreiden (voorbeeld bekijken van bestaande paketten)
 ##- alle gebruikte comando's ergens documenteren --> ik heb een cloud hosted prive wiki nodig!!!
 ##- build and run demo application: shows 1 or 2 very simple state machines, to get started
 ##- build and run test application: test all features
