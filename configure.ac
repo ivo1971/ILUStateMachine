@@ -40,6 +40,9 @@ AC_CONFIG_HEADERS([config.h])
 EXTRA_CPPFLAGS="-I${prefix}/include -W -Wall -Wextra -Wpointer-arith -Wformat-security -Werror -Wswitch-default -Wshadow -ffor-scope -Woverloaded-virtual -Wcast-qual"
 AC_SUBST(EXTRA_CPPFLAGS)
 
+##use short output while building
+AM_SILENT_RULES([yes])
+
 ##set library flags in a way they can be used in all makefiles
 EXTRA_LDFLAGS="-version-info 1:0:0"
 AC_SUBST(EXTRA_LDFLAGS)
