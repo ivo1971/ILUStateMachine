@@ -37,7 +37,7 @@ AC_CONFIG_MACRO_DIRS([m4])
 AC_CONFIG_HEADERS([config.h])
 
 ##set cppflags in a way they can be used in all makefiles
-EXTRA_CPPFLAGS="-I${prefix}/include"
+EXTRA_CPPFLAGS="-I${prefix}/include -W -Wall -Wextra -Wpointer-arith -Wformat-security -Werror -Wswitch-default -Wshadow -ffor-scope -Woverloaded-virtual -Wcast-qual"
 AC_SUBST(EXTRA_CPPFLAGS)
 
 ##set library flags in a way they can be used in all makefiles
@@ -71,9 +71,8 @@ AC_OUTPUT([
    ])
 
 ##TODO:
-##- doxygen beschriving main page uitbreiden
+##- doxygen beschrijving main page uitbreiden
 ##- readme uitbreiden (voorbeeld bekijken van bestaande paketten)
-##- figure out what has to be submitted to git --> add .gitignore files
 ##- alle gebruikte comando's ergens documenteren --> ik heb een cloud hosted prive wiki nodig!!!
 ##- build and run demo application: shows 1 or 2 very simple state machines, to get started
 ##- build and run test application: test all features

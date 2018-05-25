@@ -118,7 +118,6 @@ namespace ILULibStateMachine {
       {
          unsigned int uiGuardNbr = 1; //1-based: logging only
          for(GuardHandlerCreateStatesCIt cit = m_GuardHandlers.begin() ; m_GuardHandlers.end() != cit ; ++cit, ++uiGuardNbr) {
-            CLogIndent logIndentGuard;
             LogDebug(boost::format("Trying %1% guard [%2%/%3%]\n") % szType % uiGuardNbr % m_GuardHandlers.size());
             bool bGuardPassed = false;
             try {
