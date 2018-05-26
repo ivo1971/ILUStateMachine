@@ -140,7 +140,7 @@ namespace ILULibStateMachine {
     **/
    template <class TEventData, class EvtId>                                                    
    void CStateEvtId::EventRegister(
-      boost::function<bool(void)>                    guard,        //< Guard called before the event handler. When the guard returns true the handler will be called; when the guard returns false the handler will not be called.
+      boost::function<bool(const TEventData* const)> guard,        //< Guard called before the event handler. When the guard returns true the handler will be called; when the guard returns false the handler will not be called.
       boost::function<void(const TEventData* const)> handler,      //< Event handler to be called.
       CCreateState                                   createState,  //< Describes the state transition following this handler. 
       const EvtId                                    evtId         //< Event ID as defined by TEventEvtId.
@@ -160,7 +160,7 @@ namespace ILULibStateMachine {
     **/
    template <class TEventData, class EvtId, class EvtSubId1>                                                    
    void CStateEvtId::EventRegister(
-      boost::function<bool(void)>                    guard,        //< Guard called before the event handler. When the guard returns true the handler will be called; when the guard returns false the handler will not be called.
+      boost::function<bool(const TEventData* const)> guard,        //< Guard called before the event handler. When the guard returns true the handler will be called; when the guard returns false the handler will not be called.
       boost::function<void(const TEventData* const)> handler,      //< Event handler to be called.
       CCreateState                                   createState,  //< Describes the state transition following this handler. 
       const EvtId                                    evtId,        //< Event ID as defined by TEventEvtId.
@@ -181,7 +181,7 @@ namespace ILULibStateMachine {
     **/
    template <class TEventData, class EvtId, class EvtSubId1, class EvtSubId2>                                                    
    void CStateEvtId::EventRegister(
-      boost::function<bool(void)>                    guard,        //< Guard called before the event handler. When the guard returns true the handler will be called; when the guard returns false the handler will not be called.
+      boost::function<bool(const TEventData* const)> guard,        //< Guard called before the event handler. When the guard returns true the handler will be called; when the guard returns false the handler will not be called.
       boost::function<void(const TEventData* const)> handler,      //< Event handler to be called.
       CCreateState                                   createState,  //< Describes the state transition following this handler. 
       const EvtId                                    evtId,        //< Event ID as defined by TEventEvtId.
@@ -203,7 +203,7 @@ namespace ILULibStateMachine {
     **/
    template <class TEventData, class EvtId, class EvtSubId1, class EvtSubId2, class EvtSubId3>                                                    
    void CStateEvtId::EventRegister(
-      boost::function<bool(void)>                    guard,        //< Guard called before the event handler. When the guard returns true the handler will be called; when the guard returns false the handler will not be called.
+      boost::function<bool(const TEventData* const)> guard,        //< Guard called before the event handler. When the guard returns true the handler will be called; when the guard returns false the handler will not be called.
       boost::function<void(const TEventData* const)> handler,      //< Event handler to be called.
       CCreateState                                   createState,  //< Describes the state transition following this handler. 
       const EvtId                                    evtId,        //< Event ID as defined by TEventEvtId.

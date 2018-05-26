@@ -130,7 +130,7 @@ namespace ILULibStateMachine {
    template <class TEventData> 
    bool CStateMachine::EventRegister(
       const bool                                     bDefault,    //< When true: register this handler in the default event-type map (default state); when false: register this handler for the current state.
-      boost::function<bool(void)>                    guard,       //< The guard called before the handler. When the guard returns true, the handler is called; when the guard returns false the handler is not called.
+      boost::function<bool(const TEventData* const)> guard,       //< The guard called before the handler. When the guard returns true, the handler is called; when the guard returns false the handler is not called.
       boost::function<void(const TEventData* const)> handler,     //< The handler to be registered.
       CCreateState                                   createState, //< The state transition accompanying this event-type.
       SPEventBase                                    spEventBase  //< The complete event identification that triggers this handler.

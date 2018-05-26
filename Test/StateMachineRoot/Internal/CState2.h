@@ -35,9 +35,9 @@ namespace StateMachineRoot {
                                                ~CState2(void);
 
          public:
-            bool                               GuardEvt1Never(void);
+            bool                               GuardEvt1Never(const LibEvents::CEventData* const pData);
             void                               HandlerEvt1Never(const LibEvents::CEventData* const pData);
-            bool                               GuardEvt1SwitchState(void);
+            bool                               GuardEvt1SwitchState(const LibEvents::CEventData* const pData);
             void                               HandlerEvt1SwitchState(const LibEvents::CEventData* const pData);
             void                               HandlerEvt1Default(const LibEvents::CEventData* const pData);
             void                               HandlerEvt2(const LibEvents::CEventData* const pData);

@@ -122,7 +122,7 @@ namespace ILULibStateMachine {
             bool bGuardPassed = false;
             try {
                CLogIndent logIndentGuard; //indent logging while calling the guard
-               bGuardPassed = boost::get<0>(*cit)();
+               bGuardPassed = boost::get<0>(*cit)(pEventData);
             } catch(std::exception& ex) {
                LogErr(boost::format("Exception while calling %1% guard [%2%/%3%]: %4%\n") % szType % uiGuardNbr % m_GuardHandlers.size() % ex.what());
             } catch(...) {

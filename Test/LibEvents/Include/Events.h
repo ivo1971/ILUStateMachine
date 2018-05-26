@@ -84,6 +84,7 @@ namespace LibEvents {
    };
 };
 
+#define GUARD_EVT(cl,f)   GUARD(LibEvents::CEventData, cl,f)
 #define HANDLER_EVT(cl,f) HANDLER(LibEvents::CEventData, cl,f)
 
 #endif //__ILUStateMachine_Events__H__

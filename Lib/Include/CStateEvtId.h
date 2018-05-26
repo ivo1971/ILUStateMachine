@@ -87,14 +87,14 @@ namespace ILULibStateMachine {
             );
          template <class TEventData, class EvtId>                                                    
          void EventRegister(
-            boost::function<bool(void)>                    guard           ,
+            boost::function<bool(const TEventData* const)> guard           ,
             boost::function<void(const TEventData* const)> handler         ,
             CCreateState                                   createState     ,
             const EvtId                                    evtId      
             );
          template <class TEventData, class EvtId, class EvtSubId1>                                                    
          void EventRegister(
-            boost::function<bool(void)>                    guard           ,
+            boost::function<bool(const TEventData* const)> guard           ,
             boost::function<void(const TEventData* const)> handler         ,
             CCreateState                                   createState     ,
             const EvtId                                    evtId           ,
@@ -102,7 +102,7 @@ namespace ILULibStateMachine {
             );
          template <class TEventData, class EvtId, class EvtSubId1, class EvtSubId2>                                                    
          void EventRegister(
-            boost::function<bool(void)>                    guard           ,
+            boost::function<bool(const TEventData* const)> guard           ,
             boost::function<void(const TEventData* const)> handler         ,
             CCreateState                                   createState     ,
             const EvtId                                    evtId           ,
@@ -111,7 +111,7 @@ namespace ILULibStateMachine {
             );
          template <class TEventData, class EvtId, class EvtSubId1, class EvtSubId2, class EvtSubId3>                                                    
          void EventRegister(
-            boost::function<bool(void)>                    guard           ,
+            boost::function<bool(const TEventData* const)> guard           ,
             boost::function<void(const TEventData* const)> handler         ,
             CCreateState                                   createState     ,
             const EvtId                                    evtId           ,

@@ -25,12 +25,12 @@
 
 namespace StateMachineRoot {
    namespace Internal {
-      bool CState2::GuardEvt1Never(void)
+      bool CState2::GuardEvt1Never(const LibEvents::CEventData* const)
       {
          ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] CState2 glob data [%3%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal);
          return false;
       }
-      bool CState2::GuardEvt1SwitchState(void)
+      bool CState2::GuardEvt1SwitchState(const LibEvents::CEventData* const)
       {
          ++m_uiGuardEvt1Cnt;
          ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] CState2 glob data [%3%] guard cnt [%4%] --> [%5%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal % m_uiGuardEvt1Cnt % (2 < m_uiGuardEvt1Cnt));

@@ -84,12 +84,12 @@ namespace StateMachineRoot {
       {
          ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] data [%3%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal);
          //step 1: register event handlers
-         EventRegister(GUARD(CState2, GuardEvt1Never),       HANDLER_EVT(CState2, HandlerEvt1Never),       ILULibStateMachine::CCreateState(),         LibEvents::EEvent1);
-         EventRegister(GUARD(CState2, GuardEvt1SwitchState), HANDLER_EVT(CState2, HandlerEvt1SwitchState), CreateState1(pData),                        LibEvents::EEvent1);
-         EventRegister(                                      HANDLER_EVT(CState2, HandlerEvt1Default),     ILULibStateMachine::CCreateState(),         LibEvents::EEvent1);
-         EventRegister(                                      HANDLER_EVT(CState2, HandlerEvt2),            CreateState1(pData),                        LibEvents::EEvent2);
-         EventRegister(                                      HANDLER_EVT(CState2, HandlerEvtAny),          ILULibStateMachine::CCreateState(),         LibEvents::EEvent3);
-         EventRegister(                                      HANDLER_EVT(CState2, HandlerEvtAny),          ILULibStateMachine::CCreateStateFinished(), LibEvents::EEvent8);
+         EventRegister(GUARD_EVT(CState2, GuardEvt1Never),       HANDLER_EVT(CState2, HandlerEvt1Never),       ILULibStateMachine::CCreateState(),         LibEvents::EEvent1);
+         //EventRegister(GUARD_EVT(CState2, GuardEvt1SwitchState), HANDLER_EVT(CState2, HandlerEvt1SwitchState), CreateState1(pData),                        LibEvents::EEvent1);
+         EventRegister(                                          HANDLER_EVT(CState2, HandlerEvt1Default),     ILULibStateMachine::CCreateState(),         LibEvents::EEvent1);
+         EventRegister(                                          HANDLER_EVT(CState2, HandlerEvt2),            CreateState1(pData),                        LibEvents::EEvent2);
+         EventRegister(                                          HANDLER_EVT(CState2, HandlerEvtAny),          ILULibStateMachine::CCreateState(),         LibEvents::EEvent3);
+         EventRegister(                                          HANDLER_EVT(CState2, HandlerEvtAny),          ILULibStateMachine::CCreateStateFinished(), LibEvents::EEvent8);
          
          //step 2: call on-entry functions this state
       }

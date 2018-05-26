@@ -82,7 +82,7 @@ namespace ILULibStateMachine {
          template <class TEventData> 
          bool                                    EventRegister(
             const bool                                     bDefault   ,
-            boost::function<bool(void)>                    guard      ,
+            boost::function<bool(const TEventData* const)> guard      ,
             boost::function<void(const TEventData* const)> handler    ,
             CCreateState                                   createState,
             SPEventBase                                    spEventBase    
@@ -176,7 +176,7 @@ namespace ILULibStateMachine {
    typedef boost::weak_ptr<CStateMachine>   WPStateMachine;
 }
 
-#define GUARD(cl,f)           boost::bind(&cl::f, this)                                                                                  ///< Macro eases definition of a guard handler upon event registration. First parameter: class; second parameter: class method.
+#define GUARD(et,cl,f)        boost::function<bool(const et* const)>(boost::bind(&cl::f, this, _1))                                      ///< Macro eases definition of a guard handler upon event registration. First parameter: event data type; second parameter: class; second parameter: class method.
 #define HANDLER(et,cl,f)      boost::function<void(const et* const)>(boost::bind(&cl::f, this, _1))                                      ///< Macro eases definition of an event handler upon event registration. First parameter: event data type; second parameter: class; third parameter: class method.
 #define HANDLER_NO_DATA(cl,f) boost::function<void(const CStateMachineData* const)>(boost::bind(&cl::f, this, _1))                       ///< Macro eases definition of an event handler upon event registration when the state machine has no accompanying data. First parameter: class; second parameter: class method.
 #define HANDLER_TYPE(et,cl,f) boost::function<void(ILULibStateMachine::SPEventBase, const et* const)>(boost::bind(&cl::f, this, _1, _2)) ///<Macro eases definition of an event-type handler upon event registration. First parameter: event data type; second parameter: class; third parameter: class method.
