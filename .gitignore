@@ -32,9 +32,10 @@ docs/Doxyfile
 **/*.la
 **/*.lo
 **/.libs
-Test/App/TestStateMachine
 docs/doxyfile.stamp
 docs/out
+Demo/FirstStateMachine/FirstStateMachine
+Test/App/TestStateMachine
 
 #generic
 *#*

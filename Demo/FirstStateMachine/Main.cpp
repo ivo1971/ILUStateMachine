@@ -19,13 +19,8 @@
  ** 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  **
  **/
-//statemachine includes
-#include "CStateEvtId.h"
-#include "CStateMachineData.h"
-#include "Logging.h"
-#include "TCreateStateNoData.h"
-
-//make using the library easy
+//include the statemachine library and make using it easy
+#include "StateMachine.h"
 using namespace ILULibStateMachine;
 
 /****************************************************************************************

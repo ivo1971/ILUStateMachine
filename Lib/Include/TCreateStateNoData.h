@@ -19,8 +19,8 @@
  ** 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  **
  **/
-#ifndef __ILULibStateMachine_TCreateState__H__
-#define __ILULibStateMachine_TCreateState__H__
+#ifndef __ILULibStateMachine_TCreateStateNoData__H__
+#define __ILULibStateMachine_TCreateStateNoData__H__
 
 #include "CCreateState.h"
 #include "CStateMachine.h"
@@ -47,5 +47,5 @@ namespace ILULibStateMachine {
    }
 }
 
-#endif //__ILULibStateMachine_TCreateState__H__
+#endif //__ILULibStateMachine_TCreateStateNoData__H__
 
