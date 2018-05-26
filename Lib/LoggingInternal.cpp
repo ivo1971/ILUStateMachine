@@ -23,6 +23,12 @@
 #include "Internal/LoggingSerial.h"
 
 namespace ILULibStateMachine {
+   namespace {
+     void LogNone(const std::string&)
+      {
+      }
+   };
+
    namespace Internal {
       /** Get/set the registered debug loggings callback function.
        **
@@ -34,7 +40,7 @@ namespace ILULibStateMachine {
          CFLog log //< Wraps an embedded logging callback function.
          )
       {
-         static FLog s_FLog(SerialLogDebug);
+         static FLog s_FLog(LogNone);
          if(log.IsSet()) {
             s_FLog = log.Get();
          }

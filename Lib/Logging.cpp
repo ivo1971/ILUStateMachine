@@ -155,6 +155,13 @@ namespace ILULibStateMachine {
       RegisterLogUnindent(CFUnindent(SerialLogUnindent));
    }
 
+   /** Register the standard serial debug logging function.
+    **/
+   void EnableSerialLogDebug (void)
+   {
+      RegisterLogDebug(CFLog(SerialLogDebug));
+   }
+
    /** Generate a debug logging.
     **/
    void LogDebug(

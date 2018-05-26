@@ -59,8 +59,8 @@ namespace ILULibStateMachine {
     **/
    class CStateMachine : public boost::enable_shared_from_this<CStateMachine> {
       public:
-         static boost::shared_ptr<CStateMachine> ConstructStateMachine(const char* szName, CCreateState createState,                                  CStateMachineData* const pStateMachineData);
-         static boost::shared_ptr<CStateMachine> ConstructStateMachine(const char* szName, CCreateState createState, CCreateState createDefaultState, CStateMachineData* const pStateMachineData);
+         static boost::shared_ptr<CStateMachine> ConstructStateMachine(const char* szName, CCreateState createState,                                  CStateMachineData* const pStateMachineData = NULL);
+         static boost::shared_ptr<CStateMachine> ConstructStateMachine(const char* szName, CCreateState createState, CCreateState createDefaultState, CStateMachineData* const pStateMachineData = NULL);
          virtual                                 ~CStateMachine(void);
 
       public:
@@ -176,18 +176,10 @@ namespace ILULibStateMachine {
    typedef boost::weak_ptr<CStateMachine>   WPStateMachine;
 }
 
-/** Macro eases definition of a guard handler upon event registration. First parameter: class; second parameter: class method.
- **/
-#define GUARD(cl,f)           boost::bind(&cl::f, this) 
-
-/** Macro eases definition of an event handler upon event registration. First parameter: event data type; second parameter: class; third parameter: class method.
- **/
-
-#define HANDLER(et,cl,f)      boost::function<void(const et* const)>(boost::bind(&cl::f, this, _1)) 
-
-/** Macro eases definition of an event-type handler upon event registration. First parameter: event data type; second parameter: class; third parameter: class method.
- **/
-#define HANDLER_TYPE(et,cl,f) boost::function<void(ILULibStateMachine::SPEventBase, const et* const)>(boost::bind(&cl::f, this, _1, _2)) 
+#define GUARD(cl,f)           boost::bind(&cl::f, this)                                                                                  ///< Macro eases definition of a guard handler upon event registration. First parameter: class; second parameter: class method.
+#define HANDLER(et,cl,f)      boost::function<void(const et* const)>(boost::bind(&cl::f, this, _1))                                      ///< Macro eases definition of an event handler upon event registration. First parameter: event data type; second parameter: class; third parameter: class method.
+#define HANDLER_NO_DATA(cl,f) boost::function<void(const CStateMachineData* const)>(boost::bind(&cl::f, this, _1))                       ///< Macro eases definition of an event handler upon event registration when the state machine has no accompanying data. First parameter: class; second parameter: class method.
+#define HANDLER_TYPE(et,cl,f) boost::function<void(ILULibStateMachine::SPEventBase, const et* const)>(boost::bind(&cl::f, this, _1, _2)) ///<Macro eases definition of an event-type handler upon event registration. First parameter: event data type; second parameter: class; third parameter: class method.
 
 //include the class template function definitions.
 #include "CStateMachineImpl.h"

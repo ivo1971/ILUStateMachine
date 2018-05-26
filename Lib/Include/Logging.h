@@ -25,6 +25,7 @@
  **
  ** The default behaviour of the logging functions is to use console output
  ** (stdout and stderr).
+ ** LogDebug is disabled by default, it can be enabled by calling 'EnableSerialLogDebug'.
  ** However by registering other logging functions this behaviour can be 
  ** changed as required by the application using this library.
  **
@@ -61,7 +62,8 @@ namespace ILULibStateMachine {
    void UnRegisterLogErr     (void);
    void UnRegisterLogIndent  (void);
    void UnRegisterLogUnindent(void);
-
+   void EnableSerialLogDebug (void);
+   
    //logging functions
    void LogDebug             (const boost::format& log);
    void LogInfo              (const boost::format& log);

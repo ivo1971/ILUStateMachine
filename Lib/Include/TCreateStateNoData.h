@@ -28,28 +28,22 @@
 namespace ILULibStateMachine {
    /** @brief Templates to ease implementation of the state creation functions.
     **
-    ** The templates assume a simple state class type that has 2 parameters:
-    ** - a weak pointer to the state machine the class belongs to;
-    ** - a raw pointer to a state machine data class.
+    ** The templates assume a simple state class type that has 1 parameter:
+    ** - a weak pointer to the state machine the class belongs to.
+    ** It can only be used by state machines having no data.
     **/
-   template<class CStateType, class CDataType> CState* TCreateStateInstance(WPStateMachine wpStateMachine, CDataType* pData)
+   template<class CStateType> CState* TCreateStateInstanceNoData(WPStateMachine wpStateMachine)
    {
-      return new CStateType(wpStateMachine, pData);
+      return new CStateType(wpStateMachine);
    }
    
    /** Wrapper template around TCreateStateInstance that binds
     ** the state create function as expected by the state machine
     ** CCreateState.
     **/
-   template<class CStateType, class CDataType> CCreateState TCreateState(CDataType* pData)
+   template<class CStateType> CCreateState TCreateStateNoData(void)
    {
-      return CCreateState(
-         boost::bind(
-            &TCreateStateInstance<CStateType,CDataType>, 
-            _1,
-            pData
-            )
-         );
+     return CCreateState(TCreateStateInstanceNoData<CStateType>);
    }
 }
 

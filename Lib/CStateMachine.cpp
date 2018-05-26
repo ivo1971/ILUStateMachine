@@ -133,7 +133,13 @@ namespace ILULibStateMachine {
       if(createDefaultState.IsValid()) {
          m_pDefaultState = createDefaultState.Get()(WPStateMachine(shared_from_this()));
       }
-      m_pState = createState.Get()(WPStateMachine(shared_from_this()));
+      if(createState.IsValid()) {
+	m_pState = createState.Get()(WPStateMachine(shared_from_this()));
+      } else if(createDefaultState.IsValid()) {
+	LogErr(boost::format("Creating a state machine without initial and default state.\n"));
+      } else {
+	LogWarning(boost::format("Creating a state machine without initial state.\n"));
+      }
    }
 
    /** Take all actions required to change the current state of the state machine.
