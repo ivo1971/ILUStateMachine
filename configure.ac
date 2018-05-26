@@ -71,6 +71,8 @@ AC_OUTPUT([
    Test/Makefile
    Test/StateMachineChild/Makefile
    Test/StateMachineRoot/Makefile
+   Demo/Makefile
+   Demo/FirstStateMachine/Makefile
    ])
 
 ##TODO:

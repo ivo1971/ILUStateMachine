@@ -16,8 +16,9 @@
 ## with this program; if not, write to the Free Software Foundation, Inc.,
 ## 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ##
-ACLOCAL_AMFLAGS = -I m4
+noinst_PROGRAMS = FirstStateMachine
+FirstStateMachine_SOURCES = Main.cpp
+FirstStateMachine_LDADD = ../../Lib/.libs/libstatemachine.a
 
-SUBDIRS = Lib Test Demo docs 
-dist_doc_DATA = README
+AM_CPPFLAGS = $(EXTRA_CPPFLAGS) -I../../Lib/Include
 
