@@ -262,10 +262,14 @@ namespace ILULibStateMachine {
       const SPEventBase       spEventBase //< Class instance describing the event in all detail (1 class instance instead of seperate parameters).
       )
    {
+      //store the current state name as the current state can change and the logging
+      //should keep the original state name for the handling loggings
+      const std::string strCurrentState(GetStateName());
+      
       CLogIndent logIndent;
       LogNotice(boost::format("Statemachine [%1%] state [%2%] handling event [%3%] type [%4%] in\n")
               % m_strName
-              % GetStateName()
+              % strCurrentState
               % spEventBase->GetId()
               % spEventBase->GetDataType()
          );
@@ -275,7 +279,7 @@ namespace ILULibStateMachine {
          //event handled
          LogNotice(boost::format("Statemachine [%1%] state [%2%] handling event [%3%] by current state done\n")
                  % m_strName
-                 % GetStateName()
+                 % strCurrentState
                  % spEventBase->GetId()
             );
          return HasFinished();
@@ -286,7 +290,7 @@ namespace ILULibStateMachine {
          //event handled
          LogNotice(boost::format("Statemachine [%1%] state [%2%] handling event [%3%] by default state done\n")
                  % m_strName
-                 % GetStateName()
+                 % strCurrentState
                  % spEventBase->GetId()
             );
          return HasFinished();
@@ -297,7 +301,7 @@ namespace ILULibStateMachine {
          //event handled
          LogNotice(boost::format("Statemachine [%1%] state [%2%] handling event type [%3%] by current state done\n")
                  % m_strName
-                 % GetStateName()
+                 % strCurrentState
                  % spEventBase->GetDataType()
             );
          return HasFinished();
@@ -308,7 +312,7 @@ namespace ILULibStateMachine {
          //event handled
          LogNotice(boost::format("Statemachine [%1%] state [%2%] handling event type [%3%] by default state done\n")
                  % m_strName
-                 % GetStateName()
+                 % strCurrentState
                  % spEventBase->GetDataType()
             );
          return HasFinished();
@@ -316,12 +320,12 @@ namespace ILULibStateMachine {
       
       LogNotice(boost::format("Statemachine [%1%] state [%2%] handling event [%3%] looking for handler failed: no registered handler\n")
               % m_strName
-              % GetStateName()
+              % strCurrentState
               % spEventBase->GetId()
          );
       LogNotice(boost::format("Statemachine [%1%] state [%2%] handling event [%3%] with data type [%4%] registered handlers:\n")
               % m_strName
-              % GetStateName()
+              % strCurrentState
               % spEventBase->GetId()
               % spEventBase->GetDataType()
          );

@@ -65,7 +65,7 @@ public:
 public:
   void HandlerEvt1(const int* const pEvtData)
   {
-    LogInfo(boost::format("[%1%][%2%] [%3%] handle first event with data [%4%]\n") % __FUNCTION__ % __LINE__ % GetName() % *pEvtData);
+    LogInfo(boost::format("[%1%][%2%] [%3%] handle event with data [%4%]\n") % __FUNCTION__ % __LINE__ % GetName() % *pEvtData);
   }
 };
 

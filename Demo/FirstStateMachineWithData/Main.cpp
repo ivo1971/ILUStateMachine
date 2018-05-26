@@ -96,7 +96,7 @@ public:
 public:
   void HandlerEvt1(const int* const pEvtData)
   {
-    LogInfo(boost::format("[%1%][%2%] [%3%] handle first event with data [%4%]\n") % __FUNCTION__ % __LINE__ % GetName() % *pEvtData);
+    LogInfo(boost::format("[%1%][%2%] [%3%] handle event with data [%4%]\n") % __FUNCTION__ % __LINE__ % GetName() % *pEvtData);
     m_pData->SetMsg((boost::format("first event handled with data [%1%]") % *pEvtData).str());
   }
 
@@ -126,13 +126,24 @@ public:
     : CStateEvtId("state-2", wpStateMachine)
     , m_pData(pData)
   {
-    //no event handlers
+    //register handlers
+    EventRegister(
+		  HANDLER(int, CState2, HandlerEvt1), //< the event handler
+		  CCreateState(),                     //< no state transition
+		  1                                   //< the event ID (type integer)
+		  );
     LogInfo(boost::format("[%1%][%2%] [%3%] created (current message: [%4%])\n") % __FUNCTION__ % __LINE__ % GetName() % m_pData->GetMsg());
   }
   
   ~CState2(void)
   {
     LogInfo(boost::format("[%1%][%2%] [%3%] destructed (current message: [%4%])\n") % __FUNCTION__ % __LINE__ % GetName() % m_pData->GetMsg());
+  }
+
+public:
+  void HandlerEvt1(const int* const pEvtData)
+  {
+    LogInfo(boost::format("[%1%][%2%] [%3%] handle event with data [%4%]\n") % __FUNCTION__ % __LINE__ % GetName() % *pEvtData);
   }
 
 private:
@@ -180,10 +191,17 @@ int main (void)
      //create the state machine
      SPStateMachine spStateMachine = CreateStateMachine();
 
-     //handle event
+     //handle first event
      //(local scoping event data)
      {
-       int iEvtData = 5;
+       int iEvtData = 1971;
+       spStateMachine->EventHandle(&iEvtData, 1);
+     }
+
+     //handle second event
+     //(local scoping event data)
+     {
+       int iEvtData = 2018;
        spStateMachine->EventHandle(&iEvtData, 1);
      }
    }
