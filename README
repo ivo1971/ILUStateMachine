@@ -9,5 +9,10 @@ It is not optimized for binary size.
 Doxygen html documentation is generated while building the library.
 This documentation describes the interface and usage of the library.
 
-The 'Examples' directory holds some examples that illustrate how the
-library can be used, both the most basic usage and advanced usage.
+Repository layoyt:
+- Lib: the state machine library;
+- Demo: some demos that illustrate how the library can be used,
+        both the most basic usage and advanced usage;
+- Test: applications used to unit-test the library;
+- doc: generating library doxygen documentation during a build.
+
