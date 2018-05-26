@@ -1,0 +1,12 @@
+##TODO:
+##- doxygen beschrijving main page uitbreiden
+##- build and run advanced demo application
+##- build and run test application durign 'make test': test all features
+##- test cross-compilation builds
+##- test builds from relative dir, not from root
+##- use C++14 compiler when it is available instead of boost
+##- check for boost installation if no C++14 available
+##- dist package test
+##- add dist tests: are all include files exported ...
+##
+

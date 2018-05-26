@@ -16,5 +16,9 @@
 ## with this program; if not, write to the Free Software Foundation, Inc.,
 ## 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ##
-SUBDIRS = FirstStateMachine FirstStateMachineWithData
+noinst_PROGRAMS = FirstStateMachineWithData
+FirstStateMachineWithData_SOURCES = Main.cpp
+FirstStateMachineWithData_LDADD = ../../Lib/.libs/libstatemachine.a
+
+AM_CPPFLAGS = $(EXTRA_CPPFLAGS) -I../../Lib/Include
 

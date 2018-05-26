@@ -35,6 +35,7 @@ docs/Doxyfile
 docs/doxyfile.stamp
 docs/out
 Demo/FirstStateMachine/FirstStateMachine
+Demo/FirstStateMachineWithData/FirstStateMachineWithData
 Test/App/TestStateMachine
 
 #generic

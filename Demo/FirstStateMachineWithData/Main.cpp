@@ -1,5 +1,5 @@
 /** @file
- ** @brief 1-file state machine demo
+ ** @brief 1-file state machine demo using a state machine data instance
  **
  ** ILUStateMachine is a library implementing a generic state machine engine.
  ** Copyright (C) 2018 Ivo Luyckx
@@ -25,13 +25,43 @@ using namespace ILULibStateMachine;
 
 /****************************************************************************************
  ** 
+ ** State machine data class declaration.
+ ** One instance of this class is created and provided to all states in their 
+ ** constructors.
+ **
+ ***************************************************************************************/
+class CData : public CStateMachineData {
+public:
+  CData(void)
+    : CStateMachineData()
+    , m_strMsg("no message yet")
+  {
+  }
+
+public:
+  std::string GetMsg(void) const
+  {
+    return m_strMsg;
+  }
+
+  void SetMsg(const std::string& strMsg)
+  {
+    m_strMsg = strMsg;
+  }
+  
+private:
+  std::string m_strMsg;
+};
+
+/****************************************************************************************
+ ** 
  ** State create function declarations.
  ** These are used during event registration to define the next state after the handler
  ** returned.
  **
  ***************************************************************************************/
-CCreateState CreateState1(void);
-CCreateState CreateState2(void);
+CCreateState CreateState1(CData* pData);
+CCreateState CreateState2(CData* pData);
 
 /****************************************************************************************
  ** 
@@ -45,35 +75,40 @@ CCreateState CreateState2(void);
  **/
 class CState1 : public ILULibStateMachine::CStateEvtId {
 public:
-  CState1(WPStateMachine wpStateMachine)
+  CState1(WPStateMachine wpStateMachine, CData* pData)
     : CStateEvtId("state-1", wpStateMachine)
+    , m_pData(pData)
   {
     //register event handlers
     EventRegister(
 		  HANDLER(int, CState1, HandlerEvt1), //< the event handler
-		  CreateState2(),                     //< the state transition: switch to state-2 when the handler returns
+		  CreateState2(pData),                //< the state transition: switch to state-2 when the handler returns
 		  1                                   //< the event ID (type integer)
 		  );
-    LogInfo(boost::format("[%1%][%2%] [%3%] created\n") % __FUNCTION__ % __LINE__ % GetName());
+    LogInfo(boost::format("[%1%][%2%] [%3%] created (current message: [%4%])\n") % __FUNCTION__ % __LINE__ % GetName() % m_pData->GetMsg());
   }
   
   ~CState1(void)
   {
-    LogInfo(boost::format("[%1%][%2%] [%3%] destructed\n") % __FUNCTION__ % __LINE__ % GetName());
+    LogInfo(boost::format("[%1%][%2%] [%3%] destructed (current message: [%4%])\n") % __FUNCTION__ % __LINE__ % GetName() % m_pData->GetMsg());
   }
   
 public:
   void HandlerEvt1(const int* const pEvtData)
   {
     LogInfo(boost::format("[%1%][%2%] [%3%] handle first event with data [%4%]\n") % __FUNCTION__ % __LINE__ % GetName() % *pEvtData);
+    m_pData->SetMsg((boost::format("first event handled with data [%1%]") % *pEvtData).str());
   }
+
+private:
+  CData* const m_pData;
 };
 
 /** State transition function for state-1
  **/
-CCreateState CreateState1(void)
+CCreateState CreateState1(CData* pData)
 {
-  return TCreateStateNoData<CState1>();
+  return TCreateState<CState1, CData>(pData);
 }
 
 /****************************************************************************************
@@ -87,24 +122,28 @@ CCreateState CreateState1(void)
  **/
 class CState2 : public ILULibStateMachine::CStateEvtId {
 public:
-  CState2(WPStateMachine wpStateMachine)
+  CState2(WPStateMachine wpStateMachine, CData* pData)
     : CStateEvtId("state-2", wpStateMachine)
+    , m_pData(pData)
   {
     //no event handlers
-    LogInfo(boost::format("[%1%][%2%] [%3%] created\n") % __FUNCTION__ % __LINE__ % GetName());
+    LogInfo(boost::format("[%1%][%2%] [%3%] created (current message: [%4%])\n") % __FUNCTION__ % __LINE__ % GetName() % m_pData->GetMsg());
   }
   
   ~CState2(void)
   {
-    LogInfo(boost::format("[%1%][%2%] [%3%] destructed\n") % __FUNCTION__ % __LINE__ % GetName());
+    LogInfo(boost::format("[%1%][%2%] [%3%] destructed (current message: [%4%])\n") % __FUNCTION__ % __LINE__ % GetName() % m_pData->GetMsg());
   }
+
+private:
+  CData* const m_pData;
 };
 
 /** State transition function for state-2
  **/
-CCreateState CreateState2(void)
+CCreateState CreateState2(CData* pData)
 {
-  return TCreateStateNoData<CState2>();
+  return TCreateState<CState2, CData>(pData);
 }
 
 /****************************************************************************************
@@ -116,9 +155,11 @@ CCreateState CreateState2(void)
  **/
 SPStateMachine CreateStateMachine(void)
 {
+  CData* pData = new CData();
   return CStateMachine::ConstructStateMachine(
-         "state-machine", //< name used for logging
-         CreateState1()   //< used by the state machine to create the initial state
+         "state-machine",     //< name used for logging
+         CreateState1(pData), //< used by the state machine to create the initial state
+	 pData                //< state machine takes ownership of the data instance and will destruct it
          );
 }
 
@@ -131,7 +172,7 @@ SPStateMachine CreateStateMachine(void)
  ***************************************************************************************/
 int main (void)
 {
-   LogInfo(boost::format("[%1%][%2%] first-statemachine demo in\n") % __FUNCTION__ % __LINE__);
+   LogInfo(boost::format("[%1%][%2%] first-statemachine-with-data demo in\n") % __FUNCTION__ % __LINE__);
 
    //create a local scope so that the state machine is
    //destructed when it has handled the event
@@ -147,7 +188,7 @@ int main (void)
      }
    }
    
-   LogInfo(boost::format("[%1%][%2%] first-statemachine demo out\n") % __FUNCTION__ % __LINE__);
+   LogInfo(boost::format("[%1%][%2%] first-statemachine-with-data demo out\n") % __FUNCTION__ % __LINE__);
    return 0;
 }
 

@@ -73,17 +73,5 @@ AC_OUTPUT([
    Test/StateMachineRoot/Makefile
    Demo/Makefile
    Demo/FirstStateMachine/Makefile
+   Demo/FirstStateMachineWithData/Makefile
    ])
-
-##TODO:
-##- doxygen beschrijving main page uitbreiden
-##- build and run demo application: shows 1 or 2 very simple state machines, to get started
-##- build and run test application: test all features
-##- test cross-compilation builds
-##- test builds from relative dir, not from root
-##- use C++14 compiler when it is available instead of boost
-##- check for boost installation if no C++14 available
-##- dist packate test
-##- add dist tests: are all include files exported ...
-##
-
