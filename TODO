@@ -1,11 +1,14 @@
 ##TODO:
+##- use C++14 compiler when it is available instead of boost
 ##- doxygen beschrijving main page uitbreiden
-##- build and run advanced demo application
+##- build and run additional demo applications:
+##  - add README.md in ./Demo describing the demo applications and order them (markdown)
+##  - guarded handlers
+##  - state change exception in handler
+##  - state change exception in constructor
 ##- build and run test application durign 'make test': test all features
 ##- test cross-compilation builds
 ##- test builds from relative dir, not from root
-##- use C++14 compiler when it is available instead of boost
-##- check for boost installation if no C++14 available
 ##- dist package test
 ##- add dist tests: are all include files exported ...
 ##

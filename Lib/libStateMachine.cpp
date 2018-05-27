@@ -37,7 +37,15 @@ namespace ILULibStateMachine {
  **   - Has one current state and a default state. The default state can register event handlers that kick-in when the current state does not have a registered handler for the event; 
  **   - Groups its data in a seperate class (not the state classes). There is exactly one instance from this class which is passed from state to state;
  ** - OnEntry and OnExit functions via the class constructor and destructor;
- ** - Dynamic event registration;
+ ** - Dynamic event registration.
+ **   Each event has an event ID, an event handler and a state transition (which can be 'stay in this state').
+ **   Thus there is a clear overview and easy comparison against an UML state machine diagram;
+ ** - Often there are state transitions that are not drawn in an UML diagram, for example error handling,
+ **   because they make the diagram too complex.
+ **   The engine uses a state-transition-exception to allow state transitions besides the normal was registered
+ **   with the event handlers.
+ **   These exceptions can be thrown both in handlers and in state constructors, they are not allowed in destructors 
+ **   (which is standard C++ behaviour);
  ** - Type-events:
  **
  ** \subsection step1 Step 1: Opening the box

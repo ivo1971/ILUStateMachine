@@ -26,6 +26,9 @@ AM_PROG_AR
 AC_PROG_CC
 AC_PROG_CXX
 
+##script internal variables
+cpp_standard_used="default"
+
 ##required to build shared libraries,
 ##has to be after _PROG_
 LT_INIT
@@ -36,21 +39,51 @@ AC_CONFIG_MACRO_DIRS([m4])
 ##generate a 'config.h' file containing configuration defines
 AC_CONFIG_HEADERS([config.h])
 
-##set cppflags in a way they can be used in all makefiles
-EXTRA_CPPFLAGS="-I${prefix}/include -W -Wall -Wextra -Wpointer-arith -Wformat-security -Werror -Wswitch-default -Wshadow -ffor-scope -Woverloaded-virtual -Wcast-qual"
-AC_SUBST(EXTRA_CPPFLAGS)
-
 ##use short output while building
 AM_SILENT_RULES([yes])
+
+##set cppflags in a way they can be used in all makefiles
+CXXFLAGS="-I${prefix}/include -W -Wall -Wextra -Wpointer-arith -Wformat-security -Werror -Wswitch-default -Wshadow -ffor-scope -Woverloaded-virtual -Wcast-qual"
 
 ##set library flags in a way they can be used in all makefiles
 EXTRA_LDFLAGS="-version-info 1:0:0"
 AC_SUBST(EXTRA_LDFLAGS)
 
-##requires boost
-##AX_BOOST_BASE([1.67], [], AC_MSG_ERROR([Could not find Boost]))
-##AX_BOOST_SYSTEM
-##AX_BOOST_FILESYSTEM
+##store current flags so the can be temporarily changed for running a test
+##and restoring them afterwards
+saved_cflags="$CFLAGS"
+saved_cxxflags="$CXXFLAGS"
+saved_ldflags="$LDFLAGS"
+
+##run the following tests with the C++ compiler
+AC_LANG_PUSH([C++])
+
+##check C++14
+CXXFLAGS="-Werror -std=c++14"
+AC_MSG_CHECKING([whether CXX supports -std=c++14])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
+   [])],
+   [AC_MSG_RESULT([yes]); saved_cxxflags="$saved_cxxflags -std=c++14";cpp_standard_used="C++14"],
+   [AC_MSG_RESULT([no])])
+CXXFLAGS="$saved_cxxflags"
+
+##check for the availability of boost
+##if no C++14
+if test "x${cpp_standard_used}" = "xC++14"; then
+   AC_MSG_NOTICE([boost not required, using C++14])
+else
+   ##assumes that when shared_ptr.hpp is available, all boost headers are available
+   AC_MSG_CHECKING([whether boost library is available])
+   AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
+       [[
+         #include "boost/shared_ptr.hpp"
+       ]])],
+       AC_MSG_RESULT([yes]),
+       AC_MSG_ERROR([no])
+       )
+   ##at this point either boost or C++14 is available
+   ##otherwise the script has exited
+fi
 
 ##can optionally use doxygen to generate library documentation
 ##source: https://chris-miceli.blogspot.be/2011/01/integrating-doxygen-with-autotools.html
@@ -75,3 +108,20 @@ AC_OUTPUT([
    Demo/FirstStateMachine/Makefile
    Demo/FirstStateMachineWithData/Makefile
    ])
+
+echo \
+"----------------------------------------------------------------
+
+${PACKAGE_NAME} Version ${PACKAGE_VERSION}
+
+Current compiler options:
+   CC:                                  ${CC}
+   CXX:                                 ${CXX}
+   LD:                                  ${LD}
+   Default CFLAGS:                      ${CFLAGS}
+   Default CXXFLAGS:                    ${CXXFLAGS}
+
+Features configured in ${PACKAGE_NAME}:
+   C++ standard used:                   ${cpp_standard_used}
+
+----------------------------------------------------------------"
