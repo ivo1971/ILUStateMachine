@@ -56,8 +56,8 @@ namespace ILULibStateMachine {
       //call the type handler
       return CallHandler(
          boost::format("Calling %1% type handler\n") % szType,
-         boost::get<0>(m_TypeHandler), 
-         boost::get<1>(m_TypeHandler), 
+         TYPESEL::get<0>(m_TypeHandler), 
+         TYPESEL::get<1>(m_TypeHandler), 
          spEventBase, 
          pEventData, 
          szType

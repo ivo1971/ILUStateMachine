@@ -122,7 +122,7 @@ namespace ILULibStateMachine {
             bool bGuardPassed = false;
             try {
                CLogIndent logIndentGuard; //indent logging while calling the guard
-               bGuardPassed = boost::get<0>(*cit)(pEventData);
+               bGuardPassed = TYPESEL::get<0>(*cit)(pEventData);
             } catch(std::exception& ex) {
                LogErr(boost::format("Exception while calling %1% guard [%2%/%3%]: %4%\n") % szType % uiGuardNbr % m_GuardHandlers.size() % ex.what());
             } catch(...) {
@@ -133,8 +133,8 @@ namespace ILULibStateMachine {
                //--> call the handler
                return CallHandler(
                   boost::format("Passed %1% guard [%2%/%3%] --> calling accompanying %4% handler\n") % szType % uiGuardNbr % m_GuardHandlers.size() % szType,
-                  boost::get<1>(*cit), 
-                  boost::get<2>(*cit), 
+                  TYPESEL::get<1>(*cit), 
+                  TYPESEL::get<2>(*cit), 
                   pEventData, 
                   szType
                   );
@@ -155,8 +155,8 @@ namespace ILULibStateMachine {
       //call the default handler
       return CallHandler(
          boost::format("Calling %1% unguarded handler\n") % szType,
-         boost::get<1>(m_UnguardedHandler), 
-         boost::get<2>(m_UnguardedHandler), 
+         TYPESEL::get<1>(m_UnguardedHandler), 
+         TYPESEL::get<2>(m_UnguardedHandler), 
          pEventData, 
          szType
          );

@@ -27,7 +27,6 @@
 #include "vector"
 
 #include "boost/format.hpp"
-#include "boost/tuple/tuple.hpp"
 
 #include "CCreateState.h"
 #include "CHandleEventInfoBase.h"
@@ -45,7 +44,7 @@ namespace ILULibStateMachine {
          typedef void                                              FHandler(const TEventData* const pEventData);                   ///< Prototype of an event handler: it is provided with the event data.
          typedef TYPESEL::function<FGuard>                         BFGuard;                                                        ///< FGuard wrapped in a boost function, so the event guard can be a class method bound to a class instance.
          typedef TYPESEL::function<FHandler>                       BFHandler;                                                      ///< FHandler wrapped in a boost function, so the event handler can be a class method bound to a class instance.
-         typedef boost::tuple<BFGuard, BFHandler, CCreateState>    GuardHandlerCreateState;                                        ///< Type that fully defines one event action: guard (optional), handler, state transition. This maps 1-on-1 to 1 arrow in a state machine schema.
+         typedef TYPESEL::tuple<BFGuard, BFHandler, CCreateState>  GuardHandlerCreateState;                                        ///< Type that fully defines one event action: guard (optional), handler, state transition. This maps 1-on-1 to 1 arrow in a state machine schema.
          typedef std::vector<GuardHandlerCreateState>              GuardHandlerCreateStates;                                       ///< Container of event action descriptors.
          typedef typename GuardHandlerCreateStates::iterator       GuardHandlerCreateStatesIt;                                     ///< Iterator on the container of event action descriptors.
          typedef typename GuardHandlerCreateStates::const_iterator GuardHandlerCreateStatesCIt;                                    ///< Constant iterator on the container of event action descriptors.

@@ -38,7 +38,7 @@ namespace ILULibStateMachine {
       public:
          typedef void                                                FTypeHandler(SPEventBase spEventBase, const TEventData* const); ///< Prototype of a type-event handler: it is provided with the event identifier and the event data.
          typedef TYPESEL::function<FTypeHandler>                     BFTypeHandler;                                                  ///< FTypeHandler wrapped in a boost function, so the event handler can be a class method bound to a class instance.
-         typedef boost::tuple<BFTypeHandler, CCreateState>           HandlerTypeCreateState;                                         ///< Completely describes on action: handler and state transition.
+         typedef TYPESEL::tuple<BFTypeHandler, CCreateState>         HandlerTypeCreateState;                                         ///< Completely describes on action: handler and state transition.
          
       public:
                                   THandleEventTypeInfo(BFTypeHandler handler, CCreateState createState);

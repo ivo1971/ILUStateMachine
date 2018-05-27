@@ -29,6 +29,7 @@
 #  include "boost/enable_shared_from_this.hpp"
 #  include "boost/function.hpp"
 #  include "boost/shared_ptr.hpp"
+#  include "boost/tuple/tuple.hpp"
 #  include "boost/weak_ptr.hpp"
 #  define TYPESEL boost
 #  define TYPESEL_PLACEHOLDERS_1 _1
@@ -38,6 +39,7 @@
     **/
 #  include <functional>
 #  include <memory>
+#  include <tuple>
 #  define TYPESEL std 
 #  define TYPESEL_PLACEHOLDERS_1 std::placeholders::_1
 #  define TYPESEL_PLACEHOLDERS_2 std::placeholders::_2
