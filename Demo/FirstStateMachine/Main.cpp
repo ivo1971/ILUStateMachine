@@ -45,35 +45,35 @@ CCreateState CreateState2(void);
  **/
 class CState1 : public ILULibStateMachine::CStateEvtId {
 public:
-  CState1(WPStateMachine wpStateMachine)
-    : CStateEvtId("state-1", wpStateMachine)
-  {
-    //register event handlers
-    EventRegister(
-		  HANDLER(int, CState1, HandlerEvt1), //< the event handler
-		  CreateState2(),                     //< the state transition: switch to state-2 when the handler returns
-		  1                                   //< the event ID (type integer)
-		  );
-    LogInfo("[%s][%u] [%s] created\n", __FUNCTION__, __LINE__, GetName().c_str());
-  }
-  
-  ~CState1(void)
-  {
-    LogInfo("[%s][%u] [%s] destructed\n", __FUNCTION__, __LINE__, GetName().c_str());
-  }
-  
+   CState1(WPStateMachine wpStateMachine)
+      : CStateEvtId("state-1", wpStateMachine)
+   {
+      //register event handlers
+      EventRegister(
+                    HANDLER(int, CState1, HandlerEvt1), //< the event handler
+                    CreateState2(),                     //< the state transition: switch to state-2 when the handler returns
+                    1                                   //< the event ID (type integer)
+                    );
+      LogInfo("[%s][%u] [%s] created\n", __FUNCTION__, __LINE__, GetName().c_str());
+   }
+   
+   ~CState1(void)
+   {
+      LogInfo("[%s][%u] [%s] destructed\n", __FUNCTION__, __LINE__, GetName().c_str());
+   }
+   
 public:
-  void HandlerEvt1(const int* const pEvtData)
-  {
-    LogInfo("[%s][%u] [%s] handle event with data [%d]\n", __FUNCTION__, __LINE__, GetName().c_str(), *pEvtData);
-  }
+   void HandlerEvt1(const int* const pEvtData)
+   {
+      LogInfo("[%s][%u] [%s] handle event with data [%d]\n", __FUNCTION__, __LINE__, GetName().c_str(), *pEvtData);
+   }
 };
 
 /** State transition function for state-1
  **/
 CCreateState CreateState1(void)
 {
-  return TCreateStateNoData<CState1>();
+   return TCreateStateNoData<CState1>();
 }
 
 /****************************************************************************************
@@ -87,24 +87,24 @@ CCreateState CreateState1(void)
  **/
 class CState2 : public ILULibStateMachine::CStateEvtId {
 public:
-  CState2(WPStateMachine wpStateMachine)
-    : CStateEvtId("state-2", wpStateMachine)
-  {
-    //no event handlers
-    LogInfo("[%s][%u] [%s] created\n", __FUNCTION__, __LINE__, GetName().c_str());
-  }
-  
-  ~CState2(void)
-  {
-    LogInfo("[%s][%u] [%s] destructed\n", __FUNCTION__, __LINE__, GetName().c_str());
-  }
+   CState2(WPStateMachine wpStateMachine)
+      : CStateEvtId("state-2", wpStateMachine)
+   {
+      //no event handlers
+      LogInfo("[%s][%u] [%s] created\n", __FUNCTION__, __LINE__, GetName().c_str());
+   }
+   
+   ~CState2(void)
+   {
+      LogInfo("[%s][%u] [%s] destructed\n", __FUNCTION__, __LINE__, GetName().c_str());
+   }
 };
 
 /** State transition function for state-2
  **/
 CCreateState CreateState2(void)
 {
-  return TCreateStateNoData<CState2>();
+   return TCreateStateNoData<CState2>();
 }
 
 /****************************************************************************************
@@ -116,10 +116,10 @@ CCreateState CreateState2(void)
  **/
 SPStateMachine CreateStateMachine(void)
 {
-  return CStateMachine::ConstructStateMachine(
-         "state-machine", //< name used for logging
-         CreateState1()   //< used by the state machine to create the initial state
-         );
+   return CStateMachine::ConstructStateMachine(
+                                               "state-machine", //< name used for logging
+                                               CreateState1()   //< used by the state machine to create the initial state
+                                               );
 }
 
 /****************************************************************************************
@@ -132,19 +132,24 @@ SPStateMachine CreateStateMachine(void)
 int main (void)
 {
    LogInfo("[%s][%u] first-statemachine demo in\n", __FUNCTION__, __LINE__);
-
+   
    //create a local scope so that the state machine is
    //destructed when it has handled the event
    {
-     //create the state machine
-     SPStateMachine spStateMachine = CreateStateMachine();
+      //create the state machine
+      LogInfo("[%s][%u] create state machine\n", __FUNCTION__, __LINE__);
+      SPStateMachine spStateMachine = CreateStateMachine();
+      
+      //handle event
+      //(local scoping event data)
+      LogInfo("[%s][%u] send first event\n", __FUNCTION__, __LINE__);
+      {
+         int iEvtData = 5;
+         spStateMachine->EventHandle(&iEvtData, 1);
+      }
 
-     //handle event
-     //(local scoping event data)
-     {
-       int iEvtData = 5;
-       spStateMachine->EventHandle(&iEvtData, 1);
-     }
+      //finished sending events
+      LogInfo("[%s][%u] sending events done\n", __FUNCTION__, __LINE__);
    }
    
    LogInfo("[%s][%u] first-statemachine demo out\n", __FUNCTION__, __LINE__);

@@ -1,4 +1,4 @@
-##TODO:
+##TODO phase 1
 ##- doxygen beschrijving main page uitbreiden
 ##- build and run additional demo applications:
 ##  - add README.md in ./Demo describing the demo applications and order them (markdown)
@@ -6,6 +6,9 @@
 ##  - state change exception in handler
 ##  - state change exception in constructor
 ##- build and run test application durign 'make test': test all features
+##
+##TODO phase 2
+##- fix all "TODO's" in the code
 ##- test cross-compilation builds
 ##- test builds from relative dir, not from root
 ##- dist package test
