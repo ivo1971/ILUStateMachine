@@ -24,7 +24,7 @@
 
 #include "stdexcept"
 
-#include "../Include/CCreateState.h"
+#include "CCreateState.h"
 
 namespace ILULibStateMachine {
    /** @brief When the state machine catches an exception of this type while executing an event handler

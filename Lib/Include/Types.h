@@ -31,17 +31,29 @@
 #  include "boost/shared_ptr.hpp"
 #  include "boost/tuple/tuple.hpp"
 #  include "boost/weak_ptr.hpp"
+/** No C++14 --> use boost 
+ **/
 #  define TYPESEL boost
+/** Make using first bind placeholder transparant for C++14 or boost 
+ **/
 #  define TYPESEL_PLACEHOLDERS_1 _1
-#  define TYPESEL_PLACEHOLDERS_2 _2
+/** Make using second bind placeholder transparant for C++14 or boost 
+ **/
+#  define TYPESEL_PLACEHOLDERS_2 _2 
 #else
    /** C++14 available
     **/
 #  include <functional>
 #  include <memory>
 #  include <tuple>
-#  define TYPESEL std 
+/** No C++14 --> use it 
+ **/
+#  define TYPESEL std                                  
+/** Make using first bind placeholder transparant for C++14 or boost 
+ **/
 #  define TYPESEL_PLACEHOLDERS_1 std::placeholders::_1
+/** Make using second bind placeholder transparant for C++14 or boost
+ **/
 #  define TYPESEL_PLACEHOLDERS_2 std::placeholders::_2
 #endif
 

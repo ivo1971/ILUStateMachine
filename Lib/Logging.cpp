@@ -26,7 +26,13 @@
 #include "Internal/LoggingSerial.h"
 #include "Internal/TLog.h"
 
-#define MSG_BUF_SIZE     (256)
+#define MSG_BUF_SIZE     (256) ///< set the buffer size for loggings (larger ones will be truncated)
+
+/** @brief There are 5 log functions with the same body except for 1 parameter.
+ ** This macro avoids copying those bodies.
+ **
+ ** TODO: investigate how this can be accomplished with a template.
+ **/
 #define LOGXXX(REG_FUNC) \
   FLog     flog               (REG_FUNC()); \
   char     szMsg[MSG_BUF_SIZE]; \

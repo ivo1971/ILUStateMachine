@@ -22,7 +22,7 @@
 #ifndef __ILULibStateMachine_CEventBase__H__
 #define __ILULibStateMachine_CEventBase__H__
 
-#include "../Include/CEventBase.h"
+#include "CEventBase.h"
 
 namespace ILULibStateMachine {
    /** @brief Class used as an std sort operator, comparing the instances the shared pointers are pointing to

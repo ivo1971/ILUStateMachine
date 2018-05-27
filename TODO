@@ -1,5 +1,4 @@
 ##TODO:
-##- use C++14 compiler when it is available instead of boost
 ##- doxygen beschrijving main page uitbreiden
 ##- build and run additional demo applications:
 ##  - add README.md in ./Demo describing the demo applications and order them (markdown)

@@ -36,10 +36,10 @@
 
 #if __GNUC__ >= 3
 # ifndef __printf
-#  define __printf(x)  __attribute__ ((format (printf, x+1, x+2)))
+#  define __printf(x)  __attribute__ ((format (printf, x+1, x+2))) ///< Make using the printf format check easier
 # endif
 #else
-#  define __printf(x)
+#  define __printf(x)                                              ///< Compiler does not support printf
 #endif
 
 #endif //#ifndef __ILULibStateMachine_Gcc_H__

@@ -21,11 +21,6 @@
 #ifndef __ILUStateMachine_Events__H__
 #define __ILUStateMachine_Events__H__
 
-//when using a C++14 compatible compiler,
-//boost can be replaced by std.
-#include "boost/bind.hpp"
-#include "boost/function.hpp"
-
 #include "CCreateState.h"
 
 /**********************************************************************************

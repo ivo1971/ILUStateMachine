@@ -28,6 +28,7 @@ AC_PROG_CXX
 
 ##script internal variables
 cpp_standard_used="default"
+using_boost="no"
 
 ##required to build shared libraries,
 ##has to be after _PROG_
@@ -43,7 +44,7 @@ AC_CONFIG_HEADERS([config.h])
 AM_SILENT_RULES([yes])
 
 ##set cppflags in a way they can be used in all makefiles
-CXXFLAGS="-I${prefix}/include -W -Wall -Wextra -Wpointer-arith -Wformat-security -Werror -Wswitch-default -Wshadow -ffor-scope -Woverloaded-virtual -Wcast-qual"
+CXXFLAGS="-W -Wall -Wextra -Wpointer-arith -Wformat-security -Werror -Wswitch-default -Wshadow -ffor-scope -Woverloaded-virtual -Wcast-qual"
 
 ##set library flags in a way they can be used in all makefiles
 EXTRA_LDFLAGS="-version-info 1:0:0"
@@ -72,15 +73,24 @@ CXXFLAGS="$saved_cxxflags"
 if test "x${cpp_standard_used}" = "xC++14"; then
    AC_MSG_NOTICE([boost not required, using C++14])
 else
-   ##assumes that when shared_ptr.hpp is available, all boost headers are available
+   CXXFLAGS=""
+   if test "x${prefix}" != "xNONE"; then
+      CXXFLAGS="${CXXFLAGS} -I${prefix}/include"
+   fi
    AC_MSG_CHECKING([whether boost library is available])
    AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
        [[
-         #include "boost/shared_ptr.hpp"
+          #include "boost/bind.hpp"
+          #include "boost/enable_shared_from_this.hpp"
+          #include "boost/function.hpp"
+          #include "boost/shared_ptr.hpp"
+          #include "boost/tuple/tuple.hpp"
+          #include "boost/weak_ptr.hpp"
        ]])],
-       AC_MSG_RESULT([yes]),
+       AC_MSG_RESULT([yes]);saved_cxxflags="${saved_cxxflags} ${CXXFLAGS}";using_boost="yes",
        AC_MSG_ERROR([no])
        )
+   CXXFLAGS="$saved_cxxflags"
    ##at this point either boost or C++14 is available
    ##otherwise the script has exited
 fi
@@ -123,5 +133,6 @@ Current compiler options:
 
 Features configured in ${PACKAGE_NAME}:
    C++ standard used:                   ${cpp_standard_used}
+   Boost:                               ${using_boost}
 
 ----------------------------------------------------------------"
