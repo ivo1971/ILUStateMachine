@@ -37,9 +37,8 @@
 
 #include "string"
 
-#include "boost/format.hpp"
-
 #include "CLogIndent.h"
+#include "Gcc.h"
 #include "Types.h"
 
 namespace ILULibStateMachine {
@@ -65,11 +64,11 @@ namespace ILULibStateMachine {
    void EnableSerialLogDebug (void);
    
    //logging functions
-   void LogDebug             (const boost::format& log);
-   void LogInfo              (const boost::format& log);
-   void LogNotice            (const boost::format& log);
-   void LogWarning           (const boost::format& log);
-   void LogErr               (const boost::format& log);
+   void LogDebug             (const char* const szFormat, ...) __printf(0);
+   void LogInfo              (const char* const szFormat, ...) __printf(0);
+   void LogNotice            (const char* const szFormat, ...) __printf(0);
+   void LogWarning           (const char* const szFormat, ...) __printf(0);
+   void LogErr               (const char* const szFormat, ...) __printf(0);
    void LogIndent            (void);
    void LogUnindent          (void);
 };

@@ -114,52 +114,56 @@ namespace ILULibStateMachine {
       CLogIndent logIndent;
       
       //first try find a guarded handler
-      LogDebug(boost::format("Trying [%1%] %2% guard's\n") % m_GuardHandlers.size() % szType);
+      LogDebug("Trying [%lu] %s guard's\n", m_GuardHandlers.size(), szType);
       {
          unsigned int uiGuardNbr = 1; //1-based: logging only
          for(GuardHandlerCreateStatesCIt cit = m_GuardHandlers.begin() ; m_GuardHandlers.end() != cit ; ++cit, ++uiGuardNbr) {
-            LogDebug(boost::format("Trying %1% guard [%2%/%3%]\n") % szType % uiGuardNbr % m_GuardHandlers.size());
+            LogDebug("Trying %s guard [%u/%lu]\n", szType, uiGuardNbr, m_GuardHandlers.size());
             bool bGuardPassed = false;
             try {
                CLogIndent logIndentGuard; //indent logging while calling the guard
                bGuardPassed = TYPESEL::get<0>(*cit)(pEventData);
             } catch(std::exception& ex) {
-               LogErr(boost::format("Exception while calling %1% guard [%2%/%3%]: %4%\n") % szType % uiGuardNbr % m_GuardHandlers.size() % ex.what());
+               LogErr("Exception while calling %s guard [%u/%lu]: %s\n", szType, uiGuardNbr, m_GuardHandlers.size(), ex.what());
             } catch(...) {
-               LogErr(boost::format("Exception while calling %1% guard [%2%/%3%]: %4%\n") % szType % uiGuardNbr % m_GuardHandlers.size() % "unknown");
+               LogErr("Exception while calling %s guard [%u/%lu]: %s\n", szType, uiGuardNbr, m_GuardHandlers.size(), "unknown");
             }
             if(bGuardPassed) {
                //guard returns true
                //--> call the handler
+               std::stringstream ss;
+               ss << "Passed " << szType << " guard [" << uiGuardNbr << "/" << m_GuardHandlers.size() << "] --> calling accompanying " << szType << " handler\n";
                return CallHandler(
-                  boost::format("Passed %1% guard [%2%/%3%] --> calling accompanying %4% handler\n") % szType % uiGuardNbr % m_GuardHandlers.size() % szType,
-                  TYPESEL::get<1>(*cit), 
-                  TYPESEL::get<2>(*cit), 
-                  pEventData, 
-                  szType
-                  );
+                                  ss.str(),
+                                  TYPESEL::get<1>(*cit), 
+                                  TYPESEL::get<2>(*cit), 
+                                  pEventData, 
+                                  szType
+                                  );
             }
          }
       }
       if(0 != m_GuardHandlers.size()) {
-         LogDebug(boost::format("No matching %1% guard\n") % szType);
+         LogDebug("No matching %s guard\n", szType);
       }
       
       //no guarded handler found
       //--> check default handler
       if(!m_bUnguardedHandlerSet) {
-         LogDebug(boost::format("No %1% unguarded handler\n") % szType);
+         LogDebug("No %s unguarded handler\n", szType);
          return HandleResult(false, CCreateState());
       }
       
       //call the default handler
+      std::stringstream ss;
+      ss << "Calling " << szType << " unguarded handler\n";
       return CallHandler(
-         boost::format("Calling %1% unguarded handler\n") % szType,
-         TYPESEL::get<1>(m_UnguardedHandler), 
-         TYPESEL::get<2>(m_UnguardedHandler), 
-         pEventData, 
-         szType
-         );
+                         ss.str(),
+                         TYPESEL::get<1>(m_UnguardedHandler), 
+                         TYPESEL::get<2>(m_UnguardedHandler), 
+                         pEventData, 
+                         szType
+                         );
    };
 
    /** Without further ado, call the handler and deal with exceptions.
@@ -168,7 +172,7 @@ namespace ILULibStateMachine {
     **/
    template <class TEventData> 
    CHandleEventInfoBase::HandleResult THandleEventInfo<TEventData>::CallHandler(
-      boost::format&                                              fmt,         //< Logging accompanying the handler call.
+      const std::string&                                          strMsg,      //< Logging accompanying the handler call.
       TYPESEL::function<void(const TEventData* const pEventData)> handler,     //< The handler to be called.
       CCreateState                                                createState, //< The CCreateState instance accompanying the handler. Will not be called but will be included in the return value. Can be overridden if a state-change exception was caught while calling the handler.
       const TEventData* const                                     pEventData,  //< Data accompanying the event, will be provided to the handler.
@@ -176,20 +180,20 @@ namespace ILULibStateMachine {
       )
    {
       try {
-         LogNotice(fmt);
+         LogNotice("%s", strMsg.c_str());
          {
             CLogIndent logIndent;
             handler(pEventData);
          }
-         LogNotice(boost::format("Calling hanlder done\n"));
+         LogNotice("Calling handler done\n");
       } catch(CStateChangeException& ex) {
-         LogWarning(boost::format("State-change caught while calling %1% handler: %2%\n") % szType % ex.what());
+         LogWarning("State-change caught while calling %s handler: %s\n", szType, ex.what());
          createState = ex.GetCreateState();
       } catch(std::exception& ex) {
-         LogErr(boost::format("Exception caught while calling %1% handler: %2%\n") % szType % ex.what());
+         LogErr("Exception caught while calling %s handler: %s\n", szType, ex.what());
          createState = CCreateState(); //remain in this state
       } catch(...) {
-         LogErr(boost::format("Exception caught while calling %1% handler: %2%\n") % szType % "unknown");
+         LogErr("Exception caught while calling %s handler: %s\n", szType, "unknown");
          createState = CCreateState(); //remain in this state
       }
       return HandleResult(true, createState);

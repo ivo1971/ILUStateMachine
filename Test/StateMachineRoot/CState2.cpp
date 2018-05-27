@@ -25,41 +25,42 @@
 
 namespace StateMachineRoot {
    namespace Internal {
-      bool CState2::GuardEvt1Never(const LibEvents::CEventData* const)
+      bool CState2::GuardEvt1Never(const LibEvents::CEventData* const pData)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] CState2 glob data [%3%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal);
+         ILULibStateMachine::LogInfo("[%s][%u] CState2 glob data [%u] state data [%d]\n", __FUNCTION__, __LINE__, m_pData->m_uiGlobVal, pData->m_iVal);
          return false;
       }
-      bool CState2::GuardEvt1SwitchState(const LibEvents::CEventData* const)
+
+      bool CState2::GuardEvt1SwitchState(const LibEvents::CEventData* const pData)
       {
          ++m_uiGuardEvt1Cnt;
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] CState2 glob data [%3%] guard cnt [%4%] --> [%5%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal % m_uiGuardEvt1Cnt % (2 < m_uiGuardEvt1Cnt));
+         ILULibStateMachine::LogInfo("[%s][%u] CState2 glob data [%u] state data [%d]\n", __FUNCTION__, __LINE__, m_pData->m_uiGlobVal, pData->m_iVal);
          return 2 < m_uiGuardEvt1Cnt;
       }
 
       void CState2::HandlerEvt1Never(const LibEvents::CEventData* const pData)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] CState2 glob data [%3%] state data [%4%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal % pData->m_iVal);
+         ILULibStateMachine::LogInfo("[%s][%u] CState2 glob data [%u] state data [%d]\n", __FUNCTION__, __LINE__, m_pData->m_uiGlobVal, pData->m_iVal);
       }
       
       void CState2::HandlerEvt1SwitchState(const LibEvents::CEventData* const pData)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] CState2 glob data [%3%] state data [%4%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal % pData->m_iVal);
+         ILULibStateMachine::LogInfo("[%s][%u] CState2 glob data [%u] state data [%d]\n", __FUNCTION__, __LINE__, m_pData->m_uiGlobVal, pData->m_iVal);
       }
 
       void CState2::HandlerEvt1Default(const LibEvents::CEventData* const pData)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] CState2 glob data [%3%] state data [%4%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal % pData->m_iVal);
+         ILULibStateMachine::LogInfo("[%s][%u] CState2 glob data [%u] state data [%d]\n", __FUNCTION__, __LINE__, m_pData->m_uiGlobVal, pData->m_iVal);
       }
 
       void CState2::HandlerEvt2(const LibEvents::CEventData* const pData)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] CState2 glob data [%3%] state data [%4%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal % pData->m_iVal);
+         ILULibStateMachine::LogInfo("[%s][%u] CState2 glob data [%u] state data [%d]\n", __FUNCTION__, __LINE__, m_pData->m_uiGlobVal, pData->m_iVal);
       }
       
       void CState2::HandlerEvtAny(const LibEvents::CEventData* const pData)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] CState2 glob data [%3%] state data [%4%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal % pData->m_iVal);
+         ILULibStateMachine::LogInfo("[%s][%u] CState2 glob data [%u] state data [%d]\n", __FUNCTION__, __LINE__, m_pData->m_uiGlobVal, pData->m_iVal);
       }
       
       ILULibStateMachine::CCreateState CreateState2(CData* pData)

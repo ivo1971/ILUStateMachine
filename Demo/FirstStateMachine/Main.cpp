@@ -54,18 +54,18 @@ public:
 		  CreateState2(),                     //< the state transition: switch to state-2 when the handler returns
 		  1                                   //< the event ID (type integer)
 		  );
-    LogInfo(boost::format("[%1%][%2%] [%3%] created\n") % __FUNCTION__ % __LINE__ % GetName());
+    LogInfo("[%s][%u] [%s] created\n", __FUNCTION__, __LINE__, GetName().c_str());
   }
   
   ~CState1(void)
   {
-    LogInfo(boost::format("[%1%][%2%] [%3%] destructed\n") % __FUNCTION__ % __LINE__ % GetName());
+    LogInfo("[%s][%u] [%s] destructed\n", __FUNCTION__, __LINE__, GetName().c_str());
   }
   
 public:
   void HandlerEvt1(const int* const pEvtData)
   {
-    LogInfo(boost::format("[%1%][%2%] [%3%] handle event with data [%4%]\n") % __FUNCTION__ % __LINE__ % GetName() % *pEvtData);
+    LogInfo("[%s][%u] [%s] handle event with data [%d]\n", __FUNCTION__, __LINE__, GetName().c_str(), *pEvtData);
   }
 };
 
@@ -91,12 +91,12 @@ public:
     : CStateEvtId("state-2", wpStateMachine)
   {
     //no event handlers
-    LogInfo(boost::format("[%1%][%2%] [%3%] created\n") % __FUNCTION__ % __LINE__ % GetName());
+    LogInfo("[%s][%u] [%s] created\n", __FUNCTION__, __LINE__, GetName().c_str());
   }
   
   ~CState2(void)
   {
-    LogInfo(boost::format("[%1%][%2%] [%3%] destructed\n") % __FUNCTION__ % __LINE__ % GetName());
+    LogInfo("[%s][%u] [%s] destructed\n", __FUNCTION__, __LINE__, GetName().c_str());
   }
 };
 
@@ -131,7 +131,7 @@ SPStateMachine CreateStateMachine(void)
  ***************************************************************************************/
 int main (void)
 {
-   LogInfo(boost::format("[%1%][%2%] first-statemachine demo in\n") % __FUNCTION__ % __LINE__);
+   LogInfo("[%s][%u] first-statemachine demo in\n", __FUNCTION__, __LINE__);
 
    //create a local scope so that the state machine is
    //destructed when it has handled the event
@@ -147,7 +147,7 @@ int main (void)
      }
    }
    
-   LogInfo(boost::format("[%1%][%2%] first-statemachine demo out\n") % __FUNCTION__ % __LINE__);
+   LogInfo("[%s][%u] first-statemachine demo out\n", __FUNCTION__, __LINE__);
    return 0;
 }
 

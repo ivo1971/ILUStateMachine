@@ -136,9 +136,9 @@ namespace ILULibStateMachine {
       if(createState.IsValid()) {
         m_pState = createState.Get()(WPStateMachine(shared_from_this()));
       } else if(createDefaultState.IsValid()) {
-        LogErr(boost::format("Creating a state machine without initial and default state.\n"));
+        LogErr("Creating a state machine without initial and default state.\n");
       } else {
-        LogWarning(boost::format("Creating a state machine without initial state.\n"));
+        LogWarning("Creating a state machine without initial state.\n");
       }
    }
 
@@ -164,12 +164,12 @@ namespace ILULibStateMachine {
       //step 3: delete existing state
       {
          const std::string strStateName(GetStateName(false));
-         LogDebug(boost::format("State-change destructing state [%1%]\n") % strStateName);
+         LogDebug("State-change destructing state [%s]\n", strStateName.c_str());
          {
             CLogIndent logIndent;
             delete m_pState;
          }
-         LogDebug(boost::format("State-change destructing state [%1%] done\n") % strStateName);
+         LogDebug("State-change destructing state [%s] done\n", strStateName.c_str());
          m_pState = NULL;
       }
 
@@ -180,20 +180,20 @@ namespace ILULibStateMachine {
          try {
             CCreateState createStateTmp = createStateLoop;
             createStateLoop = CCreateState(); //make invalid (break loop)
-            LogDebug(boost::format("State-change constructing new state\n"));
+            LogDebug("State-change constructing new state\n");
             {
                CLogIndent logIndent;
                m_pState = createStateTmp.Get()(WPStateMachine(shared_from_this()));
             }
-            LogDebug(boost::format("State-change constructing new state [%1%] done\n") % GetStateName(false));
+            LogDebug("State-change constructing new state [%s] done\n", GetStateName(false).c_str());
          } catch(CStateChangeException& ex) {
-            LogWarning(boost::format("Caught state-change-exception while creating new state --> create next state: %1%\n") % ex.what());
+            LogWarning("Caught state-change-exception while creating new state --> create next state: %s\n", ex.what());
             createStateLoop = ex.GetCreateState();
          } catch(std::exception& ex) {
-            LogErr(boost::format("Caught exeption while creating new state --> setting null-state (state machine finished): %1%\n") % ex.what());
+            LogErr("Caught exeption while creating new state --> setting null-state (state machine finished): %s\n", ex.what());
             m_pState = NULL;
          } catch(...) {
-            LogErr(boost::format("Caught exeption while creating new state --> setting null-state (state machine finished): %1%\n") % "unknown");
+            LogErr("Caught exeption while creating new state --> setting null-state (state machine finished): %s\n", "unknown");
             m_pState = NULL;
          }
       }
@@ -253,11 +253,11 @@ namespace ILULibStateMachine {
    {
       CLogIndent logIndent1;
       const EventMap& map = EventGetMap(bDefault);
-      LogDebug(boost::format("%1% event handlers (%2%):\n") % GetStateName(bDefault) % map.size());
+      LogDebug("%s event handlers (%lu):\n", GetStateName(bDefault).c_str(), map.size());
       {
          CLogIndent logIndent2;
          for(EventMapCIt cit = map.begin() ; map.end() != cit ; ++cit) {
-            LogDebug(boost::format("%1% (%2%)\n") % cit->first->GetId() % cit->first->GetDataType());
+            LogDebug("%s (%s)\n", cit->first->GetId().c_str(), cit->first->GetDataType().c_str());
          }
       }
    }
@@ -270,11 +270,11 @@ namespace ILULibStateMachine {
    {
       CLogIndent logIndent1;
       const EventTypeMap& map = EventTypeGetMap(bDefault);
-      LogDebug(boost::format("%1% event type handlers (%2%):\n") % GetStateName(bDefault) % map.size());
+      LogDebug("%s event type handlers (%lu):\n", GetStateName(bDefault).c_str(), map.size());
       {
          CLogIndent logIndent2;
          for(EventTypeMapCIt cit = map.begin() ; map.end() != cit ; ++cit) {
-            LogDebug(boost::format("%1%\n") % cit->first);
+            LogDebug("%s\n", cit->first.c_str());
          }
       }
    }

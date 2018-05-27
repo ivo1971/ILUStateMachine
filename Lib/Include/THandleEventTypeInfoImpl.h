@@ -54,14 +54,16 @@ namespace ILULibStateMachine {
       CLogIndent logIndent;
       
       //call the type handler
+      std::stringstream ss;
+      ss << "Calling " << szType << " type handler\n";
       return CallHandler(
-         boost::format("Calling %1% type handler\n") % szType,
-         TYPESEL::get<0>(m_TypeHandler), 
-         TYPESEL::get<1>(m_TypeHandler), 
-         spEventBase, 
-         pEventData, 
-         szType
-         );
+                         ss.str(),
+                         TYPESEL::get<0>(m_TypeHandler), 
+                         TYPESEL::get<1>(m_TypeHandler), 
+                         spEventBase, 
+                         pEventData, 
+                         szType
+                         );
    };
 
    /** Without further ado, call the handler and deal with exceptions.
@@ -70,7 +72,7 @@ namespace ILULibStateMachine {
     **/
    template <class TEventData> 
    CHandleEventInfoBase::HandleResult THandleEventTypeInfo<TEventData>::CallHandler(
-      boost::format&                                                                       fmt,         //< Logging accompanying the handler call.
+      const std::string&                                                                   strMsg,      //< Logging accompanying the handler call.
       TYPESEL::function<void(SPEventBase spEventBase, const TEventData* const pEventData)> handler,     //< The handler to be called.
       CCreateState                                                                         createState, //< The CCreateState instance accompanying the handler. Will not be called but will be included in the return value. Can be overridden if a state-change exception was caught while calling the handler.
       SPEventBase                                                                          spEventBase, //< Event descriptor.
@@ -79,20 +81,20 @@ namespace ILULibStateMachine {
       )
    {
       try {
-         LogNotice(fmt);
+         LogNotice("%s", strMsg.c_str());
          {
             CLogIndent logIndent;
             handler(spEventBase, pEventData);
          }
-         LogNotice(boost::format("Calling type hanlder done\n"));
+         LogNotice("Calling type handler done\n");
       } catch(CStateChangeException& ex) {
-         LogWarning(boost::format("State-change caught while calling %1% type handler: %2%\n") % szType % ex.what());
+         LogWarning("State-change caught while calling %s type handler: %s\n", szType, ex.what());
          createState = ex.GetCreateState();
       } catch(std::exception& ex) {
-         LogErr(boost::format("Exception caught while calling %1% type handler: %2%\n") % szType % ex.what());
+         LogErr("Exception caught while calling %s type handler: %s\n", szType, ex.what());
          createState = CCreateState(); //remain in this state
       } catch(...) {
-         LogErr(boost::format("Exception caught while calling %1% type handler: %2%\n") % szType % "unknown");
+         LogErr("Exception caught while calling %s type handler: %s\n", szType, "unknown");
          createState = CCreateState(); //remain in this state
       }
       return HandleResult(true, createState);

@@ -26,12 +26,12 @@ namespace StateMachineRoot {
    namespace Internal {
       void CStateDefault::HandlerEvt3(const LibEvents::CEventData* const pData)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] CStateDefault glob data [%3%] state data [%4%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal % pData->m_iVal);
+         ILULibStateMachine::LogInfo("[%s][%u] CState2 glob data [%u] state data [%d]\n", __FUNCTION__, __LINE__, m_pData->m_uiGlobVal, pData->m_iVal);
       }
       
       void CStateDefault::HandlerEvt9(const LibEvents::CEventData* const pData)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] CStateDefault glob data [%3%] state data [%4%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal % pData->m_iVal);
+         ILULibStateMachine::LogInfo("[%s][%u] CState2 glob data [%u] state data [%d]\n", __FUNCTION__, __LINE__, m_pData->m_uiGlobVal, pData->m_iVal);
       }
       
       ILULibStateMachine::CCreateState CreateStateDefault(CData* pData)

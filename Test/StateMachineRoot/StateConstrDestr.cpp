@@ -48,7 +48,7 @@ namespace StateMachineRoot {
          : ILULibStateMachine::CStateEvtId("state-1", wpStateMachine)
          , m_pData(pData)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] data [%3%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal);
+         ILULibStateMachine::LogInfo("[%s][%u] data [%u]\n", __FUNCTION__, __LINE__, m_pData->m_uiGlobVal);
          //step 1: register event handlers
 
          EventRegister(HANDLER_EVT(CState1, HandlerEvt1),       ILULibStateMachine::CCreateState(), LibEvents::EEvent1);
@@ -69,7 +69,7 @@ namespace StateMachineRoot {
          
          //testing 1-2
          m_pData->m_uiGlobVal += 10;
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] data [%3%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal);
+         ILULibStateMachine::LogInfo("[%s][%u] data [%u]\n", __FUNCTION__, __LINE__, m_pData->m_uiGlobVal);
       }
 
       /****************************************************************************************
@@ -82,7 +82,7 @@ namespace StateMachineRoot {
          , m_pData(pData)
          , m_uiGuardEvt1Cnt(0)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] data [%3%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal);
+         ILULibStateMachine::LogInfo("[%s][%u] data [%u]\n", __FUNCTION__, __LINE__, m_pData->m_uiGlobVal);
          //step 1: register event handlers
          EventRegister(GUARD_EVT(CState2, GuardEvt1Never),       HANDLER_EVT(CState2, HandlerEvt1Never),       ILULibStateMachine::CCreateState(),         LibEvents::EEvent1);
          //EventRegister(GUARD_EVT(CState2, GuardEvt1SwitchState), HANDLER_EVT(CState2, HandlerEvt1SwitchState), CreateState1(pData),                        LibEvents::EEvent1);
@@ -103,7 +103,7 @@ namespace StateMachineRoot {
          
          //testing 1-2
          m_pData->m_uiGlobVal += 25;
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] data [%3%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal);
+         ILULibStateMachine::LogInfo("[%s][%u] data [%u]\n", __FUNCTION__, __LINE__, m_pData->m_uiGlobVal);
       }
 
       /****************************************************************************************
@@ -115,14 +115,14 @@ namespace StateMachineRoot {
          : ILULibStateMachine::CStateEvtId("state-3", wpStateMachine)
          , m_pData(pData)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] data [%3%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal);
+         ILULibStateMachine::LogInfo("[%s][%u] data [%u]\n", __FUNCTION__, __LINE__, m_pData->m_uiGlobVal);
          //throw exception
          throw ILULibStateMachine::CStateChangeException("throw CStateChangeException", CreateState2(pData));
       }
       
       CState3::~CState3(void)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] data [%3%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal);
+         ILULibStateMachine::LogInfo("[%s][%u] data [%u]\n", __FUNCTION__, __LINE__, m_pData->m_uiGlobVal);
       }
 
       /****************************************************************************************
@@ -135,7 +135,7 @@ namespace StateMachineRoot {
          , m_pData(pData)
          , m_spStateMachine(StateMachineChild::CreateStateMachine())
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] data [%3%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal);
+         ILULibStateMachine::LogInfo("[%s][%u] data [%u]\n", __FUNCTION__, __LINE__, m_pData->m_uiGlobVal);
          //step 1: register event handlers
          EventRegister(HANDLER_TYPE(LibEvents::CEventType2Data, CState4, HandleEventType2ToChild), ILULibStateMachine::CCreateState());
 
@@ -151,7 +151,7 @@ namespace StateMachineRoot {
          
          //testing 1-2
          m_pData->m_uiGlobVal += 25;
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] data [%3%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal);
+         ILULibStateMachine::LogInfo("[%s][%u] data [%u]\n", __FUNCTION__, __LINE__, m_pData->m_uiGlobVal);
       }
 
       /****************************************************************************************
@@ -163,7 +163,7 @@ namespace StateMachineRoot {
          : ILULibStateMachine::CStateEvtId("default state", wpStateMachine, true)
          , m_pData(pData)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] data [%3%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal);
+         ILULibStateMachine::LogInfo("[%s][%u] data [%u]\n", __FUNCTION__, __LINE__, m_pData->m_uiGlobVal);
          //step 1: register event handlers
          EventRegister(HANDLER_EVT(CStateDefault, HandlerEvt3), ILULibStateMachine::CCreateState(), LibEvents::EEvent3);
          EventRegister(HANDLER_EVT(CStateDefault, HandlerEvt9), CreateState4(pData),                LibEvents::EEvent9);
@@ -179,7 +179,7 @@ namespace StateMachineRoot {
          //        --> EventMachine::CStateEventMachine
          
          //testing 1-2
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] data [%3%]\n") % __FUNCTION__ % __LINE__ % m_pData->m_uiGlobVal);
+         ILULibStateMachine::LogInfo("[%s][%u] data [%u]\n", __FUNCTION__, __LINE__, m_pData->m_uiGlobVal);
       }      
    };      
 };

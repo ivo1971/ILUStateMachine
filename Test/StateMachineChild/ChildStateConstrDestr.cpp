@@ -38,7 +38,7 @@ namespace StateMachineChild {
          : ILULibStateMachine::CStateEvtId("child state-1", wpStateMachine)
          , m_pData(pData)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%]\n") % __FUNCTION__ % __LINE__);
+         ILULibStateMachine::LogInfo("[%s][%u]\n", __FUNCTION__, __LINE__);
          //step 1: register event handlers
          EventRegister(HANDLER_EVTTYPE2(CChildState1, HandlerEvt1), CreateChildState2(pData), LibEvents::EEventType2Event1);
          
@@ -51,7 +51,7 @@ namespace StateMachineChild {
          
          //step 2: unregister event handlers
          //        --> EventMachine::CStateEventMachine
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%]\n") % __FUNCTION__ % __LINE__);
+         ILULibStateMachine::LogInfo("[%s][%u]\n", __FUNCTION__, __LINE__);
       }
 
       /****************************************************************************************
@@ -63,7 +63,7 @@ namespace StateMachineChild {
          : ILULibStateMachine::CStateEvtId("child state-2", wpStateMachine)
          , m_pData(pData)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%]\n") % __FUNCTION__ % __LINE__);
+         ILULibStateMachine::LogInfo("[%s][%u]\n", __FUNCTION__, __LINE__);
          //step 1: register event handlers
          EventRegister(HANDLER_EVTTYPE2(CChildState2, HandlerEvt2), CreateChildState3(pData), LibEvents::EEventType2Event2);
          
@@ -76,7 +76,7 @@ namespace StateMachineChild {
          
          //step 2: unregister event handlers
          //        --> EventMachine::CStateEventMachine
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%]\n") % __FUNCTION__ % __LINE__);
+         ILULibStateMachine::LogInfo("[%s][%u]\n", __FUNCTION__, __LINE__);
       }
 
       /****************************************************************************************
@@ -88,7 +88,7 @@ namespace StateMachineChild {
          : ILULibStateMachine::CStateEvtId("child state-3", wpStateMachine)
          , m_pData(pData)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%]\n") % __FUNCTION__ % __LINE__);
+         ILULibStateMachine::LogInfo("[%s][%u]\n", __FUNCTION__, __LINE__);
          //step 1: register event handlers
          EventRegister(HANDLER_EVTTYPE2(CChildState3, HandlerEvt3), ILULibStateMachine::CCreateStateFinished(), LibEvents::EEventType2Event3);
          
@@ -101,7 +101,7 @@ namespace StateMachineChild {
          
          //step 2: unregister event handlers
          //        --> EventMachine::CStateEventMachine
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%]\n") % __FUNCTION__ % __LINE__);
+         ILULibStateMachine::LogInfo("[%s][%u]\n", __FUNCTION__, __LINE__);
       }
    };      
 };

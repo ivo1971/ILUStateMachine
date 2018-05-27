@@ -24,11 +24,9 @@
 
 #include "stdexcept"
 
-#include "boost/format.hpp"
-
-#include "../Include/Logging.h"
-#include "../Include/THandleEventInfo.h"
-#include "../Include/THandleEventTypeInfo.h"
+#include "Logging.h"
+#include "THandleEventInfo.h"
+#include "THandleEventTypeInfo.h"
 
 namespace ILULibStateMachine {
    /** Register an event-type handler.
@@ -45,32 +43,28 @@ namespace ILULibStateMachine {
          EventTypeMap& map = EventTypeGetMap(bDefault);
          const EventTypeMapIt it = map.find(typeName);
          if(map.end() == it) {
-            LogDebug(boost::format("[%1%][%2%] register type event handler for [%3%] from [%4%]\n")
-                     % __FUNCTION__
-                     % __LINE__
-                     % typeName.c_str()
-                     % (bDefault ? "default" : "state")
-               );
+            LogDebug("Register type event handler for [%s] from [%s]\n",
+                     typeName.c_str(),
+                     (bDefault ? "default" : "state")
+                     );
             map.insert(EventTypePair(typeName, SPHandleEventInfoBase(new THandleEventTypeInfo<TEventData>(typeHandler, createState))));
          } else {
             //event already in the map
-            LogErr(boost::format("[%1%][%2%] register type event handler for [%3%] from [%4%] failed: already registered\n")
-                   % __FUNCTION__
-                   % __LINE__
-                   % typeName.c_str()
-                   % (bDefault ? "default" : "state")
-               );
+            LogErr("Register type event handler for [%s] from [%s] failed: already registered\n",
+                   typeName.c_str(),
+                   (bDefault ? "default" : "state")
+                   );
          }
       } catch(std::exception& ex) {
-         LogErr(boost::format("Event type handler registration failed for [%1%]: %2%\n")
-                % typeid(TEventData).name()
-                % ex.what()
-            );
+         LogErr("Event type handler registration failed for [%s]: %s\n",
+                typeid(TEventData).name(),
+                ex.what()
+                );
       } catch(...) {
-         LogErr(boost::format("Event type handler registration failed for [%1%]: %2%\n")
-                % typeid(TEventData).name()
-                % "unknown"
-            );
+         LogErr("Event type handler registration failed for [%s]: %s\n",
+                typeid(TEventData).name(),
+                "unknown"
+                );
       }
    }
 
@@ -88,40 +82,36 @@ namespace ILULibStateMachine {
          EventMap& map = EventGetMap(bDefault);
          const EventMapIt it = map.find(spEventBase);
          if(map.end() == it) {
-            LogDebug(boost::format("[%1%][%2%] register default event handler for [%3%] from [%4%]\n")
-                     % __FUNCTION__
-                     % __LINE__
-                     % spEventBase->GetId()
-                     % (bDefault ? "default" : "state")
-               );
+            LogDebug("Register default event handler for [%s] from [%s]\n",
+                     spEventBase->GetId().c_str(),
+                     (bDefault ? "default" : "state")
+                     );
             map.insert(EventPair(spEventBase, SPHandleEventInfoBase(new THandleEventInfo<TEventData>(unguardedHandler, createState))));
          } else {
             //event already in the map
             //--> set the default handler
             //    (will throw when the default handler has already been set)
-            LogDebug(boost::format("[%1%][%2%] set default event handler for [%3%] from [%4%]\n")
-                     % __FUNCTION__
-                     % __LINE__
-                     % spEventBase->GetId()
-                     % (bDefault ? "default" : "state")
-               );
+            LogDebug("Set default event handler for [%s] from [%s]\n",
+                     spEventBase->GetId().c_str(),
+                     (bDefault ? "default" : "state")
+                     );
             THandleEventInfo<TEventData>* pHandleEventInfo = dynamic_cast<THandleEventInfo<TEventData>*>(it->second.get());
             if(NULL == pHandleEventInfo) {
                //serious error in the implementation: mismatch in registration
-               throw std::runtime_error((boost::format("[%1%][%2%]") % __FUNCTION__ % __LINE__).str()); //TODO
+               throw std::runtime_error("IMPLEMENTATION ERROR: registration mismatch found in unguarded event handler");
             }
             pHandleEventInfo->SetUnguardedHandler(unguardedHandler, createState);
          }
       } catch(std::exception& ex) {
-         LogErr(boost::format("Event default handler registration failed for [%1%]: %2%\n")
-                % spEventBase->GetId()
-                % ex.what()
-            );
+         LogErr("Event default handler registration failed for [%s]: %s\n",
+                spEventBase->GetId().c_str(),
+                ex.what()
+                );
       } catch(...) {
-         LogErr(boost::format("Event default handler registration failed for [%1%]: %2%\n")
-                % spEventBase->GetId()
-                % "unknown"
-            );
+         LogErr("Event default handler registration failed for [%s]: %s\n",
+                spEventBase->GetId().c_str(),
+                "unknown"
+                );
       }
    }
 
@@ -142,41 +132,37 @@ namespace ILULibStateMachine {
          if(map.end() == it) {
             //event with the specified ID not yet in the map
             //--> add it with a guarded handler
-            LogDebug(boost::format("[%1%][%2%] register event guard/handler combo for [%3%] from [%4%]\n")
-                     % __FUNCTION__
-                     % __LINE__
-                     % spEventBase->GetId()
-                     % (bDefault ? "default" : "state")
-               );
+            LogDebug("Register event guard/handler combo for [%s] from [%s]\n",
+                     spEventBase->GetId().c_str(),
+                     (bDefault ? "default" : "state")
+                     );
             map.insert(EventPair(spEventBase, SPHandleEventInfoBase(new THandleEventInfo<TEventData>(guard, handler, createState))));
          } else {
             //event already in the map
             //--> add a guarded handler
-            LogDebug(boost::format("[%1%][%2%] add event guard/handler combo for [%3%] from [%4%]\n")
-                     % __FUNCTION__
-                     % __LINE__
-                     % spEventBase->GetId()
-                     % (bDefault ? "default" : "state")
-               );
+            LogDebug("Add event guard/handler combo for [%s] from [%s]\n",
+                     spEventBase->GetId().c_str(),
+                     (bDefault ? "default" : "state")
+                     );
             THandleEventInfo<TEventData>* pHandleEventInfo = dynamic_cast<THandleEventInfo<TEventData>*>(it->second.get());
             if(NULL == pHandleEventInfo) {
                //serious error in the implementation: mismatch in registration
-               throw std::runtime_error((boost::format("[%1%][%2%]") % __FUNCTION__ % __LINE__).str()); //TODO
+               throw std::runtime_error("IMPLEMENTATION ERROR: registration mismatch found in guarded event handler");
             }
             pHandleEventInfo->AddGuardedHandler(guard, handler, createState);
          }
          return true;
       } catch(std::exception& ex) {
-         LogErr(boost::format("Event guard/handler combo registration failed for [%1%]: %2%\n")
-                % spEventBase->GetId()
-                % ex.what()
-            );
+         LogErr("Event guard/handler combo registration failed for [%s]: %s\n",
+                spEventBase->GetId().c_str(),
+                ex.what()
+                );
          return false;
       } catch(...) {
-         LogErr(boost::format("Event guard/handler combo registration failed for [%1%]: %2%\n")
-                % spEventBase->GetId()
-                % "unknown"
-            );
+         LogErr("Event guard/handler combo registration failed for [%s]: %s\n",
+                spEventBase->GetId().c_str(),
+                "unknown"
+                );
          return false;
       }
    }
@@ -267,31 +253,31 @@ namespace ILULibStateMachine {
       const std::string strCurrentState(GetStateName());
       
       CLogIndent logIndent;
-      LogNotice(boost::format("Statemachine [%1%] state [%2%] handling event [%3%] type [%4%] in\n")
-              % m_strName
-              % strCurrentState
-              % spEventBase->GetId()
-              % spEventBase->GetDataType()
-         );
+      LogNotice("Statemachine [%s] state [%s] handling event [%s] type [%s] in\n",
+                m_strName.c_str(),
+                strCurrentState.c_str(),
+                spEventBase->GetId().c_str(),
+                spEventBase->GetDataType().c_str()
+                );
       
       //try the state event map
       if(EventHandle(false, pEventData, spEventBase)) {
          //event handled
-         LogNotice(boost::format("Statemachine [%1%] state [%2%] handling event [%3%] by current state done\n")
-                 % m_strName
-                 % strCurrentState
-                 % spEventBase->GetId()
-            );
+         LogNotice("Statemachine [%s] state [%s] handling event [%s] by current state done\n",
+                   m_strName.c_str(),
+                   strCurrentState.c_str(),
+                   spEventBase->GetId().c_str()
+                   );
          return HasFinished();
       }
       
       //try the default event map
       if(EventHandle(true, pEventData, spEventBase)) {
          //event handled
-         LogNotice(boost::format("Statemachine [%1%] state [%2%] handling event [%3%] by default state done\n")
-                 % m_strName
-                 % strCurrentState
-                 % spEventBase->GetId()
+         LogNotice("Statemachine [%s] state [%s] handling event [%s] by default state done\n",
+                   m_strName.c_str(),
+                   strCurrentState.c_str(),
+                   spEventBase->GetId().c_str()
             );
          return HasFinished();
       }
@@ -299,10 +285,10 @@ namespace ILULibStateMachine {
       //try the state type map
       if(EventTypeHandle(false, pEventData, spEventBase)) {
          //event handled
-         LogNotice(boost::format("Statemachine [%1%] state [%2%] handling event type [%3%] by current state done\n")
-                 % m_strName
-                 % strCurrentState
-                 % spEventBase->GetDataType()
+         LogNotice("Statemachine [%s] state [%s] handling event type [%s] by current state done\n",
+                   m_strName.c_str(),
+                   strCurrentState.c_str(),
+                   spEventBase->GetDataType().c_str()
             );
          return HasFinished();
       }
@@ -310,25 +296,25 @@ namespace ILULibStateMachine {
       //try the default type map
       if(EventTypeHandle(true, pEventData, spEventBase)) {
          //event handled
-         LogNotice(boost::format("Statemachine [%1%] state [%2%] handling event type [%3%] by default state done\n")
-                 % m_strName
-                 % strCurrentState
-                 % spEventBase->GetDataType()
-            );
+         LogNotice("Statemachine [%s] state [%s] handling event type [%s] by default state done\n",
+                   m_strName.c_str(),
+                   strCurrentState.c_str(),
+                   spEventBase->GetDataType().c_str()
+                   );
          return HasFinished();
       }
       
-      LogNotice(boost::format("Statemachine [%1%] state [%2%] handling event [%3%] looking for handler failed: no registered handler\n")
-              % m_strName
-              % strCurrentState
-              % spEventBase->GetId()
-         );
-      LogNotice(boost::format("Statemachine [%1%] state [%2%] handling event [%3%] with data type [%4%] registered handlers:\n")
-              % m_strName
-              % strCurrentState
-              % spEventBase->GetId()
-              % spEventBase->GetDataType()
-         );
+      LogNotice("Statemachine [%s] state [%s] handling event [%s] looking for handler failed: no registered handler\n",
+                m_strName.c_str(),
+                strCurrentState.c_str(),
+                spEventBase->GetId().c_str()
+                );
+      LogNotice("Statemachine [%s] state [%s] handling event [%s] with data type [%s] registered handlers:\n",
+                m_strName.c_str(),
+                strCurrentState.c_str(),
+                spEventBase->GetId().c_str(),
+                spEventBase->GetDataType().c_str()
+                );
       TraceHandlers(false);
       TraceHandlers(true);
       TraceTypeHandlers(false);
@@ -352,13 +338,13 @@ namespace ILULibStateMachine {
    {
       //find handler
       EventMap&        map = EventGetMap(bDefault);
-      LogDebug(boost::format("Statemachine [%1%] state [%2%] handling event [%3%] looking for [%4%] handler (%5% registered ID's)\n")
-               % m_strName
-               % GetStateName()
-               % spEventBase->GetId()
-               % (bDefault ? "default" : "state")
-               % map.size()
-         );
+      LogDebug("Statemachine [%s] state [%s] handling event [%s] looking for [%s] handler (%lu registered ID's)\n",
+               m_strName.c_str(),
+               GetStateName().c_str(),
+               spEventBase->GetId().c_str(),
+               (bDefault ? "default" : "state"),
+               map.size()
+               );
       const EventMapIt it  = map.find(spEventBase);
       if(map.end() == it) {
          return false;
@@ -368,13 +354,13 @@ namespace ILULibStateMachine {
       THandleEventInfo<TEventData>* pHandleEventInfo = dynamic_cast<THandleEventInfo<TEventData>*>(it->second.get());
       if(NULL == pHandleEventInfo) {
          //serious error in the implementation: mismatch in registration
-         LogErr(boost::format("Statemachine [%1%] state [%2%] handling event [%3%] looking for [%4%] handler found handler with invalid type\n")
-                % m_strName
-                % GetStateName()
-                % spEventBase->GetId()
-                % (bDefault ? "default" : "state")
-            );
-         return false;
+         LogErr("Statemachine [%s] state [%s] handling event [%s] looking for [%s] handler found handler with invalid type\n",
+                m_strName.c_str(),
+                GetStateName().c_str(),
+                spEventBase->GetId().c_str(),
+                (bDefault ? "default" : "state")
+                );
+        return false;
       }
       
       //call handler
@@ -407,13 +393,13 @@ namespace ILULibStateMachine {
    {
       //find handler
       EventTypeMap& map = EventTypeGetMap(bDefault);
-      LogDebug(boost::format("Statemachine [%1%] state [%2%] handling event [%3%] looking for [%4%] type handler (%5% registered ID's)\n")
-               % m_strName
-               % GetStateName()
-               % spEventBase->GetId()
-               % (bDefault ? "default" : "state")
-               % map.size()
-         );
+      LogDebug("Statemachine [%s] state [%s] handling event [%s] looking for [%s] type handler (%lu registered ID's)\n",
+               m_strName.c_str(),
+               GetStateName().c_str(),
+               spEventBase->GetId().c_str(),
+               (bDefault ? "default" : "state"),
+               map.size()
+               );
       const EventTypeMapIt it = map.find(spEventBase->GetDataType());
       if(map.end() == it) {
          return false;
@@ -423,12 +409,12 @@ namespace ILULibStateMachine {
       THandleEventTypeInfo<TEventData>* pHandleEventTypeInfo = dynamic_cast<THandleEventTypeInfo<TEventData>*>(it->second.get());
       if(NULL == pHandleEventTypeInfo) {
          //serious error in the implementation: mismatch in registration
-         LogErr(boost::format("Statemachine [%1%] state [%2%] handling event [%3%] looking for [%4%] handler found type handler with invalid type\n")
-                % m_strName
-                % GetStateName()
-                % spEventBase->GetId()
-                % (bDefault ? "default" : "state")
-            );
+         LogErr("Statemachine [%s] state [%s] handling event [%s] looking for [%s] handler found type handler with invalid type\n",
+                m_strName.c_str(),
+                GetStateName().c_str(),
+                spEventBase->GetId().c_str(),
+                (bDefault ? "default" : "state")
+                );
          return false;
       }
       

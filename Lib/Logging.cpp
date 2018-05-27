@@ -19,10 +19,22 @@
  ** 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  **
  **/
+#include <stdarg.h>
+
 #include "Include/Logging.h"
 #include "Internal/LoggingInternal.h"
 #include "Internal/LoggingSerial.h"
 #include "Internal/TLog.h"
+
+#define MSG_BUF_SIZE     (256)
+#define LOGXXX(REG_FUNC) \
+  FLog     flog               (REG_FUNC()); \
+  char     szMsg[MSG_BUF_SIZE]; \
+  va_list  ap                 ; \
+  va_start(ap, szFormat); \
+  vsnprintf(szMsg, sizeof(szMsg), szFormat, ap); \
+  va_end(ap); \
+  flog(szMsg);
 
 namespace ILULibStateMachine {
    //use the libraries internal functions (not a part of the interface)
@@ -165,51 +177,51 @@ namespace ILULibStateMachine {
    /** Generate a debug logging.
     **/
    void LogDebug(
-      const boost::format& log //< Format describing the message to be logged.
+                 const char* const szFormat, //< Format describing the message to be logged.
+                 ...                         //< Format arguments
       )
    {
-      FLog flog = RegisterLogDebug();
-      flog(log.str());
+      LOGXXX(RegisterLogDebug);
    }
 
    /** Generate a info logging.
     **/
    void LogInfo(
-      const boost::format& log //< Format describing the message to be logged.
+                const char* const szFormat, //< Format describing the message to be logged.
+                ...                         //< Format arguments
       )
    {
-      FLog flog = RegisterLogInfo();
-      flog(log.str());
+      LOGXXX(RegisterLogInfo);
    }
 
    /** Generate a notice logging.
     **/
    void LogNotice(
-      const boost::format& log //< Format describing the message to be logged.
+                  const char* const szFormat, //< Format describing the message to be logged.
+                  ...                         //< Format arguments
       )
    {
-      FLog flog = RegisterLogNotice();
-      flog(log.str());
+      LOGXXX(RegisterLogNotice);
    }
 
    /** Generate a warninging logging.
     **/
    void LogWarning(
-      const boost::format& log //< Format describing the message to be logged.
-      )
+                   const char* const szFormat, //< Format describing the message to be logged.
+                   ...                         //< Format arguments
+                   )
    {
-      FLog flog = RegisterLogWarning();
-      flog(log.str());
+      LOGXXX(RegisterLogWarning);
    }
 
    /** Generate an error logging.
     **/
    void LogErr(
-      const boost::format& log //< Format describing the message to be logged.
+               const char* const szFormat, //< Format describing the message to be logged.
+               ...                         //< Format arguments
       )
    {
-      FLog flog = RegisterLogErr();
-      flog(log.str());
+      LOGXXX(RegisterLogErr);
    }
 
    /** Request to increase the logging indentation.

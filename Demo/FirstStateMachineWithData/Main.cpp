@@ -85,19 +85,21 @@ public:
 		  CreateState2(pData),                //< the state transition: switch to state-2 when the handler returns
 		  1                                   //< the event ID (type integer)
 		  );
-    LogInfo(boost::format("[%1%][%2%] [%3%] created (current message: [%4%])\n") % __FUNCTION__ % __LINE__ % GetName() % m_pData->GetMsg());
+    LogInfo("[%s][%u] [%s] created (current message: [%s])\n", __FUNCTION__, __LINE__, GetName().c_str(), m_pData->GetMsg().c_str());
   }
   
   ~CState1(void)
   {
-    LogInfo(boost::format("[%1%][%2%] [%3%] destructed (current message: [%4%])\n") % __FUNCTION__ % __LINE__ % GetName() % m_pData->GetMsg());
+    LogInfo("[%s][%u] [%s] destructed (current message: [%s])\n", __FUNCTION__, __LINE__, GetName().c_str(), m_pData->GetMsg().c_str());
   }
   
 public:
   void HandlerEvt1(const int* const pEvtData)
   {
-    LogInfo(boost::format("[%1%][%2%] [%3%] handle event with data [%4%]\n") % __FUNCTION__ % __LINE__ % GetName() % *pEvtData);
-    m_pData->SetMsg((boost::format("first event handled with data [%1%]") % *pEvtData).str());
+    LogInfo("[%s][%u] [%s] handle event with data [%d]\n", __FUNCTION__, __LINE__, GetName().c_str(), *pEvtData);
+    std::stringstream ss;
+    ss << "first event handled with data [" << *pEvtData << "]";
+    m_pData->SetMsg(ss.str());
   }
 
 private:
@@ -132,18 +134,18 @@ public:
 		  CCreateState(),                     //< no state transition
 		  1                                   //< the event ID (type integer)
 		  );
-    LogInfo(boost::format("[%1%][%2%] [%3%] created (current message: [%4%])\n") % __FUNCTION__ % __LINE__ % GetName() % m_pData->GetMsg());
+    LogInfo("[%s][%u] [%s] created (current message: [%s])\n", __FUNCTION__, __LINE__, GetName().c_str(), m_pData->GetMsg().c_str());
   }
   
   ~CState2(void)
   {
-    LogInfo(boost::format("[%1%][%2%] [%3%] destructed (current message: [%4%])\n") % __FUNCTION__ % __LINE__ % GetName() % m_pData->GetMsg());
+    LogInfo("[%s][%u] [%s] destructed (current message: [%s])\n", __FUNCTION__, __LINE__, GetName().c_str(), m_pData->GetMsg().c_str());
   }
 
 public:
   void HandlerEvt1(const int* const pEvtData)
   {
-    LogInfo(boost::format("[%1%][%2%] [%3%] handle event with data [%4%]\n") % __FUNCTION__ % __LINE__ % GetName() % *pEvtData);
+    LogInfo("[%s][%u] [%s] handle event with data [%d]\n", __FUNCTION__, __LINE__, GetName().c_str(), *pEvtData);
   }
 
 private:
@@ -183,7 +185,7 @@ SPStateMachine CreateStateMachine(void)
  ***************************************************************************************/
 int main (void)
 {
-   LogInfo(boost::format("[%1%][%2%] first-statemachine-with-data demo in\n") % __FUNCTION__ % __LINE__);
+   LogInfo("[%s][%u] first-statemachine-with-data demo in\n", __FUNCTION__, __LINE__);
 
    //create a local scope so that the state machine is
    //destructed when it has handled the event
@@ -206,7 +208,7 @@ int main (void)
      }
    }
    
-   LogInfo(boost::format("[%1%][%2%] first-statemachine-with-data demo out\n") % __FUNCTION__ % __LINE__);
+   LogInfo("[%s][%u] first-statemachine-with-data demo out\n", __FUNCTION__, __LINE__);
    return 0;
 }
 

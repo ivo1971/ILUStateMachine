@@ -25,13 +25,13 @@ namespace StateMachineRoot {
       CData::CData(const unsigned int uiGlobVal)
          : m_uiGlobVal(uiGlobVal)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%]\n") % __FUNCTION__ % __LINE__);
+         ILULibStateMachine::LogInfo("[%s][%u]\n", __FUNCTION__, __LINE__);
       }
       
       //destructor only used for demo tracing
       CData::~CData(void)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%]\n") % __FUNCTION__ % __LINE__);
+         ILULibStateMachine::LogInfo("[%s][%u]\n", __FUNCTION__, __LINE__);
       }
    };
 };

@@ -24,13 +24,13 @@ namespace StateMachineChild {
    namespace Internal {
       CChildData::CChildData(void)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%]\n") % __FUNCTION__ % __LINE__);
+         ILULibStateMachine::LogInfo("[%s][%u]\n", __FUNCTION__, __LINE__);
       }
       
       //destructor only used for demo tracing
       CChildData::~CChildData(void)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%]\n") % __FUNCTION__ % __LINE__);
+         ILULibStateMachine::LogInfo("[%s][%u]\n", __FUNCTION__, __LINE__);
       }
    };
 };

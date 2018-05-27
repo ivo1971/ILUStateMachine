@@ -28,7 +28,7 @@ namespace StateMachineChild {
    namespace Internal {
       void CChildState1::HandlerEvt1(const LibEvents::CEventType2Data* const pData)
       {
-         ILULibStateMachine::LogInfo(boost::format("[%1%][%2%] message [%3%]\n") % __FUNCTION__ % __LINE__ % pData->m_strMsg);
+         ILULibStateMachine::LogInfo("[%s][%u] message [%s]\n", __FUNCTION__, __LINE__, pData->m_strMsg.c_str());
       }
 
       ILULibStateMachine::CCreateState CreateChildState1(CChildData* pData)
