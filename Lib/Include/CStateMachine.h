@@ -24,10 +24,6 @@
 
 #include "Types.h"
 
-//when using a C++14 compatible compiler,
-//boost can be replaced by std.
-#include "boost/optional.hpp"
-
 #include "CCreateState.h"
 #include "CHandleEventInfoBase.h"
 #include "CStateMachineData.h"
