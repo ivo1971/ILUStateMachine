@@ -22,20 +22,19 @@
 #ifndef __ILULibStateMachine_CStateMachine__H__
 #define __ILULibStateMachine_CStateMachine__H__
 
+#include "Types.h"
+
 //when using a C++14 compatible compiler,
 //boost can be replaced by std.
 #include "boost/bind.hpp"
-#include "boost/enable_shared_from_this.hpp"
 #include "boost/function.hpp"
 #include "boost/optional.hpp"
-#include "boost/shared_ptr.hpp"
-#include "boost/weak_ptr.hpp"
 
-#include "../Include/CCreateState.h"
-#include "../Include/CHandleEventInfoBase.h"
-#include "../Include/CStateMachineData.h"
-#include "../Include/TEventEvtId.h"
-#include "../Include/CSPEventBaseSort.h"
+#include "CCreateState.h"
+#include "CHandleEventInfoBase.h"
+#include "CStateMachineData.h"
+#include "TEventEvtId.h"
+#include "CSPEventBaseSort.h"
 
 namespace ILULibStateMachine {
    /** @brief This is the actual state machine engine,
@@ -57,11 +56,11 @@ namespace ILULibStateMachine {
     **   consequences
     **
     **/
-   class CStateMachine : public boost::enable_shared_from_this<CStateMachine> {
+   class CStateMachine : public TYPESEL::enable_shared_from_this<CStateMachine> {
       public:
-         static boost::shared_ptr<CStateMachine> ConstructStateMachine(const char* szName, CCreateState createState,                                  CStateMachineData* const pStateMachineData = NULL);
-         static boost::shared_ptr<CStateMachine> ConstructStateMachine(const char* szName, CCreateState createState, CCreateState createDefaultState, CStateMachineData* const pStateMachineData = NULL);
-         virtual                                 ~CStateMachine(void);
+         static TYPESEL::shared_ptr<CStateMachine> ConstructStateMachine(const char* szName, CCreateState createState,                                  CStateMachineData* const pStateMachineData = NULL);
+         static TYPESEL::shared_ptr<CStateMachine> ConstructStateMachine(const char* szName, CCreateState createState, CCreateState createDefaultState, CStateMachineData* const pStateMachineData = NULL);
+         virtual                                   ~CStateMachine(void);
 
       public:
          const std::string&                      GetName(void) const;
@@ -169,11 +168,11 @@ namespace ILULibStateMachine {
 
    /** Define a shared pointer to CStateMachine.
     **/
-   typedef boost::shared_ptr<CStateMachine> SPStateMachine;
+   typedef TYPESEL::shared_ptr<CStateMachine> SPStateMachine;
 
    /** Define a weak pointer to the CStateMachine.
     **/
-   typedef boost::weak_ptr<CStateMachine>   WPStateMachine;
+   typedef TYPESEL::weak_ptr<CStateMachine>   WPStateMachine;
 }
 
 #define GUARD(et,cl,f)        boost::function<bool(const et* const)>(boost::bind(&cl::f, this, _1))                                      ///< Macro eases definition of a guard handler upon event registration. First parameter: event data type; second parameter: class; second parameter: class method.

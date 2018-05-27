@@ -52,6 +52,7 @@ libstatemachine_include_HEADERS = \
 	Include/EEvtSubNotSet.h \
 	Include/Logging.h \
 	Include/TCreateState.h \
+	Include/TCreateStateNoData.h \
 	Include/TEventEvtId.h \
 	Include/TEventEvtIdImpl.h \
 	Include/THandleEventInfo.h \

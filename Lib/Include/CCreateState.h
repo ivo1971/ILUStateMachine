@@ -25,9 +25,9 @@
 //when using a C++14 compatible compiler,
 //boost can be replaced by std.
 #include "boost/function.hpp"
-#include "boost/weak_ptr.hpp"
 
 #include "CState.h"
+#include "Types.h"
 
 namespace ILULibStateMachine {
    //forward declarations
@@ -44,7 +44,7 @@ namespace ILULibStateMachine {
     ** machine data (CStateMachineData). It cannot be a parameter 
     ** of the FCreateState function to avoid a dynamic cast.
     **/
-   typedef boost::function<CState*(boost::weak_ptr<CStateMachine> wpStateMachine)> FCreateState;
+   typedef boost::function<CState*(TYPESEL::weak_ptr<CStateMachine> wpStateMachine)> FCreateState;
 
    /** @brief Wrapper of a create-state function so it is possible to check that the function is valid or not. 
     **

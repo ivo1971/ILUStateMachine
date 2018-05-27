@@ -26,7 +26,7 @@ namespace ILULibStateMachine {
       /** The actual create-state function that returns a pointer
        ** to the next state, NULL for the finished state.
        **/
-      CState* CreateStateFinished(boost::weak_ptr<CStateMachine>)
+      CState* CreateStateFinished(TYPESEL::weak_ptr<CStateMachine>)
       {
          return NULL;
       }
@@ -37,7 +37,7 @@ namespace ILULibStateMachine {
     ** No parameters required: the next state is known.
     **/
    CCreateStateFinished::CCreateStateFinished(void)
-      : CCreateState(boost::function<CState*(boost::weak_ptr<CStateMachine> wpStateMachine)>(CreateStateFinished))
+      : CCreateState(boost::function<CState*(TYPESEL::weak_ptr<CStateMachine> wpStateMachine)>(CreateStateFinished))
    {
    }
 

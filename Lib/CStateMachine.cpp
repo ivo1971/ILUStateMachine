@@ -19,10 +19,10 @@
  ** 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  **
  **/
-#include "Include/CStateChangeException.h"
-#include "Include/CState.h"
-#include "Include/CStateMachine.h"
-#include "Include/Logging.h"
+#include "CStateChangeException.h"
+#include "CState.h"
+#include "CStateMachine.h"
+#include "Logging.h"
 
 namespace ILULibStateMachine {
    /** Factory function to instantiate a state machine without a default state.
@@ -35,13 +35,13 @@ namespace ILULibStateMachine {
     **
     ** @return a shared pointer to the instantiated state machine.
     **/
-   boost::shared_ptr<CStateMachine> CStateMachine::ConstructStateMachine(
+   SPStateMachine CStateMachine::ConstructStateMachine(
       const char* szName,                        //< State machine name, logging only.
       CCreateState createState,                  //< Class to create the initial state.
       CStateMachineData* const pStateMachineData //< Pointer to the state machine data belonging to this state machine. The state machine takes ownership and deletes the instance when the state machine itself is destructed.
       )
    {
-      boost::shared_ptr<CStateMachine> sp(new CStateMachine(szName, pStateMachineData));
+      SPStateMachine sp(new CStateMachine(szName, pStateMachineData));
       sp->SetInitialState(createState);
       return sp;
    }
@@ -56,14 +56,14 @@ namespace ILULibStateMachine {
     **
     ** @return a shared pointer to the instantiated state machine.
     **/
-   boost::shared_ptr<CStateMachine> CStateMachine::ConstructStateMachine(
+   SPStateMachine CStateMachine::ConstructStateMachine(
       const char* szName,                        //< State machine name, logging only.
       CCreateState createState,                  //< Class to create the initial state.
       CCreateState createDefaultState,           //< Class to create the default state.
       CStateMachineData* const pStateMachineData //< Pointer to the state machine data belonging to this state machine. The state machine takes ownership and deletes the instance when the state machine itself is destructed.
       )
    {
-      boost::shared_ptr<CStateMachine> sp(new CStateMachine(szName, pStateMachineData));
+      SPStateMachine sp(new CStateMachine(szName, pStateMachineData));
       sp->SetInitialState(createState, createDefaultState);
       return sp;
    }
@@ -131,14 +131,14 @@ namespace ILULibStateMachine {
       )
    {
       if(createDefaultState.IsValid()) {
-         m_pDefaultState = createDefaultState.Get()(WPStateMachine(shared_from_this()));
+        m_pDefaultState = createDefaultState.Get()(WPStateMachine(shared_from_this()));
       }
       if(createState.IsValid()) {
-	m_pState = createState.Get()(WPStateMachine(shared_from_this()));
+        m_pState = createState.Get()(WPStateMachine(shared_from_this()));
       } else if(createDefaultState.IsValid()) {
-	LogErr(boost::format("Creating a state machine without initial and default state.\n"));
+        LogErr(boost::format("Creating a state machine without initial and default state.\n"));
       } else {
-	LogWarning(boost::format("Creating a state machine without initial state.\n"));
+        LogWarning(boost::format("Creating a state machine without initial state.\n"));
       }
    }
 

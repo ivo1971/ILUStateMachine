@@ -22,7 +22,7 @@
 #ifndef __ILULibStateMachine_CEventBase_H__
 #define __ILULibStateMachine_CEventBase_H__
 
-#include "boost/shared_ptr.hpp"
+#include "Types.h"
 
 namespace ILULibStateMachine {
    /** @brief Virtual base class used by the state machine engine to store event handlers in a map.
@@ -55,7 +55,7 @@ namespace ILULibStateMachine {
 
    };
 
-   typedef boost::shared_ptr<CEventBase> SPEventBase; ///< shared pointer around the CEventBase class.
+   typedef TYPESEL::shared_ptr<CEventBase> SPEventBase; ///< shared pointer around the CEventBase class.
 };
 
 #endif //__ILULibStateMachine_CEventBase_H__

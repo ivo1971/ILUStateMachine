@@ -1,5 +1,5 @@
 /** @file
- ** @brief The CCreateStateFinished declaration.
+ ** @brief Type declarations.
  **
  ** ILUStateMachine is a library implementing a generic state machine engine.
  ** Copyright (C) 2018 Ivo Luyckx
@@ -19,25 +19,22 @@
  ** 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  **
  **/
-#ifndef __ILULibStateMachine_CCreateStateFinished__H__
-#define __ILULibStateMachine_CCreateStateFinished__H__
+#ifndef __ILULibStateMachine_Types__H__
+#define __ILULibStateMachine_Types__H__
 
-#include "CCreateState.h"
-
-namespace ILULibStateMachine {
-   /** @brief The CCreateStateFinished is used to define a state transition to 'finished'.
-    **
-    ** 'finished' means the state machine has no 'current' state anymore.
-    ** The default state still exists and is still handling events,
-    ** the state machine data instance still exists.
+#if __cplusplus < 201300
+   /** C++14 not available
     **/
-   class CCreateStateFinished : public CCreateState {
-      public:
-                               CCreateStateFinished(void);
-                               CCreateStateFinished(const CCreateStateFinished& ref);
-         CCreateStateFinished& operator=(const CCreateStateFinished& ref);
-   };
-}
+#  include "boost/enable_shared_from_this.hpp"
+#  include "boost/shared_ptr.hpp"
+#  include "boost/weak_ptr.hpp"
+#  define TYPESEL boost 
+#else
+   /** C++14 available
+    **/
+#  include <memory>
+#  define TYPESEL std 
+#endif
 
-#endif //__ILULibStateMachine_CCreateStateFinished__H__
+#endif //__ILULibStateMachine_Types__H__
 

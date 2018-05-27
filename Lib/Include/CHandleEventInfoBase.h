@@ -24,7 +24,8 @@
 
 #include <map>
 
-#include "../Include/CCreateState.h"
+#include "CCreateState.h"
+#include "Types.h"
 
 namespace ILULibStateMachine {
    /** @brief Base class used to store all event handling information for 1 event.
@@ -41,7 +42,7 @@ namespace ILULibStateMachine {
          virtual ~CHandleEventInfoBase(void);
    };
    
-   typedef boost::shared_ptr<CHandleEventInfoBase> SPHandleEventInfoBase; ///< Shared pointer to a CHandleEventInfoBase instance.
+   typedef TYPESEL::shared_ptr<CHandleEventInfoBase> SPHandleEventInfoBase; ///< Shared pointer to a CHandleEventInfoBase instance.
 };
 
 #endif //__ILULibStateMachine_CHandleEventInfoBase_H__
