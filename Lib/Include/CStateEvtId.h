@@ -22,7 +22,7 @@
 #ifndef __ILULibStateMachine_CStateEvtId__H__
 #define __ILULibStateMachine_CStateEvtId__H__
 
-#include "../Include/CState.h"
+#include "CState.h"
 
 #include "CStateMachine.h"
 
@@ -52,72 +52,72 @@ namespace ILULibStateMachine {
       protected:
          template <class TEventData>                                                    
          void EventRegister(
-            boost::function<void(SPEventBase spEventBase, const TEventData* const)> typeHandler,
-            CCreateState                                                            createState   
+            TYPESEL::function<void(SPEventBase spEventBase, const TEventData* const)> typeHandler,
+            CCreateState                                                              createState   
             );
          template <class TEventData, class EvtId>                                                    
          void EventRegister(
-            boost::function<void(const TEventData* const)> unguardedHandler,
-            CCreateState                                   createState     ,
-            const EvtId                                    evtId         
+            TYPESEL::function<void(const TEventData* const)> unguardedHandler,
+            CCreateState                                     createState     ,
+            const EvtId                                      evtId         
             );
          template <class TEventData, class EvtId, class EvtSubId1>                                                    
          void EventRegister(
-            boost::function<void(const TEventData* const)> unguardedHandler,
-            CCreateState                                   createState     ,
-            const EvtId                                    evtId           ,
-            const EvtSubId1                                evtSubId1      
+            TYPESEL::function<void(const TEventData* const)> unguardedHandler,
+            CCreateState                                     createState     ,
+            const EvtId                                      evtId           ,
+            const EvtSubId1                                  evtSubId1      
             );
          template <class TEventData, class EvtId, class EvtSubId1, class EvtSubId2>                                                    
          void EventRegister(
-            boost::function<void(const TEventData* const)> unguardedHandler,
-            CCreateState                                   createState     ,
-            const EvtId                                    evtId           ,
-            const EvtSubId1                                evtSubId1       , 
-            const EvtSubId2                                evtSubId2      
+            TYPESEL::function<void(const TEventData* const)> unguardedHandler,
+            CCreateState                                     createState     ,
+            const EvtId                                      evtId           ,
+            const EvtSubId1                                  evtSubId1       , 
+            const EvtSubId2                                  evtSubId2      
             );
          template <class TEventData, class EvtId, class EvtSubId1, class EvtSubId2, class EvtSubId3>                                                    
          void EventRegister(
-            boost::function<void(const TEventData* const)> unguardedHandler,
-            CCreateState                                   createState     ,
-            const EvtId                                    evtId           ,
-            const EvtSubId1                                evtSubId1       , 
-            const EvtSubId2                                evtSubId2       , 
-            const EvtSubId3                                evtSubId3      
+            TYPESEL::function<void(const TEventData* const)> unguardedHandler,
+            CCreateState                                     createState     ,
+            const EvtId                                      evtId           ,
+            const EvtSubId1                                  evtSubId1       , 
+            const EvtSubId2                                  evtSubId2       , 
+            const EvtSubId3                                  evtSubId3      
             );
          template <class TEventData, class EvtId>                                                    
          void EventRegister(
-            boost::function<bool(const TEventData* const)> guard           ,
-            boost::function<void(const TEventData* const)> handler         ,
-            CCreateState                                   createState     ,
-            const EvtId                                    evtId      
+            TYPESEL::function<bool(const TEventData* const)> guard           ,
+            TYPESEL::function<void(const TEventData* const)> handler         ,
+            CCreateState                                     createState     ,
+            const EvtId                                      evtId      
             );
          template <class TEventData, class EvtId, class EvtSubId1>                                                    
          void EventRegister(
-            boost::function<bool(const TEventData* const)> guard           ,
-            boost::function<void(const TEventData* const)> handler         ,
-            CCreateState                                   createState     ,
-            const EvtId                                    evtId           ,
-            const EvtSubId1                                evtSubId1      
+            TYPESEL::function<bool(const TEventData* const)> guard           ,
+            TYPESEL::function<void(const TEventData* const)> handler         ,
+            CCreateState                                     createState     ,
+            const EvtId                                      evtId           ,
+            const EvtSubId1                                  evtSubId1      
             );
          template <class TEventData, class EvtId, class EvtSubId1, class EvtSubId2>                                                    
          void EventRegister(
-            boost::function<bool(const TEventData* const)> guard           ,
-            boost::function<void(const TEventData* const)> handler         ,
-            CCreateState                                   createState     ,
-            const EvtId                                    evtId           ,
-            const EvtSubId1                                evtSubId1       , 
-            const EvtSubId2                                evtSubId2      
+            TYPESEL::function<bool(const TEventData* const)> guard           ,
+            TYPESEL::function<void(const TEventData* const)> handler         ,
+            CCreateState                                     createState     ,
+            const EvtId                                      evtId           ,
+            const EvtSubId1                                  evtSubId1       , 
+            const EvtSubId2                                  evtSubId2      
             );
          template <class TEventData, class EvtId, class EvtSubId1, class EvtSubId2, class EvtSubId3>                                                    
          void EventRegister(
-            boost::function<bool(const TEventData* const)> guard           ,
-            boost::function<void(const TEventData* const)> handler         ,
-            CCreateState                                   createState     ,
-            const EvtId                                    evtId           ,
-            const EvtSubId1                                evtSubId1       ,   
-            const EvtSubId2                                evtSubId2       , 
-            const EvtSubId3                                evtSubId3      
+            TYPESEL::function<bool(const TEventData* const)> guard           ,
+            TYPESEL::function<void(const TEventData* const)> handler         ,
+            CCreateState                                     createState     ,
+            const EvtId                                      evtId           ,
+            const EvtSubId1                                  evtSubId1       ,   
+            const EvtSubId2                                  evtSubId2       , 
+            const EvtSubId3                                  evtSubId3      
             );
 
       private:

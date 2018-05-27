@@ -42,6 +42,7 @@
 #include "TEventEvtIdImpl.h"
 #include "THandleEventInfo.h"
 #include "THandleEventTypeInfo.h"
+#include "Types.h"
 
 #endif //__ILULibStateMachine_StateMachine__H__
 

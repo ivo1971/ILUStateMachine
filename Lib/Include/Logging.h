@@ -38,14 +38,14 @@
 #include "string"
 
 #include "boost/format.hpp"
-#include "boost/function.hpp"
 
 #include "CLogIndent.h"
+#include "Types.h"
 
 namespace ILULibStateMachine {
-   typedef boost::function<void(const std::string& log)> FLog;      ///< Prototype of a logging function that can be registered.
-   typedef boost::function<void(void)>                   FIndent;   ///< Prototype of a function that increases the logging indentation that can be registered.
-   typedef boost::function<void(void)>                   FUnindent; ///< Prototype of a function that decreases the logging indentation that can be registered.
+   typedef TYPESEL::function<void(const std::string& log)> FLog;      ///< Prototype of a logging function that can be registered.
+   typedef TYPESEL::function<void(void)>                   FIndent;   ///< Prototype of a function that increases the logging indentation that can be registered.
+   typedef TYPESEL::function<void(void)>                   FUnindent; ///< Prototype of a function that decreases the logging indentation that can be registered.
 
    //logging administration functions
    void RegisterLogDebug     (FLog log);

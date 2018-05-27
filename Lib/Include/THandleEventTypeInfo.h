@@ -36,9 +36,9 @@ namespace ILULibStateMachine {
     **/
    template <class TEventData> class THandleEventTypeInfo : public CHandleEventInfoBase {
       public:
-         typedef void                                              FTypeHandler(SPEventBase spEventBase, const TEventData* const); ///< Prototype of a type-event handler: it is provided with the event identifier and the event data.
-         typedef boost::function<FTypeHandler>                     BFTypeHandler;                                                  ///< FTypeHandler wrapped in a boost function, so the event handler can be a class method bound to a class instance.
-         typedef boost::tuple<BFTypeHandler, CCreateState>         HandlerTypeCreateState;                                         ///< Completely describes on action: handler and state transition.
+         typedef void                                                FTypeHandler(SPEventBase spEventBase, const TEventData* const); ///< Prototype of a type-event handler: it is provided with the event identifier and the event data.
+         typedef TYPESEL::function<FTypeHandler>                     BFTypeHandler;                                                  ///< FTypeHandler wrapped in a boost function, so the event handler can be a class method bound to a class instance.
+         typedef boost::tuple<BFTypeHandler, CCreateState>           HandlerTypeCreateState;                                         ///< Completely describes on action: handler and state transition.
          
       public:
                                   THandleEventTypeInfo(BFTypeHandler handler, CCreateState createState);
@@ -47,7 +47,7 @@ namespace ILULibStateMachine {
          HandleResult             Handle(const bool bDefaultState, SPEventBase spEventBase, const TEventData* const pEventData);
 
       private:
-         HandleResult             CallHandler(boost::format& fmt, boost::function<void(SPEventBase spEventBase, const TEventData* const pEventData)> handler, CCreateState createState, SPEventBase spEventBase, const TEventData* const pEventData, const char* const szType);
+         HandleResult             CallHandler(boost::format& fmt, TYPESEL::function<void(SPEventBase spEventBase, const TEventData* const pEventData)> handler, CCreateState createState, SPEventBase spEventBase, const TEventData* const pEventData, const char* const szType);
 
       private:
          HandlerTypeCreateState   m_TypeHandler; ///< Stores the action for this class: handler combined with state transition.

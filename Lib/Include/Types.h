@@ -25,15 +25,22 @@
 #if __cplusplus < 201300
    /** C++14 not available
     **/
+#  include "boost/bind.hpp"
 #  include "boost/enable_shared_from_this.hpp"
+#  include "boost/function.hpp"
 #  include "boost/shared_ptr.hpp"
 #  include "boost/weak_ptr.hpp"
-#  define TYPESEL boost 
+#  define TYPESEL boost
+#  define TYPESEL_PLACEHOLDERS_1 _1
+#  define TYPESEL_PLACEHOLDERS_2 _2
 #else
    /** C++14 available
     **/
+#  include <functional>
 #  include <memory>
 #  define TYPESEL std 
+#  define TYPESEL_PLACEHOLDERS_1 std::placeholders::_1
+#  define TYPESEL_PLACEHOLDERS_2 std::placeholders::_2
 #endif
 
 #endif //__ILULibStateMachine_Types__H__

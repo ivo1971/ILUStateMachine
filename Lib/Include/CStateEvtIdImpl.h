@@ -36,8 +36,8 @@ namespace ILULibStateMachine {
     **/
    template <class TEventData>                                                    
    void CStateEvtId::EventRegister(
-      boost::function<void(SPEventBase spEventBase, const TEventData* const)> typeHandler,  //< The event handler to be called when an event with TEventData occurs and there is no more specific (event ID aware) handler found.
-      CCreateState                                                            createState   //< Describes the state transition following this handler. 
+      TYPESEL::function<void(SPEventBase spEventBase, const TEventData* const)> typeHandler,  //< The event handler to be called when an event with TEventData occurs and there is no more specific (event ID aware) handler found.
+      CCreateState                                                              createState   //< Describes the state transition following this handler. 
       )
    {
       SPStateMachine spStateMachine = m_wpStateMachine.lock();
@@ -55,9 +55,9 @@ namespace ILULibStateMachine {
     **/
    template <class TEventData, class EvtId>                                                    
    void CStateEvtId::EventRegister(
-      boost::function<void(const TEventData* const)> unguardedHandler, //< Event handler to be called.
-      CCreateState                                   createState,      //< Describes the state transition following this handler. 
-      const EvtId                                    evtId             //< Event ID as defined by TEventEvtId.
+      TYPESEL::function<void(const TEventData* const)> unguardedHandler, //< Event handler to be called.
+      CCreateState                                     createState,      //< Describes the state transition following this handler. 
+      const EvtId                                      evtId             //< Event ID as defined by TEventEvtId.
       )
    {
       SPStateMachine spStateMachine = m_wpStateMachine.lock();
@@ -75,10 +75,10 @@ namespace ILULibStateMachine {
     **/
    template <class TEventData, class EvtId, class EvtSubId1>                                                    
    void CStateEvtId::EventRegister(
-      boost::function<void(const TEventData* const)> unguardedHandler, //< Event handler to be called.
-      CCreateState                                   createState,      //< Describes the state transition following this handler. 
-      const EvtId                                    evtId,            //< Event ID as defined by TEventEvtId.
-      const EvtSubId1                                evtSubId1         //< First event sub-ID as defined by TEventEvtId.
+      TYPESEL::function<void(const TEventData* const)> unguardedHandler, //< Event handler to be called.
+      CCreateState                                     createState,      //< Describes the state transition following this handler. 
+      const EvtId                                      evtId,            //< Event ID as defined by TEventEvtId.
+      const EvtSubId1                                  evtSubId1         //< First event sub-ID as defined by TEventEvtId.
       )
    {
       SPStateMachine spStateMachine = m_wpStateMachine.lock();
@@ -96,11 +96,11 @@ namespace ILULibStateMachine {
     **/
    template <class TEventData, class EvtId, class EvtSubId1, class EvtSubId2>                                                    
    void CStateEvtId::EventRegister(
-      boost::function<void(const TEventData* const)> unguardedHandler, //< Event handler to be called.
-      CCreateState                                   createState,      //< Describes the state transition following this handler. 
-      const EvtId                                    evtId,            //< Event ID as defined by TEventEvtId.
-      const EvtSubId1                                evtSubId1,        //< First event sub-ID as defined by TEventEvtId.
-      const EvtSubId2                                evtSubId2         //< Second event sub-ID as defined by TEventEvtId.
+      TYPESEL::function<void(const TEventData* const)> unguardedHandler, //< Event handler to be called.
+      CCreateState                                     createState,      //< Describes the state transition following this handler. 
+      const EvtId                                      evtId,            //< Event ID as defined by TEventEvtId.
+      const EvtSubId1                                  evtSubId1,        //< First event sub-ID as defined by TEventEvtId.
+      const EvtSubId2                                  evtSubId2         //< Second event sub-ID as defined by TEventEvtId.
       )
    {
       SPStateMachine spStateMachine = m_wpStateMachine.lock();
@@ -118,7 +118,7 @@ namespace ILULibStateMachine {
     **/
    template <class TEventData, class EvtId, class EvtSubId1, class EvtSubId2, class EvtSubId3>                                                    
    void CStateEvtId::EventRegister(
-      boost::function<void(const TEventData* const)> unguardedHandler, //< Event handler to be called.
+      TYPESEL::function<void(const TEventData* const)> unguardedHandler, //< Event handler to be called.
       CCreateState                                   createState,      //< Describes the state transition following this handler. 
       const EvtId                                    evtId,            //< Event ID as defined by TEventEvtId.
       const EvtSubId1                                evtSubId1,        //< First event sub-ID as defined by TEventEvtId.
@@ -140,10 +140,10 @@ namespace ILULibStateMachine {
     **/
    template <class TEventData, class EvtId>                                                    
    void CStateEvtId::EventRegister(
-      boost::function<bool(const TEventData* const)> guard,        //< Guard called before the event handler. When the guard returns true the handler will be called; when the guard returns false the handler will not be called.
-      boost::function<void(const TEventData* const)> handler,      //< Event handler to be called.
-      CCreateState                                   createState,  //< Describes the state transition following this handler. 
-      const EvtId                                    evtId         //< Event ID as defined by TEventEvtId.
+      TYPESEL::function<bool(const TEventData* const)> guard,        //< Guard called before the event handler. When the guard returns true the handler will be called; when the guard returns false the handler will not be called.
+      TYPESEL::function<void(const TEventData* const)> handler,      //< Event handler to be called.
+      CCreateState                                     createState,  //< Describes the state transition following this handler. 
+      const EvtId                                      evtId         //< Event ID as defined by TEventEvtId.
       )
    {
       SPStateMachine spStateMachine = m_wpStateMachine.lock();
@@ -160,11 +160,11 @@ namespace ILULibStateMachine {
     **/
    template <class TEventData, class EvtId, class EvtSubId1>                                                    
    void CStateEvtId::EventRegister(
-      boost::function<bool(const TEventData* const)> guard,        //< Guard called before the event handler. When the guard returns true the handler will be called; when the guard returns false the handler will not be called.
-      boost::function<void(const TEventData* const)> handler,      //< Event handler to be called.
-      CCreateState                                   createState,  //< Describes the state transition following this handler. 
-      const EvtId                                    evtId,        //< Event ID as defined by TEventEvtId.
-      const EvtSubId1                                evtSubId1     //< First event sub-ID as defined by TEventEvtId.
+      TYPESEL::function<bool(const TEventData* const)> guard,        //< Guard called before the event handler. When the guard returns true the handler will be called; when the guard returns false the handler will not be called.
+      TYPESEL::function<void(const TEventData* const)> handler,      //< Event handler to be called.
+      CCreateState                                     createState,  //< Describes the state transition following this handler. 
+      const EvtId                                      evtId,        //< Event ID as defined by TEventEvtId.
+      const EvtSubId1                                  evtSubId1     //< First event sub-ID as defined by TEventEvtId.
       )
    {
       SPStateMachine spStateMachine = m_wpStateMachine.lock();
@@ -181,12 +181,12 @@ namespace ILULibStateMachine {
     **/
    template <class TEventData, class EvtId, class EvtSubId1, class EvtSubId2>                                                    
    void CStateEvtId::EventRegister(
-      boost::function<bool(const TEventData* const)> guard,        //< Guard called before the event handler. When the guard returns true the handler will be called; when the guard returns false the handler will not be called.
-      boost::function<void(const TEventData* const)> handler,      //< Event handler to be called.
-      CCreateState                                   createState,  //< Describes the state transition following this handler. 
-      const EvtId                                    evtId,        //< Event ID as defined by TEventEvtId.
-      const EvtSubId1                                evtSubId1,    //< First event sub-ID as defined by TEventEvtId.
-      const EvtSubId2                                evtSubId2     //< Second event sub-ID as defined by TEventEvtId.
+      TYPESEL::function<bool(const TEventData* const)> guard,        //< Guard called before the event handler. When the guard returns true the handler will be called; when the guard returns false the handler will not be called.
+      TYPESEL::function<void(const TEventData* const)> handler,      //< Event handler to be called.
+      CCreateState                                     createState,  //< Describes the state transition following this handler. 
+      const EvtId                                      evtId,        //< Event ID as defined by TEventEvtId.
+      const EvtSubId1                                  evtSubId1,    //< First event sub-ID as defined by TEventEvtId.
+      const EvtSubId2                                  evtSubId2     //< Second event sub-ID as defined by TEventEvtId.
       )
    {
       SPStateMachine spStateMachine = m_wpStateMachine.lock();
@@ -203,13 +203,13 @@ namespace ILULibStateMachine {
     **/
    template <class TEventData, class EvtId, class EvtSubId1, class EvtSubId2, class EvtSubId3>                                                    
    void CStateEvtId::EventRegister(
-      boost::function<bool(const TEventData* const)> guard,        //< Guard called before the event handler. When the guard returns true the handler will be called; when the guard returns false the handler will not be called.
-      boost::function<void(const TEventData* const)> handler,      //< Event handler to be called.
-      CCreateState                                   createState,  //< Describes the state transition following this handler. 
-      const EvtId                                    evtId,        //< Event ID as defined by TEventEvtId.
-      const EvtSubId1                                evtSubId1,    //< First event sub-ID as defined by TEventEvtId.
-      const EvtSubId2                                evtSubId2,    //< Second event sub-ID as defined by TEventEvtId.
-      const EvtSubId3                                evtSubId3     //< Third event sub-ID as defined by TEventEvtId.      
+      TYPESEL::function<bool(const TEventData* const)> guard,        //< Guard called before the event handler. When the guard returns true the handler will be called; when the guard returns false the handler will not be called.
+      TYPESEL::function<void(const TEventData* const)> handler,      //< Event handler to be called.
+      CCreateState                                     createState,  //< Describes the state transition following this handler. 
+      const EvtId                                      evtId,        //< Event ID as defined by TEventEvtId.
+      const EvtSubId1                                  evtSubId1,    //< First event sub-ID as defined by TEventEvtId.
+      const EvtSubId2                                  evtSubId2,    //< Second event sub-ID as defined by TEventEvtId.
+      const EvtSubId3                                  evtSubId3     //< Third event sub-ID as defined by TEventEvtId.      
       )
    {
       SPStateMachine spStateMachine = m_wpStateMachine.lock();

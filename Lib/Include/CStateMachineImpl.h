@@ -35,9 +35,9 @@ namespace ILULibStateMachine {
     **/
    template <class TEventData> 
    void CStateMachine::EventRegister(
-      const bool                                                              bDefault,    //< When true: register this handler in the default event-type map (default state); when false: register this handler for the current state.
-      boost::function<void(SPEventBase spEventBase, const TEventData* const)> typeHandler, //< The handler to be registered.
-      CCreateState                                                            createState  //< The state transition accompanying this event-type.
+      const bool                                                                bDefault,    //< When true: register this handler in the default event-type map (default state); when false: register this handler for the current state.
+      TYPESEL::function<void(SPEventBase spEventBase, const TEventData* const)> typeHandler, //< The handler to be registered.
+      CCreateState                                                              createState  //< The state transition accompanying this event-type.
       )
    {
       try {
@@ -78,10 +78,10 @@ namespace ILULibStateMachine {
     **/
    template <class TEventData> 
    void CStateMachine::EventRegister(
-      const bool                                     bDefault,         //< When true: register this handler in the default event-type map (default state); when false: register this handler for the current state.
-      boost::function<void(const TEventData* const)> unguardedHandler, //< The handler to be registered.
-      CCreateState                                   createState,      //< The state transition accompanying this event-type.
-      SPEventBase                                    spEventBase       //< The complete event identification that triggers this handler.
+      const bool                                       bDefault,         //< When true: register this handler in the default event-type map (default state); when false: register this handler for the current state.
+      TYPESEL::function<void(const TEventData* const)> unguardedHandler, //< The handler to be registered.
+      CCreateState                                     createState,      //< The state transition accompanying this event-type.
+      SPEventBase                                      spEventBase       //< The complete event identification that triggers this handler.
       )
    {
       try {
@@ -129,11 +129,11 @@ namespace ILULibStateMachine {
     **/
    template <class TEventData> 
    bool CStateMachine::EventRegister(
-      const bool                                     bDefault,    //< When true: register this handler in the default event-type map (default state); when false: register this handler for the current state.
-      boost::function<bool(const TEventData* const)> guard,       //< The guard called before the handler. When the guard returns true, the handler is called; when the guard returns false the handler is not called.
-      boost::function<void(const TEventData* const)> handler,     //< The handler to be registered.
-      CCreateState                                   createState, //< The state transition accompanying this event-type.
-      SPEventBase                                    spEventBase  //< The complete event identification that triggers this handler.
+      const bool                                       bDefault,    //< When true: register this handler in the default event-type map (default state); when false: register this handler for the current state.
+      TYPESEL::function<bool(const TEventData* const)> guard,       //< The guard called before the handler. When the guard returns true, the handler is called; when the guard returns false the handler is not called.
+      TYPESEL::function<void(const TEventData* const)> handler,     //< The handler to be registered.
+      CCreateState                                     createState, //< The state transition accompanying this event-type.
+      SPEventBase                                      spEventBase  //< The complete event identification that triggers this handler.
       )
    {
       try {

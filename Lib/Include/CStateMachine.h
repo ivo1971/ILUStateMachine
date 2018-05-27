@@ -26,8 +26,6 @@
 
 //when using a C++14 compatible compiler,
 //boost can be replaced by std.
-#include "boost/bind.hpp"
-#include "boost/function.hpp"
 #include "boost/optional.hpp"
 
 #include "CCreateState.h"
@@ -63,49 +61,49 @@ namespace ILULibStateMachine {
          virtual                                   ~CStateMachine(void);
 
       public:
-         const std::string&                      GetName(void) const;
-         bool                                    HasFinished(void) const;
+         const std::string&                         GetName(void) const;
+         bool                                       HasFinished(void) const;
          template <class TEventData> 
-         void                                    EventRegister(
-            const bool                                                              bDefault   ,
-            boost::function<void(SPEventBase spEventBase, const TEventData* const)> typeHandler,
-            CCreateState                                                            createState   
+         void                                       EventRegister(
+            const bool                                                                bDefault   ,
+            TYPESEL::function<void(SPEventBase spEventBase, const TEventData* const)> typeHandler,
+            CCreateState                                                              createState   
             );
          template <class TEventData> 
-         void                                    EventRegister(
-            const bool                                     bDefault       ,
-            boost::function<void(const TEventData* const)> unguaredHandler,
-            CCreateState                                   createState    ,
-            SPEventBase                                    spEventBase    
+         void                                       EventRegister(
+            const bool                                       bDefault       ,
+            TYPESEL::function<void(const TEventData* const)> unguaredHandler,
+            CCreateState                                     createState    ,
+            SPEventBase                                      spEventBase    
             );
          template <class TEventData> 
-         bool                                    EventRegister(
-            const bool                                     bDefault   ,
-            boost::function<bool(const TEventData* const)> guard      ,
-            boost::function<void(const TEventData* const)> handler    ,
-            CCreateState                                   createState,
-            SPEventBase                                    spEventBase    
+         bool                                       EventRegister(
+            const bool                                       bDefault   ,
+            TYPESEL::function<bool(const TEventData* const)> guard      ,
+            TYPESEL::function<void(const TEventData* const)> handler    ,
+            CCreateState                                     createState,
+            SPEventBase                                      spEventBase    
             );
          template <class TEventData, class EvtId>                                                    
-         bool                                    EventHandle(
+         bool                                       EventHandle(
             const TEventData* const pEventData,
             const EvtId             evtId     
             );
          template <class TEventData, class EvtId, class EvtSubId1>                                                    
-         bool                                    EventHandle(
+         bool                                       EventHandle(
             const TEventData* const pEventData,
             const EvtId             evtId     ,
             const EvtSubId1         evtSubId1  
             );
          template <class TEventData, class EvtId, class EvtSubId1, class EvtSubId2>                                                    
-         bool                                    EventHandle(
+         bool                                       EventHandle(
             const TEventData* const pEventData,
             const EvtId             evtId     ,
             const EvtSubId1         evtSubId1 , 
             const EvtSubId2         evtSubId2  
             );
          template <class TEventData, class EvtId, class EvtSubId1, class EvtSubId2, class EvtSubId3>                                                    
-         bool                                    EventHandle(
+         bool                                       EventHandle(
             const TEventData* const pEventData,
             const EvtId             evtId     ,
             const EvtSubId1         evtSubId1 , 
@@ -113,7 +111,7 @@ namespace ILULibStateMachine {
             const EvtSubId3         evtSubId3      
             );
          template <class TEventData>                                                    
-         bool                                    EventHandle(
+         bool                                       EventHandle(
             const TEventData* const pEventData,
             const SPEventBase       spEventBase
             );
@@ -168,17 +166,17 @@ namespace ILULibStateMachine {
 
    /** Define a shared pointer to CStateMachine.
     **/
-   typedef TYPESEL::shared_ptr<CStateMachine> SPStateMachine;
+   typedef TYPESEL::shared_ptr<CStateMachine>    SPStateMachine;
 
    /** Define a weak pointer to the CStateMachine.
     **/
-   typedef TYPESEL::weak_ptr<CStateMachine>   WPStateMachine;
+   typedef TYPESEL::weak_ptr<CStateMachine>      WPStateMachine;
 }
 
-#define GUARD(et,cl,f)        boost::function<bool(const et* const)>(boost::bind(&cl::f, this, _1))                                      ///< Macro eases definition of a guard handler upon event registration. First parameter: event data type; second parameter: class; second parameter: class method.
-#define HANDLER(et,cl,f)      boost::function<void(const et* const)>(boost::bind(&cl::f, this, _1))                                      ///< Macro eases definition of an event handler upon event registration. First parameter: event data type; second parameter: class; third parameter: class method.
-#define HANDLER_NO_DATA(cl,f) boost::function<void(const CStateMachineData* const)>(boost::bind(&cl::f, this, _1))                       ///< Macro eases definition of an event handler upon event registration when the state machine has no accompanying data. First parameter: class; second parameter: class method.
-#define HANDLER_TYPE(et,cl,f) boost::function<void(ILULibStateMachine::SPEventBase, const et* const)>(boost::bind(&cl::f, this, _1, _2)) ///<Macro eases definition of an event-type handler upon event registration. First parameter: event data type; second parameter: class; third parameter: class method.
+#define GUARD(et,cl,f)        TYPESEL::function<bool(const et* const)>(TYPESEL::bind(&cl::f, this, TYPESEL_PLACEHOLDERS_1))                                                          ///< Macro eases definition of a guard handler upon event registration. First parameter: event data type; second parameter: class; second parameter: class method.
+#define HANDLER(et,cl,f)      TYPESEL::function<void(const et* const)>(TYPESEL::bind(&cl::f, this, TYPESEL_PLACEHOLDERS_1))                                                          ///< Macro eases definition of an event handler upon event registration. First parameter: event data type; second parameter: class; third parameter: class method.
+#define HANDLER_NO_DATA(cl,f) TYPESEL::function<void(const CStateMachineData* const)>(TYPESEL::bind(&cl::f, this, TYPESEL_PLACEHOLDERS_1))                                           ///< Macro eases definition of an event handler upon event registration when the state machine has no accompanying data. First parameter: class; second parameter: class method.
+#define HANDLER_TYPE(et,cl,f) TYPESEL::function<void(ILULibStateMachine::SPEventBase, const et* const)>(TYPESEL::bind(&cl::f, this, TYPESEL_PLACEHOLDERS_1, TYPESEL_PLACEHOLDERS_2)) ///<Macro eases definition of an event-type handler upon event registration. First parameter: event data type; second parameter: class; third parameter: class method.
 
 //include the class template function definitions.
 #include "CStateMachineImpl.h"

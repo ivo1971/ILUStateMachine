@@ -24,6 +24,7 @@
 
 #include "CCreateState.h"
 #include "CStateMachine.h"
+#include "Types.h"
 
 namespace ILULibStateMachine {
    /** @brief Templates to ease implementation of the state creation functions.
@@ -44,9 +45,9 @@ namespace ILULibStateMachine {
    template<class CStateType, class CDataType> CCreateState TCreateState(CDataType* pData)
    {
       return CCreateState(
-         boost::bind(
+         TYPESEL::bind(
             &TCreateStateInstance<CStateType,CDataType>, 
-            _1,
+            TYPESEL_PLACEHOLDERS_1,
             pData
             )
          );

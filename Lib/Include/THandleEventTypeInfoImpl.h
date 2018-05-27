@@ -70,12 +70,12 @@ namespace ILULibStateMachine {
     **/
    template <class TEventData> 
    CHandleEventInfoBase::HandleResult THandleEventTypeInfo<TEventData>::CallHandler(
-      boost::format&                                                                     fmt,         //< Logging accompanying the handler call.
-      boost::function<void(SPEventBase spEventBase, const TEventData* const pEventData)> handler,     //< The handler to be called.
-      CCreateState                                                                       createState, //< The CCreateState instance accompanying the handler. Will not be called but will be included in the return value. Can be overridden if a state-change exception was caught while calling the handler.
-      SPEventBase                                                                        spEventBase, //< Event descriptor.
-      const TEventData* const                                                            pEventData,  //< Data accompanying the event, will be provided to the handler.
-      const char* const                                                                  szType       //< Indicator whether this function is called for the default state or the current state, logging only.
+      boost::format&                                                                       fmt,         //< Logging accompanying the handler call.
+      TYPESEL::function<void(SPEventBase spEventBase, const TEventData* const pEventData)> handler,     //< The handler to be called.
+      CCreateState                                                                         createState, //< The CCreateState instance accompanying the handler. Will not be called but will be included in the return value. Can be overridden if a state-change exception was caught while calling the handler.
+      SPEventBase                                                                          spEventBase, //< Event descriptor.
+      const TEventData* const                                                              pEventData,  //< Data accompanying the event, will be provided to the handler.
+      const char* const                                                                    szType       //< Indicator whether this function is called for the default state or the current state, logging only.
       )
    {
       try {

@@ -24,6 +24,7 @@
 
 #include "CCreateState.h"
 #include "CStateMachine.h"
+#include "Types.h"
 
 namespace ILULibStateMachine {
    /** @brief Templates to ease implementation of the state creation functions.

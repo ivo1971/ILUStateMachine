@@ -44,11 +44,11 @@ namespace ILULibStateMachine {
     ** machine data (CStateMachineData). It cannot be a parameter 
     ** of the FCreateState function to avoid a dynamic cast.
     **/
-   typedef boost::function<CState*(TYPESEL::weak_ptr<CStateMachine> wpStateMachine)> FCreateState;
+   typedef TYPESEL::function<CState*(TYPESEL::weak_ptr<CStateMachine> wpStateMachine)> FCreateState;
 
    /** @brief Wrapper of a create-state function so it is possible to check that the function is valid or not. 
     **
-    ** A boost::function cannot be checked for validity.
+    ** A TYPESEL::function cannot be checked for validity.
     ** Nevertheless, event handler definitions not requireing 
     ** a state change have to be able to indicate this.
     ** Thus the CCreateState wraps the FCreateState together

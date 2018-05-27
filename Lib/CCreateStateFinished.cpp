@@ -37,7 +37,7 @@ namespace ILULibStateMachine {
     ** No parameters required: the next state is known.
     **/
    CCreateStateFinished::CCreateStateFinished(void)
-      : CCreateState(boost::function<CState*(TYPESEL::weak_ptr<CStateMachine> wpStateMachine)>(CreateStateFinished))
+      : CCreateState(TYPESEL::function<CState*(TYPESEL::weak_ptr<CStateMachine> wpStateMachine)>(CreateStateFinished))
    {
    }
 
