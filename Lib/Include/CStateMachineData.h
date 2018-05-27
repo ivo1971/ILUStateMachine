@@ -22,8 +22,6 @@
 #ifndef __ILULibStateMachine_CStateMachineData__H__
 #define __ILULibStateMachine_CStateMachineData__H__
 
-#include "boost/shared_ptr.hpp"
-
 namespace ILULibStateMachine {
    /** @brief Base class to hold all data belonging to one state machine.
     **

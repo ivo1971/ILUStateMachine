@@ -22,9 +22,7 @@
 #ifndef __ILULibStateMachine_CState__H__
 #define __ILULibStateMachine_CState__H__
 
-//when using a C++14 compatible compiler,
-//boost can be replaced by std.
-#include "boost/weak_ptr.hpp"
+#include <string>
 
 namespace ILULibStateMachine {
    /** @brief Base class for all states in a state machine.

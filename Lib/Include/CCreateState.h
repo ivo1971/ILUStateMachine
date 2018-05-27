@@ -22,10 +22,6 @@
 #ifndef __ILULibStateMachine_CCreateState__H__
 #define __ILULibStateMachine_CCreateState__H__
 
-//when using a C++14 compatible compiler,
-//boost can be replaced by std.
-#include "boost/function.hpp"
-
 #include "CState.h"
 #include "Types.h"
 

@@ -26,8 +26,6 @@
 #include "sstream"
 #include "vector"
 
-#include "boost/shared_ptr.hpp"
-
 #include "CCreateState.h"
 #include "CEventBase.h"
 #include "EEvtSubNotSet.h"
