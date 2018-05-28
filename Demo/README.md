@@ -3,7 +3,7 @@ This directory contains a number of small 1-file demo applications that illustra
 This document describes them from the easiest application to the more advanced applications.
 
 
-###FirstStateMachine
+### FirstStateMachine
 This application is called 'FirstStateMachine' since it is the first one you should take a look at.
 
 The state machine has 2 states: state-1 and state-2. 
@@ -18,13 +18,13 @@ The event handlers are called without event data.
 > Note: it is assumed that this will not happen wih real-world events. 
 > Hence the event handler prototypes still have 1 parameter.
 
-###FirstStateMachineWithData
+### FirstStateMachineWithData
 This application builds on the previous one. It has the following changes:
 
 * The event handlers are now called **with** event data (a plain integer). This data is logged in the event handlers;
 * state-2 also has an event handler. The handler specifies that the event will **not** result in a state transition. 
 
-###NoneStandardStateFlowInHandler
+### NoneStandardStateFlowInHandler
 The event registrations always define the next state when the event is handled. This next state can be:
 
 * an actual state - in which case the current state instance will be destructed and a new state instance will be instantiated;
@@ -38,13 +38,13 @@ If a handlers wants to jump out of the **normal** flow, it throws a state-change
 
 The demo application throws a state-change exception when the event handler in state-1 is called. In stead of transitioning to state-2, a state transition to state-3 is made.
 
-###NoneStandardStateFlowInConstructor
+### NoneStandardStateFlowInConstructor
 This application is identical to the previous one except for the location of the state-change exception.
 It is thrown from the constructor of state-2 instead of from the event handler in state-1.
 As a result, the state machine engine will catch the exception after it has destructed state-1 while it is constructing state-2.
 This again triggers a state transition to state-3.
 
-###DefaultState
+### DefaultState
 This application has a state machine with 2 states:
 
 * state-1, as the previous state machines;
@@ -56,7 +56,7 @@ The default state handlers can even be called when the state machine has finishe
 
 The default state handlers can also result in state transitions, both by the event handler registrations and state-change exceptions from its handlers.
 
-###GuardedHandlers
+### GuardedHandlers
 This state machine introduces guarded event handlers, where all previous applications have unguarded event handlers only.
 
 A guarded handler registers 2 functions, next to the state transition of course:

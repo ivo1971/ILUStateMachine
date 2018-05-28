@@ -1,11 +1,10 @@
 ##TODO phase 1
 ##- doxygen beschrijving main page uitbreiden
 ##- build and run additional demo applications:
-##  - add README.md in ./Demo describing the demo applications and order them (markdown)
+##  - fix type handlers: use event type instead of data type
 ##  - nested state machines with event forwarding
 ##    and finished child state machine
 ##    Maybe not in 1 file?
-##  - fix type handlers: use event type instead of data type
 ##
 ##TODO phase 2
 ##- build and run test application durign 'make test': test all features
