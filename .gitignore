@@ -36,6 +36,7 @@ docs/doxyfile.stamp
 docs/out
 Demo/FirstStateMachine/FirstStateMachine
 Demo/FirstStateMachineWithData/FirstStateMachineWithData
+Demo/NoneStandardStateFlowInConstructor/NoneStandardStateFlowInConstructor
 Demo/NoneStandardStateFlowInHandler/NoneStandardStateFlowInHandler
 Test/App/TestStateMachine
 

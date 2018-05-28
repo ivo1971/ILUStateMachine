@@ -69,7 +69,6 @@ public:
    void HandlerEvt1(const int* const pEvtData)
    {
       LogInfo("[%s][%u] [%s] handle event with data [%d]\n", __FUNCTION__, __LINE__, GetName().c_str(), *pEvtData);
-      throw CStateChangeException("none-standard state change", CreateState3());
    }
 };
 
@@ -96,6 +95,7 @@ public:
    {
       //no event handlers
       LogInfo("[%s][%u] [%s] created\n", __FUNCTION__, __LINE__, GetName().c_str());
+      throw CStateChangeException("none-standard state change", CreateState3());
    }
    
    ~CState2(void)
@@ -161,16 +161,17 @@ SPStateMachine CreateStateMachine(void)
  ** 
  ** This is the main function.
  ** It instantiates the state machine and
- ** sends 1 event to it.
- ** The event handler throws a state-change exception and 
- ** instead of changing to state-2 (as defined in the handler
- ** registration) it changes to state-3 (as defined in the
+ ** sends 1 event to it. 
+ ** The event handler registration shows a state transition
+ ** to state-2.
+ ** However the constructor of state-2 throws and exception.
+ ** So the state machine changes to state-3 (as defined in the
  ** state-change exception).
  **
  ***************************************************************************************/
 int main (void)
 {
-   LogInfo("[%s][%u] none-standard-state-flow-in-handler demo in\n", __FUNCTION__, __LINE__);
+   LogInfo("[%s][%u] none-standard-state-flow-in-constructor demo in\n", __FUNCTION__, __LINE__);
    
    //create a local scope so that the state machine is
    //destructed when it has handled the event
@@ -191,7 +192,7 @@ int main (void)
       LogInfo("[%s][%u] sending events done\n", __FUNCTION__, __LINE__);
    }
    
-   LogInfo("[%s][%u] none-standard-state-flow-in-handler demo demo out\n", __FUNCTION__, __LINE__);
+   LogInfo("[%s][%u] none-standard-state-flow-in-constructor demo demo out\n", __FUNCTION__, __LINE__);
    return 0;
 }
 
