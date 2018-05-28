@@ -25,10 +25,12 @@ namespace ILULibStateMachine {
    /** Protected constructor.
     **/
    CEventBase::CEventBase(
-      const std::string& strId,    //< Textual description of the event, used in logging only.
-      const char* const szDataType //< Textual description of the data class belonging to this event.
+      const std::string& strId,     //< Textual description of the event, used in logging only.
+      const std::string& strIdType, //< Textual description of the ID class belonging to this event.
+      const char* const szDataType  //< Textual description of the data class belonging to this event.
       )
       : m_strId(strId)
+      , m_strIdType(strIdType)
       , m_strDataType(szDataType)
    {
    }
@@ -64,6 +66,15 @@ namespace ILULibStateMachine {
    const std::string& CEventBase::GetId(void) const
    {
       return m_strId;
+   }
+
+   /** Get the textual description of the event ID.
+    **
+    ** @return the textual description of the event ID.
+    **/
+   const std::string& CEventBase::GetIdType(void) const
+   {
+      return m_strIdType;
    }
 
    /** Get the textual description of the data class belonging to this event.

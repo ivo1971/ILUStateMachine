@@ -32,7 +32,7 @@ namespace ILULibStateMachine {
       const char* const szDataType, //< String describing the data type belonging to this event, logging only.
       const EvtId       evtId       //< Event ID.
       ) 
-      : CEventBase(IdInit(evtId), szDataType)
+      : CEventBase(IdInit(evtId), IdTypeInit(), szDataType)
       , m_EvtId(evtId)
       , m_EvtSubId1()
       , m_EvtSubId2()
@@ -48,7 +48,7 @@ namespace ILULibStateMachine {
       const EvtId       evtId,      //< Event ID.
       const EvtSubId1   evtSubId1   //< First event sub-ID.
       ) 
-      : CEventBase(IdInit(evtId, evtSubId1), szDataType)
+      : CEventBase(IdInit(evtId, evtSubId1), IdTypeInit(), szDataType)
       , m_EvtId(evtId)
       , m_EvtSubId1(evtSubId1)
       , m_EvtSubId2()
@@ -65,7 +65,7 @@ namespace ILULibStateMachine {
       const EvtSubId1   evtSubId1,  //< First event sub-ID.
       const EvtSubId2   evtSubId2   //< Second event sub-ID.
       ) 
-      : CEventBase(IdInit(evtId, evtSubId1, evtSubId2), szDataType)
+      : CEventBase(IdInit(evtId, evtSubId1, evtSubId2), IdTypeInit(), szDataType)
       , m_EvtId(evtId)
       , m_EvtSubId1(evtSubId1)
       , m_EvtSubId2(evtSubId2)
@@ -83,7 +83,7 @@ namespace ILULibStateMachine {
       const EvtSubId2   evtSubId2,  //< Second event sub-ID.
       const EvtSubId3   evtSubId3   //< Third event sub-ID.   
       ) 
-      : CEventBase(IdInit(evtId, evtSubId1, evtSubId2, evtSubId3), szDataType)
+      : CEventBase(IdInit(evtId, evtSubId1, evtSubId2, evtSubId3), IdTypeInit(), szDataType)
       , m_EvtId(evtId)
       , m_EvtSubId1(evtSubId1)
       , m_EvtSubId2(evtSubId2)
@@ -131,6 +131,25 @@ namespace ILULibStateMachine {
             ss << "-0x" << std::setfill('0') << std::setw(4) << evtSubId2;
             if(typeid(EvtSubId3) != typeid(EEvtSubNotSet)) {
                ss << "-0x" << std::setfill('0') << std::setw(4) << evtSubId3;
+            }
+         }
+      }
+      return ss.str();
+   }
+
+   /** Generate an identifier string that describes this event ID.
+    **/
+   template <class EvtId, class EvtSubId1, class EvtSubId2, class EvtSubId3>
+   std::string TEventEvtId<EvtId, EvtSubId1, EvtSubId2, EvtSubId3>::IdTypeInit(void)
+   {
+      std::stringstream ss;
+      ss << typeid(EvtId).name();
+      if(typeid(EvtSubId1) != typeid(EEvtSubNotSet)) {
+         ss << typeid(EvtSubId1).name();
+         if(typeid(EvtSubId2) != typeid(EEvtSubNotSet)) {
+            ss << typeid(EvtSubId2).name();
+            if(typeid(EvtSubId3) != typeid(EEvtSubNotSet)) {
+               ss << typeid(EvtSubId3).name();
             }
          }
       }

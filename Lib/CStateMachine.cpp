@@ -245,6 +245,16 @@ namespace ILULibStateMachine {
       map.clear();
    }
 
+   /** Trace all registered handlers.
+    **/
+   void CStateMachine::TraceAll(void) const
+   {
+      TraceHandlers(false);
+      TraceHandlers(true);
+      TraceTypeHandlers(false);
+      TraceTypeHandlers(true);
+   }
+
    /** Trace all event handlers registered for the default or current state.
     **/
    void CStateMachine::TraceHandlers(
@@ -257,7 +267,7 @@ namespace ILULibStateMachine {
       {
          CLogIndent logIndent2;
          for(EventMapCIt cit = map.begin() ; map.end() != cit ; ++cit) {
-            LogDebug("%s (%s)\n", cit->first->GetId().c_str(), cit->first->GetDataType().c_str());
+            LogDebug("ID [%s] type [%s] with data type [%s])\n", cit->first->GetId().c_str(), cit->first->GetIdType().c_str(), cit->first->GetDataType().c_str());
          }
       }
    }

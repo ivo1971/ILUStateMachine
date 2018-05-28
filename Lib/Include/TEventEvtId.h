@@ -64,6 +64,7 @@ namespace ILULibStateMachine {
 
       private:
          static std::string         IdInit(const EvtId evtId, const EvtSubId1 evtSubId1 = EvtSubId1(), const EvtSubId2 evtSubId2 = EvtSubId2(), const EvtSubId3 evtSubId3 = EvtSubId3());
+         static std::string         IdTypeInit(void);
 
       private:
          const EvtId                m_EvtId;

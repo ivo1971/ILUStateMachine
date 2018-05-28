@@ -3,7 +3,7 @@
 ##- build and run additional demo applications:
 ##  - add README.md in ./Demo describing the demo applications and order them (markdown)
 ##  - guarded handlers
-##  - state change exception in constructor
+##  - default state
 ##
 ##TODO phase 2
 ##- build and run test application durign 'make test': test all features

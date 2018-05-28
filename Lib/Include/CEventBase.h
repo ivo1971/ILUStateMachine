@@ -39,10 +39,11 @@ namespace ILULibStateMachine {
       public:
          bool                       operator<(const CEventBase& ref) const;
          virtual const std::string& GetId(void) const;
+         virtual const std::string& GetIdType(void) const;
          virtual const std::string& GetDataType(void) const;
 
       protected:
-                                    CEventBase(const std::string& strId, const char* const szDataType);
+                                    CEventBase(const std::string& strId, const std::string& strIdType, const char* const szDataType);
 
       private:
                                     CEventBase(const CEventBase& ref);
@@ -51,6 +52,7 @@ namespace ILULibStateMachine {
 
       private:
          const std::string          m_strId;
+         const std::string          m_strIdType;
          const std::string          m_strDataType;
 
    };

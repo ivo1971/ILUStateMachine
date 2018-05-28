@@ -133,6 +133,7 @@ namespace ILULibStateMachine {
          EventTypeMap&                           EventTypeGetMap(const bool bDefault);
          const EventTypeMap&                     EventTypeGetMap(const bool bDefault) const;
          void                                    EventUnregister(const bool bDefault);
+         void                                    TraceAll(void) const;
          void                                    TraceHandlers(const bool bDefault) const;
          void                                    TraceTypeHandlers(const bool bDefault) const;
          std::string                             GetStateName(const bool bDefault = false) const; 

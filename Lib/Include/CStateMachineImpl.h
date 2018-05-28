@@ -253,6 +253,7 @@ namespace ILULibStateMachine {
       const std::string strCurrentState(GetStateName());
       
       CLogIndent logIndent;
+      TraceAll();
       LogNotice("Statemachine [%s] state [%s] handling event [%s] type [%s] in\n",
                 m_strName.c_str(),
                 strCurrentState.c_str(),
@@ -315,10 +316,7 @@ namespace ILULibStateMachine {
                 spEventBase->GetId().c_str(),
                 spEventBase->GetDataType().c_str()
                 );
-      TraceHandlers(false);
-      TraceHandlers(true);
-      TraceTypeHandlers(false);
-      TraceTypeHandlers(true);
+      TraceAll();
       return HasFinished();
    }
 
