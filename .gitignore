@@ -34,6 +34,7 @@ docs/Doxyfile
 **/.libs
 docs/doxyfile.stamp
 docs/out
+Demo/DefaultState/DefaultState
 Demo/FirstStateMachine/FirstStateMachine
 Demo/FirstStateMachineWithData/FirstStateMachineWithData
 Demo/GuardedHandlers/GuardedHandlers

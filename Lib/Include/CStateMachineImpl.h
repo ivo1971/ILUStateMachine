@@ -82,7 +82,7 @@ namespace ILULibStateMachine {
          EventMap& map = EventGetMap(bDefault);
          const EventMapIt it = map.find(spEventBase);
          if(map.end() == it) {
-            LogDebug("Register default event handler for [%s] from [%s]\n",
+            LogDebug("Register unguarded event handler for [%s] from [%s]\n",
                      spEventBase->GetId().c_str(),
                      (bDefault ? "default" : "state")
                      );
@@ -91,7 +91,7 @@ namespace ILULibStateMachine {
             //event already in the map
             //--> set the default handler
             //    (will throw when the default handler has already been set)
-            LogDebug("Set default event handler for [%s] from [%s]\n",
+            LogDebug("Set unguarded event handler for [%s] from [%s]\n",
                      spEventBase->GetId().c_str(),
                      (bDefault ? "default" : "state")
                      );
@@ -253,7 +253,6 @@ namespace ILULibStateMachine {
       const std::string strCurrentState(GetStateName());
       
       CLogIndent logIndent;
-      TraceAll();
       LogNotice("Statemachine [%s] state [%s] handling event [%s] type [%s] in\n",
                 m_strName.c_str(),
                 strCurrentState.c_str(),
@@ -305,16 +304,10 @@ namespace ILULibStateMachine {
          return HasFinished();
       }
       
-      LogNotice("Statemachine [%s] state [%s] handling event [%s] looking for handler failed: no registered handler\n",
+      LogNotice("Statemachine [%s] state [%s] handling event [%s] looking for handler failed: no matching registered handler --> event ignored\n",
                 m_strName.c_str(),
                 strCurrentState.c_str(),
                 spEventBase->GetId().c_str()
-                );
-      LogNotice("Statemachine [%s] state [%s] handling event [%s] with data type [%s] registered handlers:\n",
-                m_strName.c_str(),
-                strCurrentState.c_str(),
-                spEventBase->GetId().c_str(),
-                spEventBase->GetDataType().c_str()
                 );
       TraceAll();
       return HasFinished();

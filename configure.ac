@@ -115,6 +115,7 @@ AC_OUTPUT([
    Test/StateMachineChild/Makefile
    Test/StateMachineRoot/Makefile
    Demo/Makefile
+   Demo/DefaultState/Makefile
    Demo/FirstStateMachine/Makefile
    Demo/FirstStateMachineWithData/Makefile
    Demo/GuardedHandlers/Makefile

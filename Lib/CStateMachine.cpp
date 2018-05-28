@@ -249,6 +249,11 @@ namespace ILULibStateMachine {
     **/
    void CStateMachine::TraceAll(void) const
    {
+      CLogIndent logIndent;
+      LogDebug("Statemachine [%s] state [%s] registered handlers:\n",
+               m_strName.c_str(),
+               GetStateName().c_str()
+               );
       TraceHandlers(false);
       TraceHandlers(true);
       TraceTypeHandlers(false);
@@ -267,7 +272,7 @@ namespace ILULibStateMachine {
       {
          CLogIndent logIndent2;
          for(EventMapCIt cit = map.begin() ; map.end() != cit ; ++cit) {
-            LogDebug("ID [%s] type [%s] with data type [%s])\n", cit->first->GetId().c_str(), cit->first->GetIdType().c_str(), cit->first->GetDataType().c_str());
+            LogDebug("ID [%s] event type [%s] with data type [%s])\n", cit->first->GetId().c_str(), cit->first->GetIdType().c_str(), cit->first->GetDataType().c_str());
          }
       }
    }

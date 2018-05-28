@@ -16,11 +16,9 @@
 ## with this program; if not, write to the Free Software Foundation, Inc.,
 ## 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ##
-SUBDIRS = \
-	DefaultState \
-	FirstStateMachine \
-	FirstStateMachineWithData \
-	GuardedHandlers \
-	NoneStandardStateFlowInConstructor \
-	NoneStandardStateFlowInHandler
+noinst_PROGRAMS = DefaultState
+DefaultState_SOURCES = Main.cpp
+DefaultState_LDADD = ../../Lib/.libs/libstatemachine.a
+
+AM_CPPFLAGS = $(EXTRA_CPPFLAGS) -I../../Lib/Include
 
