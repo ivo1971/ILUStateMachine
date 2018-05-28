@@ -117,6 +117,7 @@ AC_OUTPUT([
    Demo/Makefile
    Demo/FirstStateMachine/Makefile
    Demo/FirstStateMachineWithData/Makefile
+   Demo/NoneStandardStateFlowInHandler/Makefile
    ])
 
 echo \
