@@ -20,6 +20,7 @@
  **
  **/
 #include <stdarg.h>
+#include <stdio.h>
 
 #include "Include/Logging.h"
 #include "Internal/LoggingInternal.h"

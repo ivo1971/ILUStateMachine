@@ -57,6 +57,9 @@ namespace ILULibStateMachine {
                                     TEventEvtId(const char* const szDataType, const EvtId evtId, const EvtSubId1 evtSubId1, const EvtSubId2 evtSubId2); 
                                     TEventEvtId(const char* const szDataType, const EvtId evtId, const EvtSubId1 evtSubId1, const EvtSubId2 evtSubId2, const EvtSubId3 evtSubId3); 
 
+      public:
+         static std::string         IdTypeInit(void);
+      
       private:
                                     TEventEvtId(const TEventEvtId& ref); 
          TEventEvtId&               operator=(const TEventEvtId& ref); //< not implemented due to const members
@@ -64,7 +67,6 @@ namespace ILULibStateMachine {
 
       private:
          static std::string         IdInit(const EvtId evtId, const EvtSubId1 evtSubId1 = EvtSubId1(), const EvtSubId2 evtSubId2 = EvtSubId2(), const EvtSubId3 evtSubId3 = EvtSubId3());
-         static std::string         IdTypeInit(void);
 
       private:
          const EvtId                m_EvtId;

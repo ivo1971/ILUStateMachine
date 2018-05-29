@@ -145,11 +145,11 @@ namespace ILULibStateMachine {
       std::stringstream ss;
       ss << typeid(EvtId).name();
       if(typeid(EvtSubId1) != typeid(EEvtSubNotSet)) {
-         ss << typeid(EvtSubId1).name();
+         ss << "-" << typeid(EvtSubId1).name();
          if(typeid(EvtSubId2) != typeid(EEvtSubNotSet)) {
-            ss << typeid(EvtSubId2).name();
+            ss << "-" << typeid(EvtSubId2).name();
             if(typeid(EvtSubId3) != typeid(EEvtSubNotSet)) {
-               ss << typeid(EvtSubId3).name();
+               ss << "-" << typeid(EvtSubId3).name();
             }
          }
       }

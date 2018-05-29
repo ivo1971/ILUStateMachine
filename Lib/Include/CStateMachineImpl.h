@@ -334,7 +334,7 @@ namespace ILULibStateMachine {
                GetStateName().c_str(),
                spEventBase->GetId().c_str(),
                (bDefault ? "default" : "state"),
-               map.size()
+               (long unsigned int)map.size()
                );
       const EventMapIt it  = map.find(spEventBase);
       if(map.end() == it) {
@@ -389,7 +389,7 @@ namespace ILULibStateMachine {
                GetStateName().c_str(),
                spEventBase->GetId().c_str(),
                (bDefault ? "default" : "state"),
-               map.size()
+               (long unsigned int)map.size()
                );
       const EventTypeMapIt it = map.find(spEventBase->GetDataType());
       if(map.end() == it) {

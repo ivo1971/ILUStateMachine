@@ -268,7 +268,7 @@ namespace ILULibStateMachine {
    {
       CLogIndent logIndent1;
       const EventMap& map = EventGetMap(bDefault);
-      LogDebug("%s event handlers (%lu):\n", GetStateName(bDefault).c_str(), map.size());
+      LogDebug("%s event handlers (%lu):\n", GetStateName(bDefault).c_str(), (long unsigned int)map.size());
       {
          CLogIndent logIndent2;
          for(EventMapCIt cit = map.begin() ; map.end() != cit ; ++cit) {
@@ -285,7 +285,7 @@ namespace ILULibStateMachine {
    {
       CLogIndent logIndent1;
       const EventTypeMap& map = EventTypeGetMap(bDefault);
-      LogDebug("%s event type handlers (%lu):\n", GetStateName(bDefault).c_str(), map.size());
+      LogDebug("%s event type handlers (%lu):\n", GetStateName(bDefault).c_str(), (long unsigned int)map.size());
       {
          CLogIndent logIndent2;
          for(EventTypeMapCIt cit = map.begin() ; map.end() != cit ; ++cit) {

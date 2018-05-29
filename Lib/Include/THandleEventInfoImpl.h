@@ -114,25 +114,25 @@ namespace ILULibStateMachine {
       CLogIndent logIndent;
       
       //first try find a guarded handler
-      LogDebug("Trying [%lu] %s guard's\n", m_GuardHandlers.size(), szType);
+      LogDebug("Trying [%lu] %s guard's\n", (long unsigned int)m_GuardHandlers.size(), szType);
       {
          unsigned int uiGuardNbr = 1; //1-based: logging only
          for(GuardHandlerCreateStatesCIt cit = m_GuardHandlers.begin() ; m_GuardHandlers.end() != cit ; ++cit, ++uiGuardNbr) {
-            LogDebug("Trying %s guard [%u/%lu]\n", szType, uiGuardNbr, m_GuardHandlers.size());
+            LogDebug("Trying %s guard [%u/%lu]\n", szType, uiGuardNbr, (long unsigned int)m_GuardHandlers.size());
             bool bGuardPassed = false;
             try {
                CLogIndent logIndentGuard; //indent logging while calling the guard
                bGuardPassed = TYPESEL::get<0>(*cit)(pEventData);
             } catch(std::exception& ex) {
-               LogErr("Exception while calling %s guard [%u/%lu]: %s\n", szType, uiGuardNbr, m_GuardHandlers.size(), ex.what());
+               LogErr("Exception while calling %s guard [%u/%lu]: %s\n", szType, uiGuardNbr, (long unsigned int)m_GuardHandlers.size(), ex.what());
             } catch(...) {
-               LogErr("Exception while calling %s guard [%u/%lu]: %s\n", szType, uiGuardNbr, m_GuardHandlers.size(), "unknown");
+               LogErr("Exception while calling %s guard [%u/%lu]: %s\n", szType, uiGuardNbr, (long unsigned int)m_GuardHandlers.size(), "unknown");
             }
             if(bGuardPassed) {
                //guard returns true
                //--> call the handler
                std::stringstream ss;
-               ss << "Passed " << szType << " guard [" << uiGuardNbr << "/" << m_GuardHandlers.size() << "] --> calling accompanying " << szType << " handler\n";
+               ss << "Passed " << szType << " guard [" << uiGuardNbr << "/" << (long unsigned int)m_GuardHandlers.size() << "] --> calling accompanying " << szType << " handler\n";
                return CallHandler(
                                   ss.str(),
                                   TYPESEL::get<1>(*cit), 
