@@ -137,7 +137,7 @@ namespace StateMachineRoot {
       {
          ILULibStateMachine::LogInfo("[%s][%u] data [%u]\n", __FUNCTION__, __LINE__, m_pData->m_uiGlobVal);
          //step 1: register event handlers
-         EventRegister(HANDLER_TYPE(LibEvents::CEventType2Data, CState4, HandleEventType2ToChild), ILULibStateMachine::CCreateState());
+         EventTypeRegister(ILULibStateMachine::TEventEvtId<LibEvents::EEvents>::IdTypeInit().c_str(), HANDLER_TYPE(LibEvents::CEventType2Data, CState4, HandleEventType2ToChild), ILULibStateMachine::CCreateState());
 
          //step 2: call on-entry functions this state
       }

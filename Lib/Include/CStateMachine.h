@@ -60,8 +60,9 @@ namespace ILULibStateMachine {
          const std::string&                         GetName(void) const;
          bool                                       HasFinished(void) const;
          template <class TEventData> 
-         void                                       EventRegister(
+         void                                       EventTypeRegister(
             const bool                                                                bDefault   ,
+            const std::string&                                                        strEventType,
             TYPESEL::function<void(SPEventBase spEventBase, const TEventData* const)> typeHandler,
             CCreateState                                                              createState   
             );

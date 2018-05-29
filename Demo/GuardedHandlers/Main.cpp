@@ -75,7 +75,7 @@ public:
       EventRegister(GUARD(int, CState1, GuardEvt2Data10), HANDLER(int, CState1, HandlerEvt2Data10),          CCreateState(), EEventsType1Id2); //guarded handler
       EventRegister(                                      HANDLER(int, CState1, HandlerEvt2),                CCreateState(), EEventsType1Id2); //unguarded handler (catch-all if none of the guards match for event ID 2)
       //handlers for event type EEventsType1
-      EventRegister(                                      HANDLER_TYPE(int, CState1, HandleEvtEEventsType1), CCreateState()                 ); //type handler for 'EEventsType1' (catch-all if none of the other guarded and unguarded handlers for this type match)
+      EventTypeRegister(TEventEvtId<EEventsType1>::IdTypeInit().c_str(), HANDLER_TYPE(int, CState1, HandleEvtEEventsType1), CCreateState()); //type handler for 'EEventsType1' (catch-all if none of the other guarded and unguarded handlers for this type match)
       LogInfo("[%s][%u] [%s] created\n", __FUNCTION__, __LINE__, GetName().c_str());
    }
    

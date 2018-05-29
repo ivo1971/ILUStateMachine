@@ -51,7 +51,8 @@ namespace ILULibStateMachine {
 
       protected:
          template <class TEventData>                                                    
-         void EventRegister(
+         void EventTypeRegister(
+            const std::string&                                                        strEventType,
             TYPESEL::function<void(SPEventBase spEventBase, const TEventData* const)> typeHandler,
             CCreateState                                                              createState   
             );

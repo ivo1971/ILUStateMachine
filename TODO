@@ -1,7 +1,6 @@
 ##TODO phase 1
 ##- doxygen beschrijving main page uitbreiden
 ##- build and run additional demo applications:
-##  - fix type handlers: use event type instead of data type
 ##  - nested state machines with event forwarding
 ##    and finished child state machine
 ##    Maybe not in 1 file?

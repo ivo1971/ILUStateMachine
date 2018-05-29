@@ -32,26 +32,26 @@ namespace ILULibStateMachine {
    /** Register an event-type handler.
     **/
    template <class TEventData> 
-   void CStateMachine::EventRegister(
-      const bool                                                                bDefault,    //< When true: register this handler in the default event-type map (default state); when false: register this handler for the current state.
-      TYPESEL::function<void(SPEventBase spEventBase, const TEventData* const)> typeHandler, //< The handler to be registered.
-      CCreateState                                                              createState  //< The state transition accompanying this event-type.
+   void CStateMachine::EventTypeRegister(
+      const bool                                                                bDefault,     //< When true: register this handler in the default event-type map (default state); when false: register this handler for the current state.
+      const std::string&                                                        strEventType, //< String representation of the event type.
+      TYPESEL::function<void(SPEventBase spEventBase, const TEventData* const)> typeHandler,  //< The handler to be registered.
+      CCreateState                                                              createState   //< The state transition accompanying this event-type.
       )
    {
       try {
-         const std::string typeName(typeid(TEventData).name());
          EventTypeMap& map = EventTypeGetMap(bDefault);
-         const EventTypeMapIt it = map.find(typeName);
+         const EventTypeMapIt it = map.find(strEventType);
          if(map.end() == it) {
             LogDebug("Register type event handler for [%s] from [%s]\n",
-                     typeName.c_str(),
+                     strEventType.c_str(),
                      (bDefault ? "default" : "state")
                      );
-            map.insert(EventTypePair(typeName, SPHandleEventInfoBase(new THandleEventTypeInfo<TEventData>(typeHandler, createState))));
+            map.insert(EventTypePair(strEventType, SPHandleEventInfoBase(new THandleEventTypeInfo<TEventData>(typeHandler, createState))));
          } else {
             //event already in the map
             LogErr("Register type event handler for [%s] from [%s] failed: already registered\n",
-                   typeName.c_str(),
+                   strEventType.c_str(),
                    (bDefault ? "default" : "state")
                    );
          }
@@ -384,14 +384,14 @@ namespace ILULibStateMachine {
    {
       //find handler
       EventTypeMap& map = EventTypeGetMap(bDefault);
-      LogDebug("Statemachine [%s] state [%s] handling event [%s] looking for [%s] type handler (%lu registered ID's)\n",
+      LogDebug("Statemachine [%s] state [%s] handling event type [%s] in [%s] (%lu registered ID's)\n",
                m_strName.c_str(),
                GetStateName().c_str(),
-               spEventBase->GetId().c_str(),
+               spEventBase->GetIdType().c_str(),
                (bDefault ? "default" : "state"),
                (long unsigned int)map.size()
                );
-      const EventTypeMapIt it = map.find(spEventBase->GetDataType());
+      const EventTypeMapIt it = map.find(spEventBase->GetIdType());
       if(map.end() == it) {
          return false;
       }
@@ -400,12 +400,12 @@ namespace ILULibStateMachine {
       THandleEventTypeInfo<TEventData>* pHandleEventTypeInfo = dynamic_cast<THandleEventTypeInfo<TEventData>*>(it->second.get());
       if(NULL == pHandleEventTypeInfo) {
          //serious error in the implementation: mismatch in registration
-         LogErr("Statemachine [%s] state [%s] handling event [%s] looking for [%s] handler found type handler with invalid type\n",
-                m_strName.c_str(),
-                GetStateName().c_str(),
-                spEventBase->GetId().c_str(),
-                (bDefault ? "default" : "state")
-                );
+         LogErr("Statemachine [%s] state [%s] handling event type [%s] in [%s] found type handler with type\n",
+                  m_strName.c_str(),
+                  GetStateName().c_str(),
+                  spEventBase->GetIdType().c_str(),
+                  (bDefault ? "default" : "state")
+                  );
          return false;
       }
       

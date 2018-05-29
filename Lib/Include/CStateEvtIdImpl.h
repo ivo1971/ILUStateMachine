@@ -35,7 +35,8 @@ namespace ILULibStateMachine {
     ** the event data (which is also the reason for this being a template function).
     **/
    template <class TEventData>                                                    
-   void CStateEvtId::EventRegister(
+   void CStateEvtId::EventTypeRegister(
+      const std::string&                                                        strEventType, //< String representation of the event type.
       TYPESEL::function<void(SPEventBase spEventBase, const TEventData* const)> typeHandler,  //< The event handler to be called when an event with TEventData occurs and there is no more specific (event ID aware) handler found.
       CCreateState                                                              createState   //< Describes the state transition following this handler. 
       )
@@ -44,7 +45,7 @@ namespace ILULibStateMachine {
       if(!spStateMachine) {
          return;
       }
-      spStateMachine->EventRegister(m_bDefault, typeHandler, createState);
+      spStateMachine->EventTypeRegister(m_bDefault, strEventType, typeHandler, createState);
    }
 
    /** Register an unguarded handler (handler called without checking a guard first) when an event
