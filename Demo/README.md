@@ -56,7 +56,7 @@ This state machine introduces guarded event handlers, where all previous applica
 A guarded handler registers 2 functions, next to the state transition of course:
 
 1. The guard;
-2. The event handler.
+1. The event handler.
 
 Nothing special about the event handler, once called it behaves in exactly the same way as the unguarded event handlers.
 But before calling the handler the state machine engine first calls the guard. The guard returns a boolean value indicating whether there is a match (*true*) and the event handler has to be called or a mismatch (*false*) and the event handler should not be called.
@@ -75,9 +75,9 @@ This demo application is the most advanced one. It has 2 state machines in 1 app
 It is no longer a one-file application. Instead it is higly structured to illustrate the modular nature of the state machine engine:
 
 1. Events;
-2. StateMachineChild;
-3. StateMachineRoot;
-4. App.
+1. StateMachineChild;
+1. StateMachineRoot;
+1. App.
 
 ##### Events
 The events module contains event ID definitions, 1 for the root state machine and 1 for the child state machine.
@@ -89,19 +89,19 @@ A module containing the complete child state machine implementation. Its interfa
 
 The child state machine has 3 states:
 1. child-state-1: has 1 event registration which will trigger a transition to child-state-2;
-2. child-state-2: has 1 event registration which will trigger a transition to child-state-3;
-3. child-state-3: has 1 event registration which will trigger a transition to the NULL state which means the state machine has finished.
+1. child-state-2: has 1 event registration which will trigger a transition to child-state-3;
+1. child-state-3: has 1 event registration which will trigger a transition to the NULL state which means the state machine has finished.
 
 ##### StateMachineRoot
 A module containing the complete root state machine implementation. Its interface boils down to 1 function which creates the root state machine and returns a shared pointer to it.
 
 The root state machine has 3 states:
 1. root-state-1: has 1 event registration which will trigger a transition to root-state-2;
-2. root-state-2:
-** constructs the child state machine when this state is constructed;
-** has 1 event-type registration for child state machine events. The handler will forward all events to the child state machine as long as the child state machine is not finished;
-** when the child state machine finished as the result of handling an event, this will trigger a transition to root-state-3;
-3. root-state-3: has 1 event registration which will trigger no state transition.
+1. root-state-2:
+   ** constructs the child state machine when this state is constructed;
+   ** has 1 event-type registration for child state machine events. The handler will forward all events to the child state machine as long as the child state machine is not finished;
+   ** when the child state machine finished as the result of handling an event, this will trigger a transition to root-state-3;
+1. root-state-3: has 1 event registration which will trigger no state transition.
 
 ##### App
 The application that gluess all modules together.
