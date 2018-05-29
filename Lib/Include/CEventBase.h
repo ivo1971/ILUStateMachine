@@ -43,7 +43,7 @@ namespace ILULibStateMachine {
          virtual const std::string& GetDataType(void) const;
 
       protected:
-                                    CEventBase(const std::string& strId, const std::string& strIdType, const char* const szDataType);
+                                    CEventBase(const std::string& strId, const std::string& strIdType, const std::string& strDataType);
 
       private:
                                     CEventBase(const CEventBase& ref);

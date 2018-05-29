@@ -57,12 +57,12 @@ namespace ILULibStateMachine {
          }
       } catch(std::exception& ex) {
          LogErr("Event type handler registration failed for [%s]: %s\n",
-                typeid(TEventData).name(),
+                strEventType.c_str(),
                 ex.what()
                 );
       } catch(...) {
          LogErr("Event type handler registration failed for [%s]: %s\n",
-                typeid(TEventData).name(),
+                strEventType.c_str(),
                 "unknown"
                 );
       }
@@ -178,7 +178,7 @@ namespace ILULibStateMachine {
       const EvtId             evtId       //< Event ID as defined by TEventEvtId.
       )
    {
-      return EventHandle(pEventData, SPEventBase(new TEventEvtId<EvtId>(typeid(TEventData).name(), evtId)));
+      return EventHandle(pEventData, SPEventBase(new TEventEvtId<EvtId>(typeid(TEventData), evtId)));
    }
 
    /** Event handler, called when an event has to be fed into the state machine.
@@ -193,7 +193,7 @@ namespace ILULibStateMachine {
       const EvtSubId1         evtSubId1   //< First event sub-ID as defined by TEventEvtId.
       )
    {
-      return EventHandle(pEventData, SPEventBase(new TEventEvtId<EvtId, EvtSubId1>(typeid(TEventData).name(), evtId, evtSubId1)));
+      return EventHandle(pEventData, SPEventBase(new TEventEvtId<EvtId, EvtSubId1>(typeid(TEventData), evtId, evtSubId1)));
    }
    
    /** Event handler, called when an event has to be fed into the state machine.
@@ -209,7 +209,7 @@ namespace ILULibStateMachine {
       const EvtSubId2         evtSubId2   //< Second event sub-ID as defined by TEventEvtId.
       )
    {
-      return EventHandle(pEventData, SPEventBase(new TEventEvtId<EvtId, EvtSubId1, EvtSubId2>(typeid(TEventData).name(), evtId, evtSubId1, evtSubId2)));
+      return EventHandle(pEventData, SPEventBase(new TEventEvtId<EvtId, EvtSubId1, EvtSubId2>(typeid(TEventData), evtId, evtSubId1, evtSubId2)));
    }
    
    /** Event handler, called when an event has to be fed into the state machine.
@@ -226,7 +226,7 @@ namespace ILULibStateMachine {
       const EvtSubId3         evtSubId3   //< Third event sub-ID as defined by TEventEvtId.   
       )
    {
-      return EventHandle(pEventData, SPEventBase(new TEventEvtId<EvtId, EvtSubId1, EvtSubId2, EvtSubId3>(typeid(TEventData).name(), evtId, evtSubId1, evtSubId2, evtSubId3)));
+      return EventHandle(pEventData, SPEventBase(new TEventEvtId<EvtId, EvtSubId1, EvtSubId2, EvtSubId3>(typeid(TEventData), evtId, evtSubId1, evtSubId2, evtSubId3)));
    }
 
    /** Event handler, called when an event has to be fed into the state machine.

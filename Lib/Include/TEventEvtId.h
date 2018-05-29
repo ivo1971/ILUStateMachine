@@ -52,10 +52,10 @@ namespace ILULibStateMachine {
     **/
    template <class EvtId, class EvtSubId1 = EEvtSubNotSet, class EvtSubId2 = EEvtSubNotSet, class EvtSubId3 = EEvtSubNotSet> class TEventEvtId : public CEventBase {
       public:
-                                    TEventEvtId(const char* const szDataType, const EvtId evtId); 
-                                    TEventEvtId(const char* const szDataType, const EvtId evtId, const EvtSubId1 evtSubId1);
-                                    TEventEvtId(const char* const szDataType, const EvtId evtId, const EvtSubId1 evtSubId1, const EvtSubId2 evtSubId2); 
-                                    TEventEvtId(const char* const szDataType, const EvtId evtId, const EvtSubId1 evtSubId1, const EvtSubId2 evtSubId2, const EvtSubId3 evtSubId3); 
+                                    TEventEvtId(const std::type_info& typeinfo, const EvtId evtId); 
+                                    TEventEvtId(const std::type_info& typeinfo, const EvtId evtId, const EvtSubId1 evtSubId1);
+                                    TEventEvtId(const std::type_info& typeinfo, const EvtId evtId, const EvtSubId1 evtSubId1, const EvtSubId2 evtSubId2); 
+                                    TEventEvtId(const std::type_info& typeinfo, const EvtId evtId, const EvtSubId1 evtSubId1, const EvtSubId2 evtSubId2, const EvtSubId3 evtSubId3); 
 
       public:
          static std::string         IdTypeInit(void);
@@ -66,6 +66,7 @@ namespace ILULibStateMachine {
          virtual bool               CompareTypeIdIdentical(const CEventBase& ref) const;
 
       private:
+         static std::string         Demangle(const std::type_info& typeinfo);
          static std::string         IdInit(const EvtId evtId, const EvtSubId1 evtSubId1 = EvtSubId1(), const EvtSubId2 evtSubId2 = EvtSubId2(), const EvtSubId3 evtSubId3 = EvtSubId3());
 
       private:

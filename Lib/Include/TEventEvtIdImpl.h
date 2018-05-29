@@ -22,6 +22,7 @@
 #ifndef __ILULibStateMachine_TEventEvtIdImpl_H__
 #define __ILULibStateMachine_TEventEvtIdImpl_H__
 
+#include <cxxabi.h>
 #include <iomanip>
 
 namespace ILULibStateMachine {
@@ -29,10 +30,10 @@ namespace ILULibStateMachine {
     **/
    template <class EvtId, class EvtSubId1, class EvtSubId2, class EvtSubId3>
    TEventEvtId<EvtId, EvtSubId1, EvtSubId2, EvtSubId3>::TEventEvtId(
-      const char* const szDataType, //< String describing the data type belonging to this event, logging only.
-      const EvtId       evtId       //< Event ID.
+      const std::type_info& typeinfo,   //< Typeinfo describing the data type belonging to this event, logging only.
+      const EvtId           evtId       //< Event ID.
       ) 
-      : CEventBase(IdInit(evtId), IdTypeInit(), szDataType)
+      : CEventBase(IdInit(evtId), IdTypeInit(), Demangle(typeinfo))
       , m_EvtId(evtId)
       , m_EvtSubId1()
       , m_EvtSubId2()
@@ -44,11 +45,11 @@ namespace ILULibStateMachine {
     **/
    template <class EvtId, class EvtSubId1, class EvtSubId2, class EvtSubId3>
    TEventEvtId<EvtId, EvtSubId1, EvtSubId2, EvtSubId3>::TEventEvtId(
-      const char* const szDataType, //< String describing the data type belonging to this event, logging only.
-      const EvtId       evtId,      //< Event ID.
-      const EvtSubId1   evtSubId1   //< First event sub-ID.
+      const std::type_info& typeinfo,   //< Typeinfo describing the data type belonging to this event, logging only.
+      const EvtId           evtId,      //< Event ID.
+      const EvtSubId1       evtSubId1   //< First event sub-ID.
       ) 
-      : CEventBase(IdInit(evtId, evtSubId1), IdTypeInit(), szDataType)
+      : CEventBase(IdInit(evtId, evtSubId1), IdTypeInit(), Demangle(typeinfo))
       , m_EvtId(evtId)
       , m_EvtSubId1(evtSubId1)
       , m_EvtSubId2()
@@ -60,12 +61,12 @@ namespace ILULibStateMachine {
     **/
    template <class EvtId, class EvtSubId1, class EvtSubId2, class EvtSubId3>
    TEventEvtId<EvtId, EvtSubId1, EvtSubId2, EvtSubId3>::TEventEvtId(
-      const char* const szDataType, //< String describing the data type belonging to this event, logging only.
-      const EvtId       evtId,      //< Event ID.
-      const EvtSubId1   evtSubId1,  //< First event sub-ID.
-      const EvtSubId2   evtSubId2   //< Second event sub-ID.
+      const std::type_info& typeinfo,   //< Typeinfo describing the data type belonging to this event, logging only.
+      const EvtId           evtId,      //< Event ID.
+      const EvtSubId1       evtSubId1,  //< First event sub-ID.
+      const EvtSubId2       evtSubId2   //< Second event sub-ID.
       ) 
-      : CEventBase(IdInit(evtId, evtSubId1, evtSubId2), IdTypeInit(), szDataType)
+      : CEventBase(IdInit(evtId, evtSubId1, evtSubId2), IdTypeInit(), Demangle(typeinfo))
       , m_EvtId(evtId)
       , m_EvtSubId1(evtSubId1)
       , m_EvtSubId2(evtSubId2)
@@ -77,13 +78,13 @@ namespace ILULibStateMachine {
     **/
    template <class EvtId, class EvtSubId1, class EvtSubId2, class EvtSubId3>
    TEventEvtId<EvtId, EvtSubId1, EvtSubId2, EvtSubId3>::TEventEvtId(
-      const char* const szDataType, //< String describing the data type belonging to this event, logging only.
-      const EvtId       evtId,      //< Event ID.
-      const EvtSubId1   evtSubId1,  //< First event sub-ID.
-      const EvtSubId2   evtSubId2,  //< Second event sub-ID.
-      const EvtSubId3   evtSubId3   //< Third event sub-ID.   
+      const std::type_info& typeinfo,   //< Typeinfo describing the data type belonging to this event, logging only.
+      const EvtId           evtId,      //< Event ID.
+      const EvtSubId1       evtSubId1,  //< First event sub-ID.
+      const EvtSubId2       evtSubId2,  //< Second event sub-ID.
+      const EvtSubId3       evtSubId3   //< Third event sub-ID.   
       ) 
-      : CEventBase(IdInit(evtId, evtSubId1, evtSubId2, evtSubId3), IdTypeInit(), szDataType)
+      : CEventBase(IdInit(evtId, evtSubId1, evtSubId2, evtSubId3), IdTypeInit(), Demangle(typeinfo))
       , m_EvtId(evtId)
       , m_EvtSubId1(evtSubId1)
       , m_EvtSubId2(evtSubId2)
@@ -110,6 +111,22 @@ namespace ILULibStateMachine {
          return this->m_EvtSubId2 < refEvtId.m_EvtSubId2;
       }
       return this->m_EvtSubId3 < refEvtId.m_EvtSubId3;
+   }
+
+   /** Demangle the typename when the compiler supports it.
+    **/
+   template <class EvtId, class EvtSubId1, class EvtSubId2, class EvtSubId3>
+   std::string TEventEvtId<EvtId, EvtSubId1, EvtSubId2, EvtSubId3>::Demangle(const std::type_info& typeinfo)
+   {
+#ifdef ABI_DEMANGLE
+      int status = 0;
+      char* const szDemangled = abi::__cxa_demangle(typeinfo.name(), 0, 0, &status);
+      const std::string strDemangled(NULL != szDemangled ? szDemangled : typeinfo.name());
+      free(szDemangled);
+      return strDemangled;
+#else
+      return typeinfo.name();
+#endif      
    }
 
    /** Generate an identifier string that describes this event.
@@ -143,13 +160,13 @@ namespace ILULibStateMachine {
    std::string TEventEvtId<EvtId, EvtSubId1, EvtSubId2, EvtSubId3>::IdTypeInit(void)
    {
       std::stringstream ss;
-      ss << typeid(EvtId).name();
+      ss << Demangle(typeid(EvtId));
       if(typeid(EvtSubId1) != typeid(EEvtSubNotSet)) {
-         ss << "-" << typeid(EvtSubId1).name();
+         ss << "-" << Demangle(typeid(EvtSubId1));
          if(typeid(EvtSubId2) != typeid(EEvtSubNotSet)) {
-            ss << "-" << typeid(EvtSubId2).name();
+            ss << "-" << Demangle(typeid(EvtSubId2));
             if(typeid(EvtSubId3) != typeid(EEvtSubNotSet)) {
-               ss << "-" << typeid(EvtSubId3).name();
+               ss << "-" << Demangle(typeid(EvtSubId3));
             }
          }
       }

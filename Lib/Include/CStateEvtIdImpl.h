@@ -65,7 +65,7 @@ namespace ILULibStateMachine {
       if(!spStateMachine) {
          return;
       }
-      spStateMachine->EventRegister(m_bDefault, unguardedHandler, createState, SPEventBase(new TEventEvtId<EvtId>(typeid(TEventData).name(), evtId)));
+      spStateMachine->EventRegister(m_bDefault, unguardedHandler, createState, SPEventBase(new TEventEvtId<EvtId>(typeid(TEventData), evtId)));
    }
 
    /** Register an unguarded handler (handler called without checking a guard first) when an event
@@ -86,7 +86,7 @@ namespace ILULibStateMachine {
       if(!spStateMachine) {
          return;
       }
-      spStateMachine->EventRegister(m_bDefault, unguardedHandler, createState, SPEventBase(new TEventEvtId<EvtId, EvtSubId1>(typeid(TEventData).name(), evtId, evtSubId1)));
+      spStateMachine->EventRegister(m_bDefault, unguardedHandler, createState, SPEventBase(new TEventEvtId<EvtId, EvtSubId1>(typeid(TEventData), evtId, evtSubId1)));
    }
    
    /** Register an unguarded handler (handler called without checking a guard first) when an event
@@ -108,7 +108,7 @@ namespace ILULibStateMachine {
       if(!spStateMachine) {
          return;
       }
-      spStateMachine->EventRegister(m_bDefault, unguardedHandler, createState, SPEventBase(new TEventEvtId<EvtId, EvtSubId1, EvtSubId2>(typeid(TEventData).name(), evtId, evtSubId1, evtSubId2)));
+      spStateMachine->EventRegister(m_bDefault, unguardedHandler, createState, SPEventBase(new TEventEvtId<EvtId, EvtSubId1, EvtSubId2>(typeid(TEventData), evtId, evtSubId1, evtSubId2)));
    }
    
    /** Register an unguarded handler (handler called without checking a guard first) when an event
@@ -131,7 +131,7 @@ namespace ILULibStateMachine {
       if(!spStateMachine) {
          return;
       }
-      spStateMachine->EventRegister(m_bDefault, unguardedHandler, createState, SPEventBase(new TEventEvtId<EvtId, EvtSubId1, EvtSubId2, EvtSubId3>(typeid(TEventData).name(), evtId, evtSubId1, evtSubId2, evtSubId3)));
+      spStateMachine->EventRegister(m_bDefault, unguardedHandler, createState, SPEventBase(new TEventEvtId<EvtId, EvtSubId1, EvtSubId2, EvtSubId3>(typeid(TEventData), evtId, evtSubId1, evtSubId2, evtSubId3)));
    }
    
    /** Register a guarded handler (handler called with checking a guard first) when an event
@@ -151,7 +151,7 @@ namespace ILULibStateMachine {
       if(!spStateMachine) {
          return;
       }
-      spStateMachine->EventRegister(m_bDefault, guard, handler, createState, SPEventBase(new TEventEvtId<EvtId>(typeid(TEventData).name(), evtId)));
+      spStateMachine->EventRegister(m_bDefault, guard, handler, createState, SPEventBase(new TEventEvtId<EvtId>(typeid(TEventData), evtId)));
    }
 
    /** Register a guarded handler (handler called with checking a guard first) when an event
@@ -172,7 +172,7 @@ namespace ILULibStateMachine {
       if(!spStateMachine) {
          return;
       }
-      spStateMachine->EventRegister(m_bDefault, guard, handler, createState, SPEventBase(new TEventEvtId<EvtId, EvtSubId1>(typeid(TEventData).name(), evtId, evtSubId1)));
+      spStateMachine->EventRegister(m_bDefault, guard, handler, createState, SPEventBase(new TEventEvtId<EvtId, EvtSubId1>(typeid(TEventData), evtId, evtSubId1)));
    }
    
    /** Register a guarded handler (handler called with checking a guard first) when an event
@@ -194,7 +194,7 @@ namespace ILULibStateMachine {
       if(!spStateMachine) {
          return;
       }
-      spStateMachine->EventRegister(m_bDefault, guard, handler, createState, SPEventBase(new TEventEvtId<EvtId, EvtSubId1, EvtSubId2>(typeid(TEventData).name(), evtId, evtSubId1, evtSubId2)));
+      spStateMachine->EventRegister(m_bDefault, guard, handler, createState, SPEventBase(new TEventEvtId<EvtId, EvtSubId1, EvtSubId2>(typeid(TEventData), evtId, evtSubId1, evtSubId2)));
    }
    
    /** Register a guarded handler (handler called with checking a guard first) when an event
@@ -217,7 +217,7 @@ namespace ILULibStateMachine {
       if(!spStateMachine) {
          return;
       }
-      spStateMachine->EventRegister(m_bDefault, guard, handler, createState, SPEventBase(new TEventEvtId<EvtId, EvtSubId1, EvtSubId2, EvtSubId3>(typeid(TEventData).name(), evtId, evtSubId1, evtSubId2, evtSubId3)));
+      spStateMachine->EventRegister(m_bDefault, guard, handler, createState, SPEventBase(new TEventEvtId<EvtId, EvtSubId1, EvtSubId2, EvtSubId3>(typeid(TEventData), evtId, evtSubId1, evtSubId2, evtSubId3)));
    }
 }
 

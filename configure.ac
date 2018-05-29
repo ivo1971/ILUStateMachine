@@ -29,6 +29,7 @@ AC_PROG_CXX
 ##script internal variables
 cpp_standard_used="default"
 using_boost="no"
+using_abi_demangle="no"
 
 ##required to build shared libraries,
 ##has to be after _PROG_
@@ -95,6 +96,24 @@ else
    ##otherwise the script has exited
 fi
 
+##check if compiler supports 'abi::__cxa_demangle' to beautify typeid output
+AC_MSG_CHECKING([whether compiler supports 'abi::__cxa_demangle'])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
+    [[
+      #include <typeinfo>
+      #include <cxxabi.h>
+      
+      void Demangle(void)
+      {
+            int status = 0;
+            abi::__cxa_demangle(typeid(int).name(), 0, 0, &status);
+      }
+    ]])],
+    AC_MSG_RESULT([yes]);saved_cxxflags="${saved_cxxflags} -DABI_DEMANGLE";using_abi_demangle="yes",
+    AC_MSG_RESULT([no])
+    )
+CXXFLAGS="$saved_cxxflags"
+
 ##can optionally use doxygen to generate library documentation
 ##source: https://chris-miceli.blogspot.be/2011/01/integrating-doxygen-with-autotools.html
 AC_CHECK_PROGS([DOXYGEN], [doxygen])
@@ -138,5 +157,6 @@ Current compiler options:
 Features configured in ${PACKAGE_NAME}:
    C++ standard used:                   ${cpp_standard_used}
    Boost:                               ${using_boost}
+   ABI demangle:                        ${using_abi_demangle}
 
 ----------------------------------------------------------------"
