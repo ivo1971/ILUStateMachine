@@ -70,3 +70,40 @@ Both the *normal* states and the *default* can register type handlers for event 
 
 **In any case, maximum 1 handler will be called for each event in 1 state machine.**
 
+### NestedStateMachine
+This demo application is the most advanced one. It has 2 state machines in 1 application: the root state machine and the child state machine.
+It is no longer a one-file application. Instead it is higly structured to illustrate the modular nature of the state machine engine:
+
+1. Events;
+2. StateMachineChild;
+3. StateMachineRoot;
+4. App.
+
+##### Events
+The events module contains event ID definitions, 1 for the root state machine and 1 for the child state machine.
+Each event type (*EEventX*) has its own dedicated data class (*CEventXData*).
+The link between event type and data class is **not** made in this module, it will be made upon registration of event handlers and when sending events.
+
+##### StateMachineChild
+A module containing the complete child state machine implementation. Its interface boils down to 1 function which creates the child state machine and returns a shared pointer to it.
+
+The child state machine has 3 states:
+1. child-state-1: has 1 event registration which will trigger a transition to child-state-2;
+2. child-state-2: has 1 event registration which will trigger a transition to child-state-3;
+3. child-state-3: has 1 event registration which will trigger a transition to the NULL state which means the state machine has finished.
+
+##### StateMachineRoot
+A module containing the complete root state machine implementation. Its interface boils down to 1 function which creates the root state machine and returns a shared pointer to it.
+
+The root state machine has 3 states:
+1. root-state-1: has 1 event registration which will trigger a transition to root-state-2;
+2. root-state-2:
+** constructs the child state machine when this state is constructed;
+** has 1 event-type registration for child state machine events. The handler will forward all events to the child state machine as long as the child state machine is not finished;
+** when the child state machine finished as the result of handling an event, this will trigger a transition to root-state-3;
+3. root-state-3: has 1 event registration which will trigger no state transition.
+
+##### App
+The application that gluess all modules together.
+It creates the root state machine (by calling its one interface function) and sends events to it.
+
