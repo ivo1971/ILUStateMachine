@@ -98,9 +98,9 @@ A module containing the complete root state machine implementation. Its interfac
 The root state machine has 3 states:
 1. root-state-1: has 1 event registration which will trigger a transition to root-state-2;
 1. root-state-2:
-   ** constructs the child state machine when this state is constructed;
-   ** has 1 event-type registration for child state machine events. The handler will forward all events to the child state machine as long as the child state machine is not finished;
-   ** when the child state machine finished as the result of handling an event, this will trigger a transition to root-state-3;
+   1. constructs the child state machine when this state is constructed;
+   1. has 1 event-type registration for child state machine events. The handler will forward all events to the child state machine as long as the child state machine is not finished;
+   1. when the child state machine finished as the result of handling an event, this will trigger a transition to root-state-3;
 1. root-state-3: has 1 event registration which will trigger no state transition.
 
 ##### App
