@@ -16,12 +16,9 @@
 ## with this program; if not, write to the Free Software Foundation, Inc.,
 ## 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ##
-SUBDIRS = \
-	DefaultState \
-	FirstStateMachine \
-	FirstStateMachineWithData \
-	GuardedHandlers \
-	NestedStateMachine \
-	NoneStandardStateFlowInConstructor \
-	NoneStandardStateFlowInHandler
+noinst_PROGRAMS = NestedStateMachine
+NestedStateMachine_SOURCES = Main.cpp
+NestedStateMachine_LDADD = ../StateMachineRoot/libStateMachineRoot.a ../StateMachineChild/libStateMachineChild.a ../Events/libEvents.a ../../../Lib/.libs/libstatemachine.a
+
+AM_CPPFLAGS = $(EXTRA_CPPFLAGS) -IInclude -IInternal -I ../Events/Include -I ../StateMachineRoot/Include -I../../../Lib/Include
 

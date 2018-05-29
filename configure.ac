@@ -138,6 +138,11 @@ AC_OUTPUT([
    Demo/FirstStateMachine/Makefile
    Demo/FirstStateMachineWithData/Makefile
    Demo/GuardedHandlers/Makefile
+   Demo/NestedStateMachine/Makefile
+   Demo/NestedStateMachine/App/Makefile
+   Demo/NestedStateMachine/Events/Makefile
+   Demo/NestedStateMachine/StateMachineChild/Makefile
+   Demo/NestedStateMachine/StateMachineRoot/Makefile
    Demo/NoneStandardStateFlowInConstructor/Makefile
    Demo/NoneStandardStateFlowInHandler/Makefile
    ])

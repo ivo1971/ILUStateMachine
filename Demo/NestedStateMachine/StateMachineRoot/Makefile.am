@@ -16,12 +16,8 @@
 ## with this program; if not, write to the Free Software Foundation, Inc.,
 ## 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ##
-SUBDIRS = \
-	DefaultState \
-	FirstStateMachine \
-	FirstStateMachineWithData \
-	GuardedHandlers \
-	NestedStateMachine \
-	NoneStandardStateFlowInConstructor \
-	NoneStandardStateFlowInHandler
+noinst_LIBRARIES = libStateMachineRoot.a
+libStateMachineRoot_a_SOURCES = CData.cpp CState1.cpp  CState2.cpp CState3.cpp StateConstrDestr.cpp StateMachineRoot.cpp
+
+AM_CPPFLAGS = $(EXTRA_CPPFLAGS) -IInclude -IInternal -I ../Events/Include -I ../StateMachineChild/Include -I../../../Lib/Include
 

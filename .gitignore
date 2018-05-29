@@ -38,6 +38,7 @@ Demo/DefaultState/DefaultState
 Demo/FirstStateMachine/FirstStateMachine
 Demo/FirstStateMachineWithData/FirstStateMachineWithData
 Demo/GuardedHandlers/GuardedHandlers
+Demo/NestedStateMachine/App/NestedStateMachine
 Demo/NoneStandardStateFlowInConstructor/NoneStandardStateFlowInConstructor
 Demo/NoneStandardStateFlowInHandler/NoneStandardStateFlowInHandler
 Test/App/TestStateMachine

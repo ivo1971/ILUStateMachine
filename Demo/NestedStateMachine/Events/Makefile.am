@@ -16,12 +16,8 @@
 ## with this program; if not, write to the Free Software Foundation, Inc.,
 ## 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ##
-SUBDIRS = \
-	DefaultState \
-	FirstStateMachine \
-	FirstStateMachineWithData \
-	GuardedHandlers \
-	NestedStateMachine \
-	NoneStandardStateFlowInConstructor \
-	NoneStandardStateFlowInHandler
+noinst_LIBRARIES = libEvents.a
+libEvents_a_SOURCES = CEventChildData.cpp CEventRootData.cpp
+
+AM_CPPFLAGS = $(EXTRA_CPPFLAGS)  -IInclude
 
