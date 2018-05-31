@@ -68,8 +68,8 @@
    * The state machine is **NOT** thead-safe.
       * If events can be generated from different threads, it is the responsability to implement proper locking before feeding the event into the state machine;
       * If a state (upon construction or as a result from a handler) spawns a thread:
-         * it is the responsability of that state to ensure that data sharing between the state machine event thread(s) and the worker thread is safe;
-         * if the thread itself generates an event (e.g. when it has finished its work), the event has to be fed to the root state machine, not to one of the nested state machines.
+         * It is the responsability of that state to ensure that data sharing between the state machine event thread(s) and the worker thread is safe;
+         * If the thread itself generates an event (e.g. when it has finished its work), the event has to be fed to the root state machine, not to one of the nested state machines.
 
    Take a look at the [demo's](https://github.com/ivo1971/ILUStateMachine/blob/master/Demo/README.md) to get a view on an actual state machine implementation. All demo's illustrate one feature.
   
