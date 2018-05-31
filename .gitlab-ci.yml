@@ -1,0 +1,9 @@
+image: gcc
+
+test:
+  script:
+    - autoreconf -i
+    - mkdir -p build
+    - ./configure --prefix=$pwd/build
+    - make
+    - make test
