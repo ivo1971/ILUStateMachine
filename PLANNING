@@ -8,5 +8,6 @@
 ##- test builds from relative dir, not from root
 ##- dist package test
 ##- add dist tests: are all include files exported ...
+##- can the statemachine state pointer be a void pointer (no state base class)?
 ##
 
