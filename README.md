@@ -47,10 +47,15 @@
          * default state guarded handlers;
          * default state unguarded handlers;
          * current state type handler;
-         * default state type handler.
-        In any case maximum one event handler will be called per event;
+         * default state type handler;
+   * In any case maximum one event handler will be called per event;
    * Calling a handler in the default state can result in a state transition;
    * State transitions are registered together with the events. This allows easily comparing the registered events with their handlers and state transitions against the UML state machine diagram. This becomes even easier when all state constructors and destructors for one state machine are grouped in one file. *It would even be possible to generat this file automatically starting from an UML diagram altough this has not been implemented*;
+   * Since the handler registrations with event guards also register a state transition, arrows having a guard can be matched onto one handler registration;
+   * An UML state machine diagram rarely shows all possible transitions. Often error transitions are not shown to avoid bloating the diagram. These transitions often reflect a state flow that occures in exceptional circumstances, for example a message response returning an error instead of the expected successful result. There are 2 ways to deal with this:
+      * a guard is registered that checks for the error situation and deals with it. In that case the registration defines the state transition;
+      * it is also possible to throw a state-transition-exception. This will result in the engine breaking the normal registered flow and have a state transition as dictated by the exception. This can be usefull when a processing error occures while handling the event that was not easily predicatable from inspecting the event data;
+   * A state-transition-exception can also be thrown in a state constructor, **before** the state registers event handlers. This will result in an immediate and unconditional transition to the state dictated in the exception;
    * The state machine uses templates to implement event registration functions and event handlers. This prevents dynamic casting of event data and event ID's (*in type event handlers*).
 
    Take a look at the [demo's](https://github.com/ivo1971/ILUStateMachine/blob/master/Demo/README.md) to get a view on an actual state machine implementation. All demo's illustrate one feature.
