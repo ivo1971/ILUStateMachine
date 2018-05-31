@@ -72,7 +72,8 @@
          * If the thread itself generates an event (e.g. when it has finished its work), the event has to be fed to the root state machine, not to one of the nested state machines.
 
    Take a look at the [demo's](https://github.com/ivo1971/ILUStateMachine/blob/master/Demo/README.md) to get a view on an actual state machine implementation. All demo's illustrate one feature.
-  
+
+     
    ### Dependencies
    The library has no dependencies if it is compiled with a C++14 (*or higher*) compiler.
    Otherwise it depends on the [boost](https://www.boost.org/) headers (*none of the boost compiled libraries are required*).
