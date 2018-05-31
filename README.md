@@ -38,10 +38,15 @@
       * [0,n] guarded handlers: the guards should be mutually exclusive although the engine has no way of checking this. If the guards are not mutually exclusive it cannot be predicted which one will be called for a certain event;
       * [0,1] unguarded handler: if all guards reject the event or if there are no guards, the unguarded handler will be called if it has been registered;
       * [0,1] event type hander: this handler does not match 1 event but all events of the same type (*thus the same C++ class defining the event). The type handler is only called if there is no prior match in the more specific handlers.
-   * The state machine engine supports nested state machines. **All** events have to be fed to the root state machine. A handler can then forward the event into its nested childs. It can even forward one event into multiple nested child state machines.
-     The type handler makes it easy to forward all events of a certain type to a nested state machine.
-     Because the event handler on the state machine returns a boolean value indicating the state machine has finished (current state is *null*), the parent can easily detect this while forwarding the event and take appropriate action (e.g. transitioning to another state itself);
-     The state machine is owned (*its shared pointer is stored*) inside the parent state machine. This can be as a member of one state or as a member of the data class. The former is preferable when the nested state machine is only called in one state of the parent and the parent transitions to another state once the child has finished.
+   * The state machine engine supports nested state machines.
+      * **All** events have to be fed to the root state machine;
+      * A handler can then forward the event into its nested childs. It can even forward one event into multiple nested child state machines;
+      * The type handler makes it easy to forward all events of a certain type to a nested state machine.
+      * Because the event handler on the state machine returns a boolean value indicating the state machine has finished (current state is *null*),
+        the parent can easily detect this while forwarding the event and take appropriate action (e.g. transitioning to another state itself);
+      * The state machine is owned (*its shared pointer is stored*) inside the parent state machine.
+        This can be as a member of one state or as a member of the data class.
+        The former is preferable when the nested state machine is only called in one state of the parent and the parent transitions to another state once the child has finished;
    * Each state machine can have 1 default state (*its implementation is identical to the other state implementations: a class with a constructor and a destructor*). The default state:
       * Is instantiated when the state machine is created and destructed when the state machine is destructed. Once created it cannot be changed;
       * Can register event handlers as any other state. When an event occurs the engine will try to find a matching handler in the following order:
