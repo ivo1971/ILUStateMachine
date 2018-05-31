@@ -19,5 +19,5 @@
 ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = Lib Test Demo docs 
-dist_doc_DATA = README
+dist_doc_DATA = README.md
 
