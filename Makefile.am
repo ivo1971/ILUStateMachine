@@ -21,3 +21,13 @@ ACLOCAL_AMFLAGS = -I m4
 SUBDIRS = Lib Test Demo docs 
 dist_doc_DATA = README.md
 
+##tests to be run
+TESTS = \
+	Demo/DefaultState/DefaultState \
+	Demo/FirstStateMachine/FirstStateMachine \
+	Demo/FirstStateMachineWithData/FirstStateMachineWithData \
+	Demo/GuardedHandlers/GuardedHandlers \
+	Demo/NestedStateMachine/App/NestedStateMachine \
+	Demo/NoneStandardStateFlowInConstructor/NoneStandardStateFlowInConstructor \
+	Demo/NoneStandardStateFlowInHandler/NoneStandardStateFlowInHandler
+
